@@ -7,12 +7,14 @@ import androidx.viewpager2.widget.ViewPager2;
 import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -31,10 +33,12 @@ import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 import static com.example.fingertipsdemoapp.TeacherQuestionActivity.optionAnsPos;
 
 public class MainActivity extends AppCompatActivity {
+    private static final String TAG ="Main" ;
     private ViewPager2 viewPager2;
     public  AwesomePagerAdapter awesomeAdapter;
     QuizQuestionAdapter quizQuestionAdapter;
@@ -50,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
     FloatingActionButton acceptedButton;
     FloatingActionButton rejectedButton;
     private boolean isReqProcessing = false;
-    private ArrayList<QuizQuestion> quslist = new ArrayList<>();
+    ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
 
 
 
@@ -59,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         viewPager2 =  findViewById(R.id.pager);
-
+        iv_close=findViewById(R.id.iv_close);
 
 
         acceptedButton=findViewById(R.id.acceptFab);
@@ -80,17 +84,111 @@ public class MainActivity extends AppCompatActivity {
         /*List<QuestionModel> questionModels=getListQuestionModel();
         awesomeAdapter = new AwesomePagerAdapter(this,viewPager2,questionModels);
         viewPager2.setAdapter(awesomeAdapter);
-*/
-        awesomeAdapter = new AwesomePagerAdapter(this,viewPager2,quslist);
-        viewPager2.setAdapter(awesomeAdapter);
+*/     iv_close.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onBackPressed();
+            }
+        });
+
+        acceptedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sentReq(true, viewPager2.getCurrentItem());
+
+            }
+        });
+        rejectedButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                sentReq(false, viewPager2.getCurrentItem());
+
+            }
+        });
+
+        viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
+                if (pos < quizQuestions.size()) {
+                    tv_qus_no.setText("Question " + (pos + 1) + "/" + quizQuestions.size());
+
+                    String questionStatus = String.valueOf(quizQuestions.get(pos).getQuestionStatus());
+
+                    if (questionStatus.equals("1")) {
+                        tv_earn_points.setText("Pending");
+                        rejectedButton.setVisibility(View.VISIBLE);
+                        acceptedButton.setVisibility(View.VISIBLE);
+                    } else if (questionStatus.equals("accepted")) {
+                        tv_earn_points.setText("Approved");
+                        rejectedButton.setVisibility(View.INVISIBLE);
+                        acceptedButton.setVisibility(View.INVISIBLE);
+                    } else if (questionStatus.equals("2")) {
+                        tv_earn_points.setText("Rejected");
+                        rejectedButton.setVisibility(View.INVISIBLE);
+                        acceptedButton.setVisibility(View.INVISIBLE);
+                    }
+
+                    String id = String.valueOf(quizQuestions.get(pos).getId());
+                    tv_total_points.setText(id);
+
+                    int total = quizQuestions.size();
+
+                    if (pos >= (total - 15) && !isReqProcessing && currentPage < mtotalPages) {
+                        fetchQuestion(currentPage + 1);
+                    }
+                }
+            }
+        });
+
 
       /*  quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager2.setAdapter(quizQuestionAdapter);
         fetchQuestion(1);*/
-
+        awesomeAdapter = new AwesomePagerAdapter(MainActivity.this,viewPager2,quizQuestions);
+        viewPager2.setAdapter(awesomeAdapter);
         fetchQuestion(1);
 
     }
+
+
+        private void sentReq(boolean isAccept, int pos) {
+            ConfigURLs configURLs = APIUtil.appConfig();
+            QuizQuestion quizQuestion = quizQuestions().get(pos);
+            configURLs.getAllresponseAccQuestionIdAndStatus(String.valueOf(quizQuestion.getId()),
+                    isAccept ? "approve" : "reject").enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+
+                    if (response.isSuccessful()) {
+
+                        if (isAccept) {
+                            quizQuestion.setQuestionStatus("accepted");
+                            Toast.makeText(MainActivity.this, " Question Accepted ", Toast.LENGTH_SHORT).show();
+                        } else {
+                            quizQuestion.setQuestionStatus("2");
+                            Toast.makeText(MainActivity.this, " Question Rejected ", Toast.LENGTH_SHORT).show();
+                        }
+
+                        int nextPage = viewPager2.getCurrentItem() + 1;
+                        awesomeAdapter.notifyDataSetChanged();
+                        if (nextPage < quizQuestions().size())
+                            scrollQuestionPage(nextPage);
+                    }
+
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+
+        }
+
+    private void scrollQuestionPage(int nextPage) {
+
+            viewPager2.setCurrentItem(nextPage, true);
+        }
 
     @JavascriptInterface
     public void fetchQuestion(int page) {
@@ -100,6 +198,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull retrofit2.Response<JsonObject> response) {
                 JsonObject jsonObject = response.body();
+              //  Log.e("new Json object : "," OBjecgt "+jsonObject.toString());
                 isReqProcessing = false;
                 if (response.isSuccessful() && jsonObject != null) {
                     currentPage = page;
@@ -117,7 +216,6 @@ public class MainActivity extends AppCompatActivity {
 
                     if (questions != null) {
                         JsonArray quArray = questions.getAsJsonArray("result");
-                        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
                         for (JsonElement element : quArray) {
                             JsonObject objQns = element.getAsJsonObject();
                             QuizQuestion qnsModel = new QuizQuestion();
@@ -147,6 +245,7 @@ public class MainActivity extends AppCompatActivity {
                             qnsModel.setOptions(options);
                             qnsModel.setQuestionStatus(status);
                             qnsModel.setQuestion(objQns.get("question").getAsString());
+                           // Log.e(TAG, "onResponse: "+ objQns.get("question").getAsString());
                             qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
                             qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
                             JsonElement ques_image = objQns.get("ques_image");
@@ -154,12 +253,15 @@ public class MainActivity extends AppCompatActivity {
                                 qnsModel.setQuestionImage(ques_image.getAsString());
 
                             qnsModel.setSelectedOptionPos(optionAnsPos(objQns.get("answer").getAsString()));
+                           // quizQuestions.add(qnsModel);
                             quizQuestions.add(qnsModel);
 
                         }
-                        quslist.addAll(quizQuestions);
+                        awesomeAdapter.notifyDataSetChanged();
+                       // quslist.addAll(quizQuestions);
+                      //  Log.e("TAG", "question :" + quslist);
                       //  quizQuestionAdapter.notifyDataSetChanged();
-                        tv_qus_no.setText("Question:- " + (viewPager2.getCurrentItem() + 1) + "/" + quslist.size());
+                        tv_qus_no.setText("Question:- " + (viewPager2.getCurrentItem() + 1) + "/" + quizQuestions.size());
 
                     } else {
                         JsonElement message = jsonObject.get("response_message");
@@ -167,6 +269,7 @@ public class MainActivity extends AppCompatActivity {
                             String resmessage = message.getAsString();
                         }
                     }
+
                 }
 
             }
@@ -238,6 +341,12 @@ public class MainActivity extends AppCompatActivity {
         return  questionModelList;
     }
 */
+
+    public ArrayList<QuizQuestion> quizQuestions() {
+
+        return quizQuestions;
+    }
+
 
 }
 

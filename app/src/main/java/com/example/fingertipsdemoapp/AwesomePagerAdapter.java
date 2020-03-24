@@ -4,6 +4,7 @@ package com.example.fingertipsdemoapp;
 import android.content.Context;
 
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,7 +25,7 @@ import java.util.List;
 class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewPager2Holder> {
     Context mContext;
   //  List<QuestionModel> models;
-    List<QuizQuestion> models;
+
     String data="this is data...";
     ViewPager2  viewPager2;
 
@@ -54,7 +55,8 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
          //  final QuestionModel q=models.get(position);
-        final QuizQuestion q=models.get(position);
+         QuizQuestion q=quizQuestions.get(position);
+        Log.e("Test question", "Questions : "+q.getQuestion());
             final WebView myWebView=holder.myWebView;
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebContentsDebuggingEnabled(true);
@@ -94,17 +96,28 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
                 else{
                     imgUrlans_d = "document.getElementById('ans_d_pic').src = '" + q.getAnsImageD() + "';"; }
 
+                String imgUrlans_questionExplanation;
+                if(  q.getQuestionExplanationImage()==null || q.getQuestionExplanationImage().equals("") ) {
+                    imgUrlans_questionExplanation="document.getElementById('explanationQuestion_image').remove();"; }
+                else{
+                    imgUrlans_questionExplanation = "document.getElementById('explanationQuestion_image').src = '" + q.getQuestionExplanationImage() + "';"; }
+
+                QuizQuestion.QuestionOption [] options=q.getOptions();
+
                 String js = "javascript:" +
                         "document.getElementById('ques').innerHTML = '" + q.getQuestion() + "';" +
                         imgUrl+
-                        "document.getElementById('opt_a').innerHTML = '" + q.getAnswerA() + "';" +
+                        "document.getElementById('opt_a').innerHTML = '" + options[0].option + "';" +
                         imgUrlans_a+
-                        "document.getElementById('opt_b').innerHTML = '" + q.getAnswerB() + "';" +
+                        "document.getElementById('opt_b').innerHTML = '" + options[1].option+ "';" +
                         imgUrlForB+
-                        "document.getElementById('opt_c').innerHTML = '" + q.getAnswerC() + "';" +
+                        "document.getElementById('opt_c').innerHTML = '" + options[2].option + "';" +
                         imgUrlans_c+
-                        "document.getElementById('opt_d').innerHTML = '" + q.getAnswerD() + "';" +
-                        imgUrlans_d;
+                        "document.getElementById('opt_d').innerHTML = '" + options[3].option + "';" +
+                        imgUrlans_d+
+                       "document.getElementById('explanationQuestion').innerHTML = '" + q.getQuestionExplaination() + "';"+
+                        imgUrlans_questionExplanation
+                        ;
                 if (Build.VERSION.SDK_INT >= 19) {
                     view.evaluateJavascript(js, new ValueCallback<String>() {
                         @Override

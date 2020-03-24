@@ -35,10 +35,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.04"
-                android:text="Total Points: "
+                android:lineSpacingExtra="-1sp"
+                android:text="Question Id: "
                 style="@style/NunitoLight"
                 android:textColor="@color/white"
-                android:textSize="14sp" />
+                android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_total_points"
@@ -100,7 +101,7 @@
                         android:layout_marginTop="4dp"
                         android:gravity="center"
                         android:lineSpacingExtra="7sp"
-                        android:text="Points : "
+                        android:text="Status : "
                         style="@style/NunitoLight"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
