@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Fingertips Question Demo</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="quiz_paused">Quiz Paused </string>
+    <string name="do_you_want_to_teacher_quit">Are you sure you want to quit? Since all questions are not answered, result will not be recorded and you will not be able to attempt this quiz again.</string>
+    <string name="no_resume_quiz">NO, RESUME QUIZ </string>
+    <string name="yes_quit">YES, QUIT </string>
+
+
+</resources>

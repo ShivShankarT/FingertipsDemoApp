@@ -1,0 +1,222 @@
+<html>
+
+    <head>
+        <title>multiple-choice quiz form</title>
+        <link href="styles.css" rel="stylesheet" type="text/css">
+        <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+        </script>
+
+    </head>
+
+    <body bgcolor=#ffffff>
+
+        <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        /* Float four columns side by side */
+        .column {
+            float: left;
+            width: 25%;
+            padding: 0 10px;
+        }
+
+        /* Remove extra left and right margins, due to padding */
+        .row {
+            margin: 0 -5px;
+        }
+
+        /* Clear floats after the columns */
+        .row:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Responsive columns */
+        @media screen and (max-width: 600px) {
+            .column {
+                width: 100%;
+                display: block;
+                margin-bottom: 20px;
+            }
+        }
+
+        /* Style the counter cards */
+        .card {
+            box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+            padding: 16px;
+            text-align: center;
+            background-color: #f1f1f1;
+        }
+
+        .optionBox {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 16px;
+            width: '100%';
+            background-color: #dbdbdb;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        .optionBoxAfterClick {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            padding-left: 16px;
+            width: '100%';
+            background-color: #a4c639;
+            border-radius: 5px;
+            text-align: left;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+
+        .outerCircle {
+            height: 28px;
+            width: 28px;
+            border-radius: 14px;
+            display: inline-block;
+            background-color: #999999;
+            text-align: center;
+            margin-right: 10px;
+        }
+
+        .innerCircle {
+            height: 24px;
+            width: 24px;
+            border-radius: 12px;
+            background-color: #dbdbdb;
+            text-align: center;
+
+            vertical-align: middle;
+            margin-top: 2px;
+            margin-left: 2px;
+            padding-top: 2px;
+        }
+
+        .optionA {
+            display: inline-block;
+        }
+ .optionB {
+            display: inline-block;
+        }
+ .optionC {
+            display: inline-block;
+        }
+ .optionD {
+            display: inline-block;
+        }
+ .optionE {
+            display: inline-block;
+        }
+
+        .quest{
+        text-align:justify;
+
+        }
+    </style>
+
+        <div class="row">
+            <div class="column">
+                <div class="card">
+                    <p class="quest" id="ques"> When \(a \ne 0\), there are two solutions to \(ax^2 + bx + c = 0\) and they are
+                        $$x = {-b \pm \sqrt{b^2-4ac} \over 2a}.$$</p>
+
+                    <script type="text/javascript">
+                   function callYourCallbackFunctionHere(toast) {
+                   document.getElementById("firstAnswer").style.backgroundColor = "green";
+                   Android.callAndroidCallback(toast);
+                   }
+
+
+</script>
+
+                    <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png" id="question_pic" alt="Italian Trulli" height="150" width="270"  vspace="20">
+                    <div class="optionBox" id="firstAnswer"  onClick="callYourCallbackFunctionHere('You are clicking option A')">
+                        <div class="outerCircle" >
+                            <div class="innerCircle">
+                                A
+                            </div>
+                        </div>
+                        <div  id="opt_a" class="optionA" >
+                            One
+                            <a href="javascript: showToast('test')">button</a>
+
+                        </div>
+                        <div class="option" >
+                            <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png"  id="ans_a_pic" alt="Italian Trulli" height="150" width="270" vspace="5">
+                        </div>
+                    </div>
+
+                    <div class="optionBox" onClick="callYourCallbackFunctionHere('You are clicking option B')">
+                        <div class="outerCircle">
+                            <div class="innerCircle">
+                                B
+                            </div>
+                        </div>
+                        <div class="optionB" id="opt_b" >
+                            Two
+                        </div>
+                        <div class="option">
+                            <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png" id="bPic" alt="Italian Trulli" height="150" width="270" vspace="5" class="center">                        </div>
+                    </div>
+
+                    <div class="optionBox"  onClick="callYourCallbackFunctionHere('You are clicking option C')">
+                        <div class="outerCircle">
+                            <div class="innerCircle">
+                                C
+                            </div>
+                        </div>
+                        <div class="optionC" id="opt_c" >
+                            Three
+                        </div>
+                        <div class="option">
+                            <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png" id="ans_c_pic" alt="Italian Trulli" height="150" width="270" vspace="5" class="center">
+                        </div>
+                    </div>
+
+                    <div class="optionBox"  onClick="callYourCallbackFunctionHere('You are clicking option D')">
+                        <div class="outerCircle">
+                            <div class="innerCircle">
+                                D
+                            </div>
+                        </div>
+                        <div class="optionD" id="opt_d" >
+                            Four
+                        </div>
+                        <div class="option">
+                            <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png" id="ans_d_pic" alt="Italian Trulli" height="150" width="270" vspace="5">
+                        </div>
+                    </div>
+
+                    <div class="optionBox"   onClick="callYourCallbackFunctionHere('You are clicking option E')">
+                        <div class="outerCircle">
+                            <div class="innerCircle">
+                                E
+                            </div>
+                        </div>
+                        <div class="optionE" id="opt_e" >
+                            Five
+                        </div>
+                        <div class="option">
+                            <img src="https://homepages.cae.wisc.edu/~ece533/images/girl.png" id="ans_e_pic" alt="Italian Trulli" height="150" width="270" vspace="5">
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        </div>
+
+        </form>
+    </body>
+
+</html>

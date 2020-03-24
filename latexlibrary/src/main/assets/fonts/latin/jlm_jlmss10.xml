@@ -1,0 +1,11 @@
+<?xml version='1.0'?>
+<Font name="jlm_jlmss10.ttf" boldVersion="jlm_jlmsb10" id="jlm_jlmss10" itVersion="jlm_jlmsi10" quad="1.000003"
+    romanVersion="jlm_jlmr10" space="0.333334" ttVersion="jlm_jlmtt10"
+    xHeight="0">
+    <Char code="33" height="0.448" width="0.662" />
+    <Char code="36" height="0.448" width="0.662" />
+    <Char code="34" height="0.448" width="0.441" />
+    <Char code="35" height="0.448" width="0.441" />
+    <Char code="37" height="0.752" width="1.159" />
+    <Char code="38" height="0.752" width="1.533" />
+</Font>

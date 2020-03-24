@@ -1,0 +1,609 @@
+<Font name="jlm_wnr10.ttf" boldVersion="jlm_wnbx10" id="jlm_wnr10" itVersion="jlm_wnti10" quad="1.000003"
+    space="0.333334" ssVersion="jlm_wnss10" ttVersion="jlm_wntt10" unicode="95"
+    xHeight="0.430555">
+    <Char code="1034" height="0.683332" width="1.083338">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1033" height="0.683332" width="1.083338">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1039" depth="0.194445" height="0.683332" width="0.777781" />
+    <Char code="1069" height="0.683332" width="0.722224">
+        <Kern code="1040" val="-0.027779" />
+        <Kern code="1044" val="-0.027779" />
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1059" val="-0.027779" />
+        <Kern code="1140" val="-0.027779" />
+        <Kern code="1071" val="-0.027779" />
+    </Char>
+    <Char code="1030" height="0.683332" width="0.361112">
+        <Kern code="1030" val="0.027779" />
+    </Char>
+    <Char code="1028" height="0.683332" width="0.722224" />
+    <Char code="1026" height="0.683332" width="0.8611145">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1035" height="0.683332" width="0.763891" />
+    <Char code="1114" height="0.430555" width="0.763891">
+        <Kern code="1091" val="-0.055555" />
+        <Kern code="1141" val="-0.055555" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1092" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+    </Char>
+    <Char code="1113" height="0.430555" width="0.763891">
+        <Kern code="1091" val="-0.055555" />
+        <Kern code="1141" val="-0.055555" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1092" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+    </Char>
+    <Char code="1119" depth="0.162038" height="0.430555" italic="0.001389" width="0.555557" />
+    <Char code="1101" height="0.430555" width="0.444446">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1110" height="0.667859" width="0.277779" />
+    <Char code="1108" height="0.430555" width="0.43889" />
+    <Char code="1106" depth="0.194445" height="0.694445" width="0.527781" />
+    <Char code="1115" height="0.694445" width="0.555557" />
+    <Char code="1070" height="0.683332" width="1.125003">
+        <Kern code="1040" val="-0.027779" />
+        <Kern code="1044" val="-0.027779" />
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1059" val="-0.027779" />
+        <Kern code="1140" val="-0.027779" />
+        <Kern code="1071" val="-0.027779" />
+    </Char>
+    <Char code="1046" height="0.683332" width="1.194448">
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1095" val="-0.027779" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+    </Char>
+    <Char code="1049" height="0.891615" width="0.777781" />
+    <Char code="1025" height="0.891615" width="0.680557" />
+    <Char code="1140" height="0.683332" italic="0.013888" width="0.8194475">
+        <Kern code="1040" val="-0.111112" />
+        <Kern code="1071" val="-0.111112" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1072" val="-0.083334" />
+        <Kern code="1086" val="-0.083334" />
+        <Kern code="1139" val="-0.083334" />
+        <Kern code="1077" val="-0.083334" />
+        <Kern code="1105" val="-0.083334" />
+        <Kern code="1076" val="-0.111112" />
+        <Kern code="1083" val="-0.111112" />
+        <Kern code="1113" val="-0.111112" />
+        <Kern code="1103" val="-0.111112" />
+    </Char>
+    <Char code="1138" height="0.683332" width="0.777781">
+        <Kern code="1040" val="-0.027779" />
+        <Kern code="1044" val="-0.027779" />
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1059" val="-0.027779" />
+        <Kern code="1140" val="-0.027779" />
+        <Kern code="1071" val="-0.027779" />
+    </Char>
+    <Char code="1029" height="0.683332" width="0.555557" />
+    <Char code="1071" height="0.683332" width="0.777781" />
+    <Char code="1102" height="0.430555" width="0.750003">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1078" height="0.430555" width="0.833336">
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1089" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+    </Char>
+    <Char code="1081" height="0.638838" italic="0.001389" width="0.555557" />
+    <Char code="1105" height="0.659131" width="0.444446" />
+    <Char code="1141" height="0.430555" italic="0.013888" width="0.587503">
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1089" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+        <Kern code="1076" val="-0.055555" />
+        <Kern code="1083" val="-0.055555" />
+        <Kern code="1113" val="-0.055555" />
+    </Char>
+    <Char code="1139" height="0.430555" width="0.444446">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1109" height="0.430555" width="0.394445" />
+    <Char code="1103" height="0.430555" italic="0.001389" width="0.541669" />
+    <Char code="776" height="0.659131" width="0.500002" />
+    <Char code="1122" height="0.75" width="0.8194475">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="774" height="0.638838" width="0.500002" />
+    <Char code="1123" height="0.638838" width="0.500002">
+        <Kern code="1091" val="-0.055555" />
+        <Kern code="1141" val="-0.055555" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1092" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+    </Char>
+    <Char code="171" height="0.483335" width="0.555557" />
+    <Char code="305" height="0.430555" width="0.277779" />
+    <Char code="187" height="0.483335" width="0.555557" />
+    <Char code="1040" height="0.683332" width="0.750002">
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1041" height="0.683332" width="0.708336" />
+    <Char code="1062" depth="0.194445" height="0.683332" width="0.777781">
+        <Lig code="1061" ligCode="1063" />
+        <Lig code="1093" ligCode="1063" />
+    </Char>
+    <Char code="1044" depth="0.194445" height="0.683332" width="0.777781">
+        <Lig code="1032" ligCode="1026" />
+        <Lig code="1112" ligCode="1026" />
+    </Char>
+    <Char code="1045" height="0.683332" width="0.680557"></Char>
+    <Char code="1060" height="0.683332" width="0.833336">
+        <Kern code="1040" val="-0.027779" />
+        <Kern code="1044" val="-0.027779" />
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1059" val="-0.027779" />
+        <Kern code="1140" val="-0.027779" />
+        <Kern code="1071" val="-0.027779" />
+    </Char>
+    <Char code="1043" height="0.683332" width="0.625002">
+        <Kern code="1040" val="-0.083334" />
+        <Kern code="1044" val="-0.083334" />
+        <Kern code="1071" val="-0.083334" />
+        <Kern code="1051" val="-0.027779" />
+        <Kern code="1033" val="-0.027779" />
+        <Kern code="1072" val="-0.083334" />
+        <Kern code="1086" val="-0.083334" />
+        <Kern code="1139" val="-0.083334" />
+        <Kern code="1077" val="-0.083334" />
+        <Kern code="1105" val="-0.083334" />
+        <Kern code="1089" val="-0.083334" />
+        <Kern code="1108" val="-0.083334" />
+        <Kern code="1092" val="-0.083334" />
+        <Kern code="1076" val="-0.083334" />
+        <Kern code="1083" val="-0.083334" />
+        <Kern code="1113" val="-0.083334" />
+        <Kern code="1103" val="-0.083334" />
+    </Char>
+    <Char code="1061" height="0.683332" width="0.750002">
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1095" val="-0.027779" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+    </Char>
+    <Char code="1048" height="0.683332" width="0.777781"></Char>
+    <Char code="1032" height="0.683332" width="0.51389"></Char>
+    <Char code="1050" height="0.683332" width="0.777781">
+        <Lig code="1061" ligCode="1061" />
+        <Lig code="1093" ligCode="1061" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1095" val="-0.027779" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+    </Char>
+    <Char code="1051" height="0.683332" width="0.777781">
+        <Lig code="1032" ligCode="1033" />
+        <Lig code="1112" ligCode="1033" />
+    </Char>
+    <Char code="1052" height="0.683332" width="0.916669" />
+    <Char code="1053" height="0.683332" width="0.777781">
+        <Lig code="1032" ligCode="1034" />
+        <Lig code="1112" ligCode="1034" />
+    </Char>
+    <Char code="1054" height="0.683332" width="0.777781">
+        <Kern code="1040" val="-0.027779" />
+        <Kern code="1044" val="-0.027779" />
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1059" val="-0.027779" />
+        <Kern code="1140" val="-0.027779" />
+        <Kern code="1071" val="-0.027779" />
+    </Char>
+    <Char code="1055" height="0.683332" width="0.777781"></Char>
+    <Char code="1063" height="0.683332" width="0.777781" />
+    <Char code="1056" height="0.683332" width="0.680557">
+        <Kern code="1040" val="-0.083334" />
+        <Kern code="1044" val="-0.083334" />
+        <Kern code="1051" val="-0.083334" />
+        <Kern code="1033" val="-0.083334" />
+        <Kern code="1071" val="-0.083334" />
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+        <Kern code="1076" val="-0.083334" />
+        <Kern code="1083" val="-0.083334" />
+        <Kern code="1113" val="-0.083334" />
+    </Char>
+    <Char code="1057" height="0.683332" width="0.722224">
+        <Lig code="1061" ligCode="1064" />
+        <Lig code="1093" ligCode="1064" />
+    </Char>
+    <Char code="1058" height="0.683332" width="0.722224">
+        <Lig code="1057" ligCode="1062" />
+        <Lig code="1089" ligCode="1062" />
+        <Kern code="1040" val="-0.083334" />
+        <Kern code="1044" val="-0.083334" />
+        <Kern code="1071" val="-0.083334" />
+        <Kern code="1051" val="-0.027779" />
+        <Kern code="1033" val="-0.027779" />
+        <Kern code="1072" val="-0.083334" />
+        <Kern code="1086" val="-0.083334" />
+        <Kern code="1139" val="-0.083334" />
+        <Kern code="1077" val="-0.083334" />
+        <Kern code="1105" val="-0.083334" />
+        <Kern code="1089" val="-0.083334" />
+        <Kern code="1108" val="-0.083334" />
+        <Kern code="1092" val="-0.083334" />
+        <Kern code="1076" val="-0.083334" />
+        <Kern code="1083" val="-0.083334" />
+        <Kern code="1113" val="-0.083334" />
+        <Kern code="1103" val="-0.083334" />
+    </Char>
+    <Char code="1059" height="0.683332" italic="0.013888" width="0.750002">
+        <Kern code="1040" val="-0.083334" />
+        <Kern code="1071" val="-0.083334" />
+        <Kern code="1044" val="-0.055555" />
+        <Kern code="1051" val="-0.055555" />
+        <Kern code="1033" val="-0.055555" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1072" val="-0.083334" />
+        <Kern code="1086" val="-0.083334" />
+        <Kern code="1139" val="-0.083334" />
+        <Kern code="1077" val="-0.083334" />
+        <Kern code="1105" val="-0.083334" />
+        <Kern code="1089" val="-0.083334" />
+        <Kern code="1108" val="-0.083334" />
+        <Kern code="1076" val="-0.083334" />
+        <Kern code="1083" val="-0.083334" />
+        <Kern code="1113" val="-0.083334" />
+        <Kern code="1103" val="-0.083334" />
+    </Char>
+    <Char code="1042" height="0.683332" width="0.708336" />
+    <Char code="1065" depth="0.194445" height="0.683332" width="1.125003" />
+    <Char code="1064" height="0.683332" width="1.125003">
+        <Lig code="1063" ligCode="1065" />
+        <Lig code="1095" ligCode="1065" />
+        <Lig code="1062" ligCode="0" />
+        <Lig code="1094" ligCode="0" />
+    </Char>
+    <Char code="1067" height="0.683332" width="0.972226">
+        <Lig code="1040" ligCode="1071" />
+        <Lig code="1072" ligCode="1071" />
+        <Lig code="1059" ligCode="1070" />
+        <Lig code="1091" ligCode="1070" />
+    </Char>
+    <Char code="1047" height="0.683332" width="0.611113">
+        <Lig code="1061" ligCode="1046" />
+        <Lig code="1093" ligCode="1046" />
+    </Char>
+    <Char code="1068" height="0.683332" width="0.708336">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1066" height="0.683332" width="0.888893">
+        <Kern code="1046" val="-0.027779" />
+        <Kern code="1061" val="-0.027779" />
+        <Kern code="1054" val="-0.027779" />
+        <Kern code="1060" val="-0.027779" />
+        <Kern code="1138" val="-0.027779" />
+        <Kern code="1057" val="-0.027779" />
+        <Kern code="1028" val="-0.027779" />
+        <Kern code="1058" val="-0.083334" />
+        <Kern code="1066" val="-0.083334" />
+        <Kern code="1026" val="-0.083334" />
+        <Kern code="1035" val="-0.083334" />
+        <Kern code="1122" val="-0.083334" />
+        <Kern code="1063" val="-0.083334" />
+        <Kern code="1059" val="-0.083334" />
+        <Kern code="1140" val="-0.111112" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+    </Char>
+    <Char code="1072" height="0.430555" width="0.500002">
+        <Kern code="1095" val="-0.027779" />
+        <Kern code="1091" val="-0.027779" />
+        <Kern code="1141" val="-0.027779" />
+    </Char>
+    <Char code="1073" height="0.694445" width="0.500002">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1094" depth="0.162038" height="0.430555" italic="0.001389" width="0.555557">
+        <Lig code="1093" ligCode="1095" />
+    </Char>
+    <Char code="1076" depth="0.162038" height="0.430555" italic="0.001389" width="0.555557">
+        <Lig code="1112" ligCode="1106" />
+    </Char>
+    <Char code="1077" height="0.430555" width="0.444446"></Char>
+    <Char code="1092" depth="0.194445" height="0.694445" width="0.7777815">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1075" height="0.430555" width="0.444446">
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1083" val="-0.027779" />
+        <Kern code="1113" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1093" height="0.430555" width="0.527781">
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1089" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+    </Char>
+    <Char code="1080" height="0.430555" italic="0.001389" width="0.555557"></Char>
+    <Char code="1112" depth="0.194445" height="0.667859" width="0.305557"></Char>
+    <Char code="1082" height="0.430555" width="0.555557">
+        <Lig code="1093" ligCode="1093" />
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1089" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+    </Char>
+    <Char code="1083" height="0.430555" italic="0.001389" width="0.555557">
+        <Lig code="1112" ligCode="1113" />
+    </Char>
+    <Char code="1084" height="0.430555" italic="0.001389" width="0.666669" />
+    <Char code="1085" height="0.430555" italic="0.001389" width="0.555557">
+        <Lig code="1112" ligCode="1114" />
+    </Char>
+    <Char code="1086" height="0.430555" width="0.500002">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1087" height="0.430555" italic="0.001389" width="0.555557"></Char>
+    <Char code="1095" height="0.430555" italic="0.001389" width="0.555557" />
+    <Char code="1088" depth="0.194445" height="0.430555" width="0.555557">
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1089" height="0.430555" width="0.444446">
+        <Lig code="1093" ligCode="1096" />
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1078" val="-0.027779" />
+        <Kern code="1093" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1090" height="0.430555" width="0.500002">
+        <Lig code="1089" ligCode="1094" />
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1076" val="-0.027779" />
+        <Kern code="1083" val="-0.027779" />
+        <Kern code="1113" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+    </Char>
+    <Char code="1091" depth="0.194445" height="0.430555" italic="0.013888" width="0.527781">
+        <Kern code="1072" val="-0.027779" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1089" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+        <Kern code="1077" val="-0.027779" />
+        <Kern code="1105" val="-0.027779" />
+        <Kern code="1103" val="-0.027779" />
+        <Kern code="1076" val="-0.055555" />
+        <Kern code="1083" val="-0.055555" />
+        <Kern code="1113" val="-0.055555" />
+    </Char>
+    <Char code="1074" height="0.430555" width="0.500002" />
+    <Char code="1097" depth="0.162038" height="0.430555" italic="0.001389" width="0.805559" />
+    <Char code="1096" height="0.430555" italic="0.001389" width="0.805559">
+        <Lig code="1095" ligCode="1097" />
+        <Lig code="1094" ligCode="0" />
+    </Char>
+    <Char code="1099" height="0.430555" italic="0.001389" width="0.722224">
+        <Lig code="1072" ligCode="1103" />
+        <Lig code="1091" ligCode="1102" />
+    </Char>
+    <Char code="1079" height="0.430555" italic="0.005556" width="0.444446">
+        <Lig code="1093" ligCode="1078" />
+    </Char>
+    <Char code="1100" height="0.430555" width="0.500002">
+        <Kern code="1091" val="-0.055555" />
+        <Kern code="1141" val="-0.055555" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1092" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+    </Char>
+    <Char code="1098" height="0.430555" width="0.611113">
+        <Kern code="1091" val="-0.055555" />
+        <Kern code="1141" val="-0.055555" />
+        <Kern code="1090" val="-0.027779" />
+        <Kern code="1098" val="-0.027779" />
+        <Kern code="1123" val="-0.027779" />
+        <Kern code="1095" val="-0.083334" />
+        <Kern code="1086" val="-0.027779" />
+        <Kern code="1139" val="-0.027779" />
+        <Kern code="1092" val="-0.027779" />
+        <Kern code="1108" val="-0.027779" />
+    </Char>
+</Font>
+

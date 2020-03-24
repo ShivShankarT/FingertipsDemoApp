@@ -1,0 +1,96 @@
+<?xml version='1.0'?>
+<Font name="jlm_eufb10.ttf" id="jlm_eufb10" quad="1.0" space="0.333333" xHeight="0.475342">
+    <Char code="162" height="0.629288" width="0.58743" />
+    <Char code="163" depth="0.189056" height="0.691406" width="0.393534" />
+    <Char code="164" height="0.629288" width="0.387474" />
+    <Char code="165" depth="0.189056" height="0.691406" width="0.592532" />
+    <Char code="166" height="0.691406" width="0.393214" />
+    <Char code="167" height="0.691406" width="0.397679" />
+    <Char code="169" height="0.691406" width="0.980644" />
+    <Char code="170" height="0.475342" width="0.726793" />
+    <Char code="181" height="0.691406" width="0.253532" />
+    <Char code="182" height="0.691406" width="0.253532" />
+    <Char code="33" height="0.691406" width="0.349205" />
+    <Char code="38" height="0.691406" width="0.871259" />
+    <Char code="39" height="0.691406" width="0.250343" />
+    <Char code="40" depth="0.249825" height="0.749474" width="0.45891" />
+    <Char code="41" depth="0.249825" height="0.749474" width="0.45891" />
+    <Char code="42" height="0.629288" width="0.327838" />
+    <Char code="43" depth="0.083185" height="0.582834" width="0.892944" />
+    <Char code="44" height="0.108032" width="0.327838" />
+    <Char code="45" depth="0.083185" height="0.582834" width="0.892944" />
+    <Char code="46" height="0.108032" width="0.327838" />
+    <Char code="47" depth="0.249825" height="0.749474" width="0.592532" />
+    <Char code="48" height="0.475342" width="0.592532" />
+    <Char code="49" height="0.475342" width="0.592532" />
+    <Char code="50" height="0.475342" width="0.592532" />
+    <Char code="51" depth="0.189056" height="0.475342" width="0.592532" />
+    <Char code="52" depth="0.189056" height="0.475342" width="0.592532" />
+    <Char code="53" depth="0.189056" height="0.475342" width="0.592532" />
+    <Char code="54" height="0.691406" width="0.592532" />
+    <Char code="55" depth="0.189056" height="0.475342" width="0.592532" />
+    <Char code="56" height="0.691406" width="0.592532" />
+    <Char code="57" depth="0.189056" height="0.475342" width="0.592532" />
+    <Char code="58" height="0.475342" width="0.255127" />
+    <Char code="59" depth="0.126038" height="0.475342" width="0.255127" />
+    <Char code="61" height="0.475342" width="0.58169" />
+    <Char code="63" height="0.691406" width="0.427976" />
+    <Char code="65" height="0.691406" width="0.847341" />
+    <Char code="66" height="0.691406" width="1.043788" />
+    <Char code="67" height="0.691406" width="0.723285" />
+    <Char code="68" height="0.691406" width="0.98192" />
+    <Char code="69" height="0.691406" width="0.782602" />
+    <Char code="70" depth="0.126038" height="0.691406" width="0.72169" />
+    <Char code="71" height="0.691406" width="0.927386" />
+    <Char code="72" depth="0.063019" height="0.691406" width="0.85053" />
+    <Char code="73" height="0.691406" width="0.654719" />
+    <Char code="74" depth="0.126038" height="0.691406" width="0.652168" />
+    <Char code="75" height="0.691406" width="0.789299" />
+    <Char code="76" height="0.691406" width="0.786428" />
+    <Char code="77" height="0.691406" width="1.239279" />
+    <Char code="78" height="0.691406" width="0.982557" />
+    <Char code="79" height="0.691406" width="0.976499" />
+    <Char code="80" depth="0.189056" height="0.691406" width="0.977137" />
+    <Char code="81" depth="0.037811" height="0.691406" width="0.976499" />
+    <Char code="82" height="0.691406" width="0.977774" />
+    <Char code="83" height="0.691406" width="0.978412" />
+    <Char code="84" height="0.691406" width="0.789937" />
+    <Char code="85" height="0.691406" width="0.85053" />
+    <Char code="86" height="0.691406" width="0.981601" />
+    <Char code="87" height="0.691406" width="1.235133" />
+    <Char code="88" height="0.691406" width="0.849254" />
+    <Char code="89" depth="0.189056" height="0.691406" width="0.983515" />
+    <Char code="90" depth="0.126038" height="0.691406" width="0.710848" />
+    <Char code="91" depth="0.249825" height="0.749474" width="0.2567215" />
+    <Char code="93" depth="0.249825" height="0.749474" width="0.2567215" />
+    <Char code="94" height="0.691406" width="0.589981" />
+    <Char code="97" height="0.475342" width="0.602737" />
+    <Char code="98" height="0.691406" width="0.589981" />
+    <Char code="99" height="0.475342" width="0.463694" />
+    <Char code="100" height="0.629288" width="0.588705" />
+    <Char code="101" height="0.475342" width="0.471985" />
+    <Char code="102" depth="0.189056" height="0.691406" width="0.388431" />
+    <Char code="103" depth="0.189056" height="0.475342" width="0.594765" />
+    <Char code="104" depth="0.189056" height="0.691406" width="0.615494" />
+    <Char code="105" height="0.691406" width="0.3313465" />
+    <Char code="106" height="0.691406" width="0.331665" />
+    <Char code="107" height="0.691406" width="0.464012" />
+    <Char code="108" height="0.691406" width="0.336767" />
+    <Char code="109" height="0.475342" width="0.921328" />
+    <Char code="110" height="0.475342" width="0.653763" />
+    <Char code="111" height="0.475342" width="0.609116" />
+    <Char code="112" depth="0.189056" height="0.526655" width="0.603694" />
+    <Char code="113" depth="0.189056" height="0.475342" width="0.595721" />
+    <Char code="114" height="0.475342" width="0.459547" />
+    <Char code="115" height="0.475342" width="0.522692" />
+    <Char code="116" height="0.629288" width="0.393214" />
+    <Char code="117" height="0.475342" width="0.588705" />
+    <Char code="118" height="0.526655" width="0.604332" />
+    <Char code="119" height="0.526655" width="0.9175005" />
+    <Char code="120" depth="0.189056" height="0.475342" width="0.45891" />
+    <Char code="121" depth="0.189056" height="0.475342" width="0.589025" />
+    <Char code="122" depth="0.189056" height="0.475342" width="0.461142" />
+    <Char code="125" height="0.691406" width="0.253532" />
+    <Char code="196" height="0.691406" width="0.542145" />
+</Font>
+

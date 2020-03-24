@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_dark"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginRight="32dp"
+        android:layout_marginBottom="32dp"
+        android:orientation="vertical">
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ll_header"
+            android:clipToPadding="false"
+            android:orientation="vertical"
+            android:paddingBottom="100dp">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:background="@drawable/rounded_white"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <FrameLayout
+                        android:id="@+id/horizontal_scroll"
+                        android:layout_width="fill_parent"
+                        android:layout_height="fill_parent"
+                        android:layout_marginLeft="24dp"
+                        android:layout_marginTop="22dp"
+                        android:layout_marginRight="24dp"
+                        android:layout_marginBottom="17dp"
+                        android:visibility="gone">
+
+                        <com.example.fingertipsdemoapp.custom.LaTexTextView
+                            android:id="@+id/tv_qus_text"
+                            style="@style/NunitoSemiBold"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_gravity="left"
+                            android:layout_marginLeft="24dp"
+                            android:layout_marginTop="40dp"
+                            android:layout_marginRight="24dp"
+                            android:layout_marginBottom="40dp"
+                            android:lineSpacingExtra="3sp"
+                            android:text="The choir number of rows. What is the number of chairs in each row and column if y = 81 chairs.What is the number of chairs in each row and column if y = 81 chairs?"
+                            android:textColor="@color/nunito_bold"
+                            android:textSize="24sp" />
+                    </FrameLayout>
+
+                    <TextView
+                        android:id="@+id/tv_qus_text_plain"
+                        style="@style/NunitoSemiBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="19dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_marginBottom="19dp"
+                        android:textColor="@color/nunito_bold"
+                        android:textSize="24sp"
+                        android:visibility="gone" />
+
+                    <ImageView
+                        android:id="@+id/img_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="gone" />
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_question"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp">
+
+                    </androidx.recyclerview.widget.RecyclerView>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/questionExplayout"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/rounded_white"
+                    android:minHeight="100dp"
+
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <com.example.fingertipsdemoapp.custom.LaTexTextView
+                        android:id="@+id/tv_qus_exp"
+                        style="@style/NunitoSemiBold"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="left"
+                        android:layout_marginTop="10dp"
+                        android:text="none"
+                        android:textColor="@android:color/black"
+                        android:textSize="24dp" />
+
+                    <ImageView
+                        android:id="@+id/img_question_exp"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_marginLeft="11dp"
+                        android:layout_marginRight="11dp"
+                        android:layout_marginBottom="16dp"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+
+    </LinearLayout>
+</RelativeLayout>
