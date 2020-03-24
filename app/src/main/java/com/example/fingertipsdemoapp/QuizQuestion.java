@@ -15,10 +15,13 @@ public class QuizQuestion implements Parcelable {
     private String optionImage;
     private boolean isSpecialType;
     private String answer;
+    private String answerA;
     private String ansImageA;
+    private String answerB;
     private String ansImageB;
+    private String answerC;
     private String ansImageC;
-
+    private String answerD;
     private String ansImageD;
     private QuestionOption[] options;
     private int selectedOptionPos = -1;
@@ -40,9 +43,13 @@ public class QuizQuestion implements Parcelable {
         optionImage = in.readString();
         isSpecialType = in.readByte() != 0;
         answer = in.readString();
+        answerA=in.readString();
         ansImageA = in.readString();
+        answerB =in.readString();
         ansImageB = in.readString();
+        answerC=in.readString();
         ansImageC = in.readString();
+        answerD=in.readString();
         ansImageD = in.readString();
         options = in.createTypedArray(QuestionOption.CREATOR);
         selectedOptionPos = in.readInt();
@@ -102,6 +109,39 @@ public class QuizQuestion implements Parcelable {
         this.optionImage = optionImage;
     }
 
+
+    public String getAnswerA() {
+        return answerA;
+    }
+
+    public void setAnswerA(String answerA) {
+        this.answerA = answerA;
+    }
+
+    public String getAnswerB() {
+        return answerB;
+    }
+
+    public void setAnswerB(String answerB) {
+        this.answerB = answerB;
+    }
+
+    public String getAnswerC() {
+        return answerC;
+    }
+
+    public void setAnswerC(String answerC) {
+        this.answerC = answerC;
+    }
+
+    public String getAnswerD() {
+        return answerD;
+    }
+
+    public void setAnswerD(String answerD) {
+        this.answerD = answerD;
+    }
+
     public boolean isSpecialType() {
         return isSpecialType;
     }
@@ -116,6 +156,39 @@ public class QuizQuestion implements Parcelable {
 
     public void setAnswer(String answer) {
         this.answer = answer;
+    }
+
+
+    public String getAnsImageA() {
+        return ansImageA;
+    }
+
+    public void setAnsImageA(String ansImageA) {
+        this.ansImageA = ansImageA;
+    }
+
+    public String getAnsImageB() {
+        return ansImageB;
+    }
+
+    public void setAnsImageB(String ansImageB) {
+        this.ansImageB = ansImageB;
+    }
+
+    public String getAnsImageC() {
+        return ansImageC;
+    }
+
+    public void setAnsImageC(String ansImageC) {
+        this.ansImageC = ansImageC;
+    }
+
+    public String getAnsImageD() {
+        return ansImageD;
+    }
+
+    public void setAnsImageD(String ansImageD) {
+        this.ansImageD = ansImageD;
     }
 
     public QuestionOption[] getOptions() {
@@ -168,10 +241,14 @@ public class QuizQuestion implements Parcelable {
         dest.writeString(optionImage);
         dest.writeByte((byte) (isSpecialType ? 1 : 0));
         dest.writeString(answer);
+        dest.writeString(answerA);
         dest.writeString(ansImageA);
         dest.writeString(questionStatus);
+        dest.writeString(answerB);
         dest.writeString(ansImageB);
+        dest.writeString(answerC);
         dest.writeString(ansImageC);
+        dest.writeString(answerD);
         dest.writeString(ansImageD);
         dest.writeTypedArray(options, flags);
         dest.writeInt(selectedOptionPos);

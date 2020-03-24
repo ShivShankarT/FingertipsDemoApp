@@ -14,6 +14,11 @@ public class QuestionModel {
     String obtion_d_pic;
     String obtion_e;
     String obtion_e_pic;
+    int isAisCorrect;
+    int isBisCorrect;
+    int isCisCorrect;
+    int isDisCorrect;
+    int isEisCorrect;
 
     public QuestionModel() {
     }
@@ -113,4 +118,45 @@ public class QuestionModel {
     public void setObtion_e_pic(String obtion_e_pic) {
         this.obtion_e_pic = obtion_e_pic;
     }
+
+    public int getIsAisCorrect() {
+        return isAisCorrect;
+    }
+
+    public void setIsAisCorrect(int isAisCorrect) {
+        this.isAisCorrect = isAisCorrect;
+    }
+
+    public int getIsBisCorrect() {
+        return isBisCorrect;
+    }
+
+    public void setIsBisCorrect(int isBisCorrect) {
+        this.isBisCorrect = isBisCorrect;
+    }
+
+    public int getIsCisCorrect() {
+        return isCisCorrect;
+    }
+
+    public void setIsCisCorrect(int isCisCorrect) {
+        this.isCisCorrect = isCisCorrect;
+    }
+
+    public int getIsDisCorrect() {
+        return isDisCorrect;
+    }
+
+    public void setIsDisCorrect(int isDisCorrect) {
+        this.isDisCorrect = isDisCorrect;
+    }
+
+    public int getIsEisCorrect() {
+        return isEisCorrect;
+    }
+
+    public void setIsEisCorrect(int isEisCorrect) {
+        this.isEisCorrect = isEisCorrect;
+    }
+
 }

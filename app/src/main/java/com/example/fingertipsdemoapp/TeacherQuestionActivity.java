@@ -220,8 +220,6 @@ public class TeacherQuestionActivity extends BaseActivity {
                         String total_records = pageObject.get("total_records").getAsString();
                         mtotalPages = pageObject.get("total_pages").getAsInt();
                         tvTime.setText(total_records);
-
-
                     }
 
                     if (questions != null) {

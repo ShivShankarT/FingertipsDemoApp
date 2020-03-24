@@ -14,6 +14,7 @@ import android.webkit.WebViewClient;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentActivity;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,15 +23,27 @@ import java.util.List;
 
 class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewPager2Holder> {
     Context mContext;
-    List<QuestionModel> models;
+  //  List<QuestionModel> models;
+    List<QuizQuestion> models;
     String data="this is data...";
     ViewPager2  viewPager2;
 
-    public AwesomePagerAdapter(Context context,ViewPager2 viewPager2, List<QuestionModel> modelList){
+   /* public AwesomePagerAdapter(Context context,ViewPager2 viewPager2, List<QuestionModel> modelList){
         mContext=context;
         models=modelList;
         this.viewPager2=viewPager2;
+    }*/
+   List<QuizQuestion> quizQuestions;
+    public AwesomePagerAdapter(Context context,ViewPager2 viewPager2, List<QuizQuestion> quizQuestions) {
+            mContext=context;
+           this.quizQuestions = quizQuestions;
+           this.viewPager2=viewPager2;
     }
+   /*public AwesomePagerAdapter(Context context,ViewPager2 viewPager2, List<QuestionModel> modelList){
+       mContext=context;
+       models=modelList;
+       this.viewPager2=viewPager2;
+   }*/
     @NonNull
     @Override
     public ViewPager2Holder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
@@ -40,7 +53,8 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
     }
     @Override
     public void onBindViewHolder(@NonNull ViewPager2Holder holder, int position) {
-            final QuestionModel q=models.get(position);
+         //  final QuestionModel q=models.get(position);
+        final QuizQuestion q=models.get(position);
             final WebView myWebView=holder.myWebView;
         myWebView.getSettings().setJavaScriptEnabled(true);
         myWebView.setWebContentsDebuggingEnabled(true);
@@ -48,59 +62,49 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
                 String imgUrl;
-                if(q.getQuestin_pic().equals("")) {
-                     imgUrl="document.getElementById('question_pic').remove();";
+                if(q.getQuestionImage().equals("")) {
+                    imgUrl="document.getElementById('question_pic').remove();";
                 }
                 else{
-                    imgUrl = "document.getElementById('question_pic').src = '" + q.getQuestin_pic() + "';"; }
+                    imgUrl = "document.getElementById('question_pic').src = '" + q.getQuestionImage() + "';"; }
                 String imgUrlans_a;
-                if(  q.getObtion_a_pic()==null || q.getObtion_a_pic().equals("") ) {
+                if(  q.getAnsImageA()==null || q.getAnsImageA().equals("") ) {
                     imgUrlans_a="document.getElementById('ans_a_pic').remove();"; }
                 else{
-                    imgUrlans_a = "document.getElementById('ans_a_pic').src = '" + q.getObtion_a_pic() + "';"; }
+                    imgUrlans_a = "document.getElementById('ans_a_pic').src = '" + q.getAnsImageA() + "';"; }
+
                 String imgUrlForB;
-                imgUrlForB="document.getElementById('bPic').remove();";
-              /*  if(q.getObtion_b_pic()==null || q.getObtion_b_pic().equals(""))
-                {
-                    imgUrlForB="document.getElementById('bPic').remove();";
 
+                if( q.getAnsImageB()==null ||  q.getAnsImageB().equals("null") ||q.getAnsImageB().equals("") ) {
+                    imgUrlForB="document.getElementById('ans_b_pic').remove();";
                 }
-                else {
-                    imgUrlForB="document.getElementById('bPic').src= '"+q.getObtion_b_pic() +"';";
-
-                }*/
+                else{
+                    imgUrlForB= "document.getElementById('ans_b_pic').src = '" + q.getAnsImageB() + "';";
+                }
                 String imgUrlans_c;
-                if( q.getObtion_c_pic()==null ||q.getObtion_c_pic().equals("")) {
+                if( q.getAnsImageC()==null ||q.getAnsImageC().equals("")) {
                     imgUrlans_c="document.getElementById('ans_c_pic').remove();";
                 }
                 else{
-                    imgUrlans_c = "document.getElementById('ans_c_pic').src = '" + q.getObtion_c_pic() + "';";
+                    imgUrlans_c = "document.getElementById('ans_c_pic').src = '" + q.getAnsImageC() + "';";
                 }
                 String imgUrlans_d;
-                if( q.getObtion_d_pic()==null ||q.getObtion_d_pic().equals("") ) {
+                if( q.getAnsImageD()==null ||q.getAnsImageD().equals("") ) {
                     imgUrlans_d="document.getElementById('ans_d_pic').remove();"; }
                 else{
-                    imgUrlans_d = "document.getElementById('ans_d_pic').src = '" + q.getObtion_d_pic() + "';"; }
-                String imgUrlans_e;
-                if( q.getObtion_e_pic()==null ||q.getObtion_e_pic().equals("")) {
-                    imgUrlans_e="document.getElementById('ans_e_pic').remove();"; }
-                else{
-                    imgUrlans_e = "document.getElementById('ans_e_pic').src = '" + q.getObtion_e_pic() + "';"; }
-
+                    imgUrlans_d = "document.getElementById('ans_d_pic').src = '" + q.getAnsImageD() + "';"; }
 
                 String js = "javascript:" +
                         "document.getElementById('ques').innerHTML = '" + q.getQuestion() + "';" +
                         imgUrl+
-                        "document.getElementById('opt_a').innerHTML = '" + q.getObtion_a() + "';" +
+                        "document.getElementById('opt_a').innerHTML = '" + q.getAnswerA() + "';" +
                         imgUrlans_a+
-                        "document.getElementById('opt_b').innerHTML = '" + q.getObtion_b() + "';" +
+                        "document.getElementById('opt_b').innerHTML = '" + q.getAnswerB() + "';" +
                         imgUrlForB+
-                        "document.getElementById('opt_c').innerHTML = '" + q.getObtion_c() + "';" +
+                        "document.getElementById('opt_c').innerHTML = '" + q.getAnswerC() + "';" +
                         imgUrlans_c+
-                        "document.getElementById('opt_d').innerHTML = '" + q.getObtion_d() + "';" +
-                        imgUrlans_d+
-                        "document.getElementById('opt_e').innerHTML = '" + q.getObtion_e() + "';"+
-                        imgUrlans_e;
+                        "document.getElementById('opt_d').innerHTML = '" + q.getAnswerD() + "';" +
+                        imgUrlans_d;
                 if (Build.VERSION.SDK_INT >= 19) {
                     view.evaluateJavascript(js, new ValueCallback<String>() {
                         @Override
@@ -122,7 +126,8 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
 
     @Override
     public int getItemCount() {
-        return models.size();
+        /*return models.size();*/
+        return quizQuestions.size();
     }
     @Override
     public int getItemViewType(int position) {
@@ -139,6 +144,7 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
     @JavascriptInterface
     public void callAndroidCallback(final String toast) {
        // Toast.makeText(mContext, toast+viewPager2.getCurrentItem(), Toast.LENGTH_SHORT).show();
+
         viewPager2.post(new Runnable() {
             @Override
             public void run() {
