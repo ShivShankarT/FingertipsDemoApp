@@ -63,12 +63,12 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
         myWebView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
-                String imgUrl;
+                String questionImageUrl;
                 if(q.getQuestionImage().equals("")) {
-                    imgUrl="document.getElementById('question_pic').remove();";
+                    questionImageUrl="document.getElementById('question_pic').remove();";
                 }
                 else{
-                    imgUrl = "document.getElementById('question_pic').src = '" + q.getQuestionImage() + "';"; }
+                    questionImageUrl = "document.getElementById('question_pic').src = '" + q.getQuestionImage() + "';"; }
                 String imgUrlans_a;
                 if(  q.getAnsImageA()==null || q.getAnsImageA().equals("") ) {
                     imgUrlans_a="document.getElementById('ans_a_pic').remove();"; }
@@ -97,16 +97,19 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
                     imgUrlans_d = "document.getElementById('ans_d_pic').src = '" + q.getAnsImageD() + "';"; }
 
                 String imgUrlans_questionExplanation;
-                if(  q.getQuestionExplanationImage()==null || q.getQuestionExplanationImage().equals("") ) {
-                    imgUrlans_questionExplanation="document.getElementById('explanationQuestion_image').remove();"; }
+                if(  q.getQuestionExplanationImage()==null || q.getQuestionExplanationImage().equals("") )
+                {
+                   imgUrlans_questionExplanation="document.getElementById('ans_explanation_pic').remove();";
+                    }
                 else{
-                    imgUrlans_questionExplanation = "document.getElementById('explanationQuestion_image').src = '" + q.getQuestionExplanationImage() + "';"; }
+                   imgUrlans_questionExplanation = "document.getElementById('ans_explanation_pic').src = '" + q.getQuestionExplanationImage() + "';";
+                      }
 
                 QuizQuestion.QuestionOption [] options=q.getOptions();
 
                 String js = "javascript:" +
                         "document.getElementById('ques').innerHTML = '" + q.getQuestion() + "';" +
-                        imgUrl+
+                        questionImageUrl+
                         "document.getElementById('opt_a').innerHTML = '" + options[0].option + "';" +
                         imgUrlans_a+
                         "document.getElementById('opt_b').innerHTML = '" + options[1].option+ "';" +
@@ -115,8 +118,8 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
                         imgUrlans_c+
                         "document.getElementById('opt_d').innerHTML = '" + options[3].option + "';" +
                         imgUrlans_d+
-                       "document.getElementById('explanationQuestion').innerHTML = '" + q.getQuestionExplaination() + "';"+
-                        imgUrlans_questionExplanation
+                      "document.getElementById('explanationQuestion').innerHTML = '" + q.getQuestionExplaination() + "';"
+                       +imgUrlans_questionExplanation
                         ;
                 if (Build.VERSION.SDK_INT >= 19) {
                     view.evaluateJavascript(js, new ValueCallback<String>() {
