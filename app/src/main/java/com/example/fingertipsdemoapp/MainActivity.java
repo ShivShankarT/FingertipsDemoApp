@@ -245,7 +245,7 @@ public class MainActivity extends AppCompatActivity {
                             qnsModel.setOptions(options);
                             qnsModel.setQuestionStatus(status);
                             qnsModel.setQuestion(objQns.get("question").getAsString());
-                           // Log.e(TAG, "onResponse: "+ objQns.get("question").getAsString());
+                            qnsModel.setAnswer(objQns.get("answer").getAsString());
                             qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
                             qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
                             JsonElement ques_image = objQns.get("ques_image");
