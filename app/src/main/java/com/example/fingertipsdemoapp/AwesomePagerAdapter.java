@@ -68,33 +68,39 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
                     questionImageUrl="document.getElementById('question_pic').remove();";
                 }
                 else{
-                    questionImageUrl = "document.getElementById('question_pic').src = '" + q.getQuestionImage() + "';"; }
-                String imgUrlans_a;
-                if(  q.getAnsImageA()==null || q.getAnsImageA().equals("") ) {
-                    imgUrlans_a="document.getElementById('ans_a_pic').remove();"; }
-                else{
-                    imgUrlans_a = "document.getElementById('ans_a_pic').src = '" + q.getAnsImageA() + "';"; }
+                    questionImageUrl = "document.getElementById('question_pic').src = '" + q.getQuestionImage() + "';";
+                }
+                QuizQuestion.QuestionOption [] options=q.getOptions();
 
-                String imgUrlForB;
 
-                if( q.getAnsImageB()==null ||  q.getAnsImageB().equals("null") ||q.getAnsImageB().equals("") ) {
-                    imgUrlForB="document.getElementById('ans_b_pic').remove();";
-                }
+
+                String ansUrlA;
+                if(options[0].getOptionType().equals("TEXT")){
+                    ansUrlA="document.getElementById('ans_a_pic').remove();"; }
                 else{
-                    imgUrlForB= "document.getElementById('ans_b_pic').src = '" + q.getAnsImageB() + "';";
-                }
-                String imgUrlans_c;
-                if( q.getAnsImageC()==null ||q.getAnsImageC().equals("")) {
-                    imgUrlans_c="document.getElementById('ans_c_pic').remove();";
-                }
+                    ansUrlA = "document.getElementById('ans_a_pic').src = '" +  options[0].option + "';"; }
+
+                String ansUrlB;
+                if(options[1].getOptionType().equals("TEXT")) {
+                    ansUrlB="document.getElementById('ans_b_pic').remove();"; }
                 else{
-                    imgUrlans_c = "document.getElementById('ans_c_pic').src = '" + q.getAnsImageC() + "';";
-                }
-                String imgUrlans_d;
-                if( q.getAnsImageD()==null ||q.getAnsImageD().equals("") ) {
-                    imgUrlans_d="document.getElementById('ans_d_pic').remove();"; }
+                    ansUrlB= "document.getElementById('ans_b_pic').src = '" + options[1].option + "';"; }
+
+
+                String ansUrlC;
+                if(options[2].getOptionType().equals("TEXT")) {
+                    ansUrlC="document.getElementById('ans_c_pic').remove();"; }
                 else{
-                    imgUrlans_d = "document.getElementById('ans_d_pic').src = '" + q.getAnsImageD() + "';"; }
+                    ansUrlC = "document.getElementById('ans_c_pic').src = '" + options[2].option + "';"; }
+
+
+                String ansUrlD;
+                if( options[3].getOptionType().equals("TEXT") ) {
+                    ansUrlD="document.getElementById('ans_d_pic').remove();"; }
+                else{
+                    ansUrlD= "document.getElementById('ans_d_pic').src = '" + options[3].option+ "';"; }
+
+
 
                 String imgUrlans_questionExplanation;
                 if(  q.getQuestionExplanationImage()==null || q.getQuestionExplanationImage().equals("") )
@@ -105,19 +111,100 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
                    imgUrlans_questionExplanation = "document.getElementById('ans_explanation_pic').src = '" + q.getQuestionExplanationImage() + "';";
                       }
 
-                QuizQuestion.QuestionOption [] options=q.getOptions();
+                String optionA="";
+                String red="#00FF00";
+                String value ="document.getElementById('answerA').style.borderColor = '" + red+"';";
+
+                String whitebackColor="#FFFFFF";
+                String valueABagColor="document.getElementById('answerA').style.backgroundColor = '" +whitebackColor+"';";
+                String innerCA="document.getElementById('innerCircleA').style.backgroundColor = '" +whitebackColor+"';";
+
+                if(q.getAnswer().equals("A"))
+                {
+                    if (options[0].getOptionType().equals("TEXT")) {
+                        optionA = "document.getElementById('opt_a').innerHTML = '" + options[0].option + "';";
+                       // value="document.getElementById('answerC').style.borderColor = #FF0000'"+"';";
+                        optionA=optionA+value+valueABagColor+innerCA;
+                    }
+                }
+                else {
+
+                    if (options[0].getOptionType().equals("TEXT")) {
+                        optionA = "document.getElementById('opt_a').innerHTML = '" + options[0].option + "';";
+                    }
+                }
+
+                String optionB="";
+                String innerCB="document.getElementById('innerCircleB').style.backgroundColor = '" +whitebackColor+"';";
+                String valueBBagColor="document.getElementById('answerB').style.backgroundColor = '" +whitebackColor+"';";
+                String valueB ="document.getElementById('answerB').style.borderColor = '" + red+"';";
+                if(q.getAnswer().equals("B"))
+                {
+                    if(options[0].getOptionType().equals("TEXT"))
+                    {
+                        optionB=  "document.getElementById('opt_b').innerHTML = '" + options[1].option + "';";
+                        optionB=optionB+valueB+valueBBagColor+innerCB;
+                    }
+                }
+                else {
+                    if(options[0].getOptionType().equals("TEXT"))
+                    {
+                        optionB=  "document.getElementById('opt_b').innerHTML = '" + options[1].option + "';";
+                    }
+                }
+
+                String optionC="";
+                String innerCC="document.getElementById('innerCircleC').style.backgroundColor = '" +whitebackColor+"';";
+
+                String valueC ="document.getElementById('answerC').style.borderColor = '" + red+"';";
+                String valueCBagColor="document.getElementById('answerC').style.backgroundColor = '" +whitebackColor+"';";
+
+                 if(q.getAnswer().equals("C"))
+                 {
+                     if (options[2].getOptionType().equals("TEXT")) {
+                         optionC = "document.getElementById('opt_c').innerHTML = '" + options[2].option + "';";
+                         optionC=optionC+valueC+valueCBagColor+innerCC;
+                     }
+                 }
+                 else {
+                     if (options[2].getOptionType().equals("TEXT")) {
+                         optionC = "document.getElementById('opt_c').innerHTML = '" + options[2].option + "';";
+                     }
+                 }
+
+                String optionD="";
+                String innerCD="document.getElementById('innerCircleD').style.backgroundColor = '" +whitebackColor+"';";
+
+                String valueD ="document.getElementById('answerD').style.borderColor = '" + red+"';";
+                String valueDBagColor="document.getElementById('answerD').style.backgroundColor = '" +whitebackColor+"';";
+                if(q.getAnswer().equals("D"))
+                {
+                    if(options[3].getOptionType().equals("TEXT"))
+                    {
+                        optionD=  "document.getElementById('opt_d').innerHTML = '" + options[3].option + "';";
+                        optionD=optionD+valueD+valueDBagColor+innerCD;
+                    }
+                }
+               else {
+                    if(options[3].getOptionType().equals("TEXT"))
+                    {
+                        optionD=  "document.getElementById('opt_d').innerHTML = '" + options[3].option + "';";
+                    }
+                }
+
 
                 String js = "javascript:" +
                         "document.getElementById('ques').innerHTML = '" + q.getQuestion() + "';" +
                         questionImageUrl+
-                        "document.getElementById('opt_a').innerHTML = '" + options[0].option + "';" +
-                        imgUrlans_a+
-                        "document.getElementById('opt_b').innerHTML = '" + options[1].option+ "';" +
-                        imgUrlForB+
-                        "document.getElementById('opt_c').innerHTML = '" + options[2].option + "';" +
-                        imgUrlans_c+
-                        "document.getElementById('opt_d').innerHTML = '" + options[3].option + "';" +
-                        imgUrlans_d+
+                          optionA +
+                          ansUrlA+
+
+                          optionB +
+                          ansUrlB+
+                          optionC+
+                          ansUrlC+
+                          optionD +
+                          ansUrlD+
                       "document.getElementById('explanationQuestion').innerHTML = '" + q.getQuestionExplaination() + "';"
                        +imgUrlans_questionExplanation
                         ;
@@ -135,7 +222,7 @@ class AwesomePagerAdapter extends RecyclerView.Adapter<AwesomePagerAdapter.ViewP
         });
         myWebView.setEnabled(true);
         myWebView.loadUrl("file:///android_asset/webview.html");
-        myWebView.loadUrl("javascript:dummyMethod()");
+       // myWebView.loadUrl("javascript:dummyMethod()");
         myWebView.addJavascriptInterface(this, "Android");
 
     }
