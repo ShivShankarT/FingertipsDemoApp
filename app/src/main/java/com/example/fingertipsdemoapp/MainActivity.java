@@ -1,20 +1,20 @@
 package com.example.fingertipsdemoapp;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.viewpager2.widget.ViewPager2;
-
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.webkit.JavascriptInterface;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.widget.NestedScrollView;
+import androidx.viewpager2.widget.MarginPageTransformer;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,14 +22,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -38,36 +31,32 @@ import retrofit2.Response;
 import static com.example.fingertipsdemoapp.TeacherQuestionActivity.optionAnsPos;
 
 public class MainActivity extends AppCompatActivity {
-    private static final String TAG ="Main" ;
-    private ViewPager2 viewPager2;
-    public  AwesomePagerAdapter awesomeAdapter;
-    QuizQuestionAdapter quizQuestionAdapter;
-    private ImageView iv_close,iv_correct;
-    private TextView tv_total_points,tv_qus_no,tv_earn_points,tvTime;
+    private static final String TAG = "Main";
     ProgressBar pogress_bar;
+    FloatingActionButton acceptedButton;
+    FloatingActionButton rejectedButton;
+    ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
+    QuizQuestionWebViewAdapter quizQuestionWebViewAdapter;
+    private ViewPager2 viewPager2;
+    private ImageView iv_close, iv_correct;
+    private TextView tv_total_points, tv_qus_no, tv_earn_points, tvTime;
     private RelativeLayout rl_report;
     private int currentPage = 0;
-
     private String mSelectChapter;
     private String mSelectedStatus;
     private int mtotalPages = 0;
-    FloatingActionButton acceptedButton;
-    FloatingActionButton rejectedButton;
     private boolean isReqProcessing = false;
-    ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
-
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        viewPager2 =  findViewById(R.id.pager);
-        iv_close=findViewById(R.id.iv_close);
+        viewPager2 = findViewById(R.id.pager);
+        iv_close = findViewById(R.id.iv_close);
 
 
-        acceptedButton=findViewById(R.id.acceptFab);
-        rejectedButton=findViewById(R.id.rejectFab);
+        acceptedButton = findViewById(R.id.acceptFab);
+        rejectedButton = findViewById(R.id.rejectFab);
         tv_total_points = (TextView) findViewById(R.id.tv_total_points);
         tv_qus_no = (TextView) findViewById(R.id.tv_qus_no);
         tv_earn_points = (TextView) findViewById(R.id.tv_earn_points);
@@ -82,9 +71,10 @@ public class MainActivity extends AppCompatActivity {
         Log.e("testing", "onCreate: " + mSelectChapter);
 
         /*List<QuestionModel> questionModels=getListQuestionModel();
-        awesomeAdapter = new AwesomePagerAdapter(this,viewPager2,questionModels);
-        viewPager2.setAdapter(awesomeAdapter);
-*/     iv_close.setOnClickListener(new View.OnClickListener() {
+        quizQuestionWebViewAdapter = new AwesomePagerAdapter(this,viewPager2,questionModels);
+        viewPager2.setAdapter(quizQuestionWebViewAdapter);
+*/
+        iv_close.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 onBackPressed();
@@ -106,6 +96,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        viewPager2.setPageTransformer(new MarginPageTransformer(100));
         viewPager2.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageScrolled(int pos, float positionOffset, int positionOffsetPixels) {
@@ -144,51 +135,51 @@ public class MainActivity extends AppCompatActivity {
       /*  quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager2.setAdapter(quizQuestionAdapter);
         fetchQuestion(1);*/
-        awesomeAdapter = new AwesomePagerAdapter(MainActivity.this,viewPager2,quizQuestions);
-        viewPager2.setAdapter(awesomeAdapter);
+        quizQuestionWebViewAdapter = new QuizQuestionWebViewAdapter(this, quizQuestions);
+        viewPager2.setAdapter(quizQuestionWebViewAdapter);
         fetchQuestion(1);
 
     }
 
 
-        private void sentReq(boolean isAccept, int pos) {
-            ConfigURLs configURLs = APIUtil.appConfig();
-            QuizQuestion quizQuestion = quizQuestions().get(pos);
-            configURLs.getAllresponseAccQuestionIdAndStatus(String.valueOf(quizQuestion.getId()),
-                    isAccept ? "approve" : "reject").enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+    private void sentReq(boolean isAccept, int pos) {
+        ConfigURLs configURLs = APIUtil.appConfig();
+        QuizQuestion quizQuestion = quizQuestions().get(pos);
+        configURLs.getAllresponseAccQuestionIdAndStatus(String.valueOf(quizQuestion.getId()),
+                isAccept ? "approve" : "reject").enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
 
-                    if (response.isSuccessful()) {
+                if (response.isSuccessful()) {
 
-                        if (isAccept) {
-                            quizQuestion.setQuestionStatus("accepted");
-                            Toast.makeText(MainActivity.this, " Question Accepted ", Toast.LENGTH_SHORT).show();
-                        } else {
-                            quizQuestion.setQuestionStatus("2");
-                            Toast.makeText(MainActivity.this, " Question Rejected ", Toast.LENGTH_SHORT).show();
-                        }
-
-                        int nextPage = viewPager2.getCurrentItem() + 1;
-                        awesomeAdapter.notifyDataSetChanged();
-                        if (nextPage < quizQuestions().size())
-                            scrollQuestionPage(nextPage);
+                    if (isAccept) {
+                        quizQuestion.setQuestionStatus("accepted");
+                        Toast.makeText(MainActivity.this, " Question Accepted ", Toast.LENGTH_SHORT).show();
+                    } else {
+                        quizQuestion.setQuestionStatus("2");
+                        Toast.makeText(MainActivity.this, " Question Rejected ", Toast.LENGTH_SHORT).show();
                     }
 
+                    int nextPage = viewPager2.getCurrentItem() + 1;
+                    quizQuestionWebViewAdapter.notifyDataSetChanged();
+                    if (nextPage < quizQuestions().size())
+                        scrollQuestionPage(nextPage);
                 }
 
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
+            }
 
-                }
-            });
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
 
-        }
+            }
+        });
+
+    }
 
     private void scrollQuestionPage(int nextPage) {
 
-            viewPager2.setCurrentItem(nextPage, true);
-        }
+        viewPager2.setCurrentItem(nextPage, true);
+    }
 
     @JavascriptInterface
     public void fetchQuestion(int page) {
@@ -198,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onResponse(@NonNull Call<JsonObject> call, @NonNull retrofit2.Response<JsonObject> response) {
                 JsonObject jsonObject = response.body();
-              //  Log.e("new Json object : "," OBjecgt "+jsonObject.toString());
+                //  Log.e("new Json object : "," OBjecgt "+jsonObject.toString());
                 isReqProcessing = false;
                 if (response.isSuccessful() && jsonObject != null) {
                     currentPage = page;
@@ -253,14 +244,14 @@ public class MainActivity extends AppCompatActivity {
                                 qnsModel.setQuestionImage(ques_image.getAsString());
 
                             qnsModel.setSelectedOptionPos(optionAnsPos(objQns.get("answer").getAsString()));
-                           // quizQuestions.add(qnsModel);
+                            // quizQuestions.add(qnsModel);
                             quizQuestions.add(qnsModel);
 
                         }
-                        awesomeAdapter.notifyDataSetChanged();
-                       // quslist.addAll(quizQuestions);
-                      //  Log.e("TAG", "question :" + quslist);
-                      //  quizQuestionAdapter.notifyDataSetChanged();
+                        quizQuestionWebViewAdapter.notifyDataSetChanged();
+                        // quslist.addAll(quizQuestions);
+                        //  Log.e("TAG", "question :" + quslist);
+                        //  quizQuestionAdapter.notifyDataSetChanged();
                         tv_qus_no.setText("Question:- " + (viewPager2.getCurrentItem() + 1) + "/" + quizQuestions.size());
 
                     } else {

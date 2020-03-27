@@ -144,24 +144,18 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
 
 
 
-        if (quizQuestion.isSpecialType()) {
-            tv_qus_exp.setLinketext(question_explaination);
+        if (quizQuestion.isExpSpecialType()) {
+            tv_qus_exp.setLinketext(question_explaination+"...");
         } else {
-            String Qnhtml = question_explaination;
-            Qnhtml = Qnhtml.replace("<p>&nbsp;</p>", "");
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                CharSequence qntrimmed = trimTrailingWhitespace(Html.fromHtml(Qnhtml, Html.FROM_HTML_MODE_COMPACT));
+                CharSequence qntrimmed = Html.fromHtml(question_explaination, Html.FROM_HTML_MODE_COMPACT);
                 tv_qus_exp.setText(qntrimmed);
             } else {
-                tv_qus_exp.setText(Html.fromHtml(Qnhtml));
+                tv_qus_exp.setText(Html.fromHtml(question_explaination));
             }
 
         }
 
-        tv_qus_exp.setLinketext(question_explaination);
-
-
-        //  tv_qus_exp.setLinketext(question);
         return view;
     }
 
@@ -200,7 +194,7 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
 
         }
 
-        String optionType = questionOption.optionType;
+        String optionType = questionOption.getOptionType();
         if (quizQuestion.isSpecialType()) {
             tv_option.setLinketext(option);
             option_Image.setVisibility(View.GONE);

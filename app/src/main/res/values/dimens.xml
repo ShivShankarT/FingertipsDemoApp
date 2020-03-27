@@ -2,4 +2,5 @@
 <resources>
     <dimen name="dp_drawable_45" />
     <dimen name="dp_drawable_32">32dp</dimen>
+    <dimen name="padding_15">15dp</dimen>
 </resources>

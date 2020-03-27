@@ -5,6 +5,10 @@
     android:layout_height="match_parent"
     android:background="@color/blue_dark"
     android:orientation="vertical">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:src="@drawable/ic_white_1" />
 
     <RelativeLayout
         android:id="@+id/ll_header"
@@ -32,23 +36,23 @@
 
             <TextView
                 android:id="@+id/tv_total_point"
+                style="@style/NunitoLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.04"
                 android:lineSpacingExtra="-1sp"
                 android:text="Question Id: "
-                style="@style/NunitoLight"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_total_points"
+                style="@style/NunitoSemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_total_point"
                 android:letterSpacing="0.04"
                 android:text=" 245"
-                style="@style/NunitoSemiBold"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -59,13 +63,13 @@
     <LinearLayout
         android:id="@+id/ll_main"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_below="@+id/ll_header"
         android:orientation="vertical">
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -75,15 +79,15 @@
 
                 <TextView
                     android:id="@+id/tv_qus_no"
+                    style="@style/NunitoBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dp"
                     android:layout_marginTop="28dp"
                     android:gravity="center"
-                    android:letterSpacing="0.04"
 
+                    android:letterSpacing="0.04"
                     android:text="Question 1/5"
-                    style="@style/NunitoBold"
                     android:textColor="@color/white"
                     android:textSize="24sp" />
 
@@ -95,6 +99,7 @@
 
                     <TextView
                         android:id="@+id/tv_earn_point"
+                        style="@style/NunitoLight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="16dp"
@@ -102,19 +107,18 @@
                         android:gravity="center"
                         android:lineSpacingExtra="7sp"
                         android:text="Status : "
-                        style="@style/NunitoLight"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
                     <TextView
                         android:id="@+id/tv_earn_points"
+                        style="@style/NunitoBold"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
                         android:layout_toRightOf="@+id/tv_earn_point"
                         android:lineSpacingExtra="7sp"
                         android:text="0"
-                        style="@style/NunitoBold"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
@@ -146,15 +150,16 @@
 
                 <TextView
                     android:id="@+id/tv_time"
+                    style="@style/NunitoBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:text="04:30"
-                    style="@style/NunitoBold"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
             </RelativeLayout>
+
             <ImageView
                 android:id="@+id/iv_correct"
                 android:layout_width="wrap_content"
@@ -171,16 +176,19 @@
 
         <androidx.viewpager2.widget.ViewPager2
             android:id="@+id/pager"
-            android:gravity="center"
             android:layout_width="match_parent"
-            android:layout_marginLeft="16dp"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="30dp"
-            android:layout_height="wrap_content"
-            android:layoutDirection="ltr"/>
+            android:layout_height="match_parent"
+            android:layout_marginLeft="0dp"
+            android:layout_marginRight="0dp"
+            android:layout_marginBottom="5dp"
+            android:paddingRight="10dp"
+            android:paddingLeft="10dp"
+            android:clipToPadding="false"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:layoutDirection="ltr" />
 
     </LinearLayout>
-
 
 
     <RelativeLayout
@@ -214,31 +222,26 @@
 
 
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:src="@drawable/ic_white_1" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
         android:id="@+id/rejectFab"
-        app:backgroundTint="#FF0000"
         android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
         android:src="@drawable/ic_thumb_down_black_24dp"
-        android:layout_height="wrap_content"/>
+        app:backgroundTint="#FF0000" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
         android:id="@+id/acceptFab"
-        android:layout_alignParentBottom="true"
-        app:backgroundTint="#4DFF00"
-        android:src="@drawable/ic_thumb_up_black_24dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
-
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_thumb_up_black_24dp"
+        app:backgroundTint="#4DFF00" />
 
 
 </RelativeLayout>

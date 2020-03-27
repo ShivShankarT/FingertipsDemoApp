@@ -94,6 +94,7 @@ public class TeacherQuestionActivity extends BaseActivity {
         Log.e("testing", "onCreate: " + mSelectChapter);
 
         quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
+        viewPager_teacher_qus.setOffscreenPageLimit(4);
         viewPager_teacher_qus.setAdapter(quizQuestionAdapter);
         fetchQuestion(1);
 
@@ -231,6 +232,7 @@ public class TeacherQuestionActivity extends BaseActivity {
                             qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
                             qnsModel.setPoint(0);
                             qnsModel.setSpecialType(objQns.get("text_type").getAsString().equalsIgnoreCase("special"));
+                            qnsModel.setExpSpecialType(objQns.get("text_type_explanation").getAsString().equalsIgnoreCase("special"));
                             QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
 
                             String opt_a = objQns.get("opt_a").isJsonNull() ? "" : objQns.get("opt_a").getAsString();

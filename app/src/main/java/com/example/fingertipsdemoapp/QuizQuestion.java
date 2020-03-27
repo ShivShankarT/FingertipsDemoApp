@@ -14,6 +14,7 @@ public class QuizQuestion implements Parcelable {
     private String questionImage;
     private String optionImage;
     private boolean isSpecialType;
+    private boolean isExpSpecialType;
     private String answer;
     private QuestionOption[] options;
     private int selectedOptionPos = -1;
@@ -101,6 +102,14 @@ public class QuizQuestion implements Parcelable {
 
     public void setSpecialType(boolean specialType) {
         isSpecialType = specialType;
+    }
+
+    public boolean isExpSpecialType() {
+        return isExpSpecialType;
+    }
+
+    public void setExpSpecialType(boolean expSpecialType) {
+        isExpSpecialType = expSpecialType;
     }
 
     public String getAnswer() {
@@ -206,8 +215,8 @@ public class QuizQuestion implements Parcelable {
                 return new QuestionOption[size];
             }
         };
-        String option;
-        String optionType;
+        private String option;
+        private String optionType;
 
         public QuestionOption(Parcel in) {
             option = in.readString();
@@ -233,6 +242,11 @@ public class QuizQuestion implements Parcelable {
         public String getOption() {
             return option;
         }
+
+        public String getOptionForwebview() {
+            return AwesomePagerAdapter.formateEscapeChar(option);
+        }
+
 
         public void setOption(String option) {
             this.option = option;

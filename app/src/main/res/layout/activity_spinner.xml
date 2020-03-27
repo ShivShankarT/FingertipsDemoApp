@@ -63,6 +63,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/button_search_web_Id"
-        android:text="Search_WEB"/>
+        android:text="Search Webview"/>
 
 </LinearLayout>

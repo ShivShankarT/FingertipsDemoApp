@@ -1,14 +1,118 @@
 <html>
 
 <head>
-    <link href="styles.css" rel="stylesheet" type="text/css">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
+    <script type="text/x-mathjax-config">
+ MathJax.Hub.Config({
+showProcessingMessages: false,
+showMathMenu: false,
+messageStyle: "none",
+tex2jax: {
+inlineMath: [['$$', '$$'], ['\\(', '\\)']],
+displayMath: [['$$$', '$$$'], ['\\(', '\\)']]
+
+},
+styles: {
+".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+fill: "#4A4A4A",
+stroke: "#4A4A4A"
+}
+},
+"HTML-CSS": {
+linebreaks: { automatic: true, width: "container" }
+}
+,
+
+
+});
+MathJax.Hub.Register.StartupHook('End', function () {
+if ('jsObject' in window)
+jsObject.mathjax_done();
+});
+
+
+
+
+
+
+
+
+    </script>
+    <!--
+        <script type="text/javascript" src="MathJax/MathJax.js?config=TeX-AMS-MML_SVG"></script>
+    -->
     <script type="text/javascript"
             src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
     </script>
 
 </head>
 
+
 <body bgcolor=#ffffff>
+
+
+<script type="text/javascript">
+
+    function configureMathjax() {
+    MathJax.Hub.Config({
+        showProcessingMessages: false,
+        showMathMenu: false,
+        messageStyle: "none",
+        tex2jax: {
+            inlineMath: [['$$', '$$'], ['\\(', '\\)']],
+            displayMath: [['$$$', '$$$'], ['\\(', '\\)']]
+
+        },
+        styles: {
+            ".MathJax_SVG svg > g, .MathJax_SVG_Display svg > g": {
+                fill: "#4A4A4A",
+                stroke: "#4A4A4A"
+            }
+        },
+        "HTML-CSS": {
+        linebreaks: { automatic: true, width: "container" }
+        }
+        ,
+
+
+    });
+    MathJax.Hub.Register.StartupHook('End', function () {
+        if ('jsObject' in window)
+            jsObject.mathjax_done();
+    });
+}
+
+
+function resetMM(){
+console.log("resetMM");
+
+setTimeout(function () {
+
+                    MathJax.Hub.Queue(
+                        ['Typeset', MathJax.Hub],
+                        function () {
+                            if ('jsObject' in window) jsObject.onQuestionLoad();
+                        }
+                    );
+                }, 0);
+}
+
+
+console.log("configureMathjax");
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
 
 <style>
         * {
@@ -60,6 +164,9 @@
             padding-top: 2px;
             padding-bottom: 2px;
             padding-left: 10px;
+            padding-top: 10px;
+            padding-bottom: 10px;
+
             width: '100%';
             background-color: #f3f3f1;
             border-radius: 5px;
@@ -118,28 +225,38 @@
             text-align: justify;
 
         }
-    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+</style>
 
 <div class="row">
     <div class="column">
         <div class="card">
-            <p class="quest" id="ques"></p>
+            <div class="quest" id="ques"></div>
 
-            <script type="text/javascript">
-                    function callYourCallbackFunctionHere(toast)
-                    document.getElementById("answerA").style.backgroundColor = "green";
-                    Android.callAndroidCallback(toast);
-
-                </script>
 
             <img src="" id="question_pic"
                  height="150" width="270" vspace="20">
 
 
-            <div class="optionBox" id="answerA" onClick="callYourCallbackFunctionHere('You are clicking option A')">
+            <br>
+
+
+            <div class="optionBox" id="answerA"
+                 onClick="callYourCallbackFunctionHere('You are clicking option A')">
 
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleA"  style="color:#838383;">
+                    <div class="innerCircle" id="innerCircleA" style="color:#838383;">
                         A
                     </div>
                 </div>
@@ -148,15 +265,15 @@
                 </div>
                 <div class="option">
                     <img src="" id="ans_a_pic"
-                          height="150" width="270" vspace="5">
+                         height="150" width="270" vspace="5">
                 </div>
             </div>
 
 
-
-            <div class="optionBox" id="answerB" onClick="callYourCallbackFunctionHere('You are clicking option B')">
+            <div class="optionBox" id="answerB"
+                 onClick="callYourCallbackFunctionHere('You are clicking option B')">
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleB" style="color:#838383;" >
+                    <div class="innerCircle" id="innerCircleB" style="color:#838383;">
                         B
                     </div>
                 </div>
@@ -165,12 +282,13 @@
                 </div>
                 <div class="option">
                     <img src="" id="ans_b_pic"
-                        height="150" width="270" vspace="5" class="center"> </div>
+                         height="150" width="270" vspace="5" class="center"></div>
             </div>
 
-            <div class="optionBox" id="answerC" onClick="callYourCallbackFunctionHere('You are clicking option C')">
+            <div class="optionBox" id="answerC"
+                 onClick="callYourCallbackFunctionHere('You are clicking option C')">
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleC" style="color:#838383;" >
+                    <div class="innerCircle" id="innerCircleC" style="color:#838383;">
                         C
                     </div>
                 </div>
@@ -180,9 +298,10 @@
                 </div>
             </div>
 
-            <div class="optionBox" id="answerD" onClick="callYourCallbackFunctionHere('You are clicking option D')">
+            <div class="optionBox" id="answerD"
+                 onClick="callYourCallbackFunctionHere('You are clicking option D')">
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleD" style="color:#838383;" >
+                    <div class="innerCircle" id="innerCircleD" style="color:#838383;">
                         D
                     </div>
                 </div>
@@ -196,16 +315,23 @@
             </div>
 
         </div>
-        <div style="margin-top: 10px"  id="explanationQuestion">
-
+        <h4>Explanation</h4>
+        <div class="" style="margin-top: 10px" id="explanationQuestion">
+            <div>We know that $$1 \ decade = 10 \ years$$</div>
+            <div>So, $$2009 \ years = 2009 \ years\times \dfrac{1 \ decade}{10 \ years} = 200.9 \
+                decades$$
+            </div>
+            <div>Thus, the given statement is true.<br/></div>
             <img src="" id="question_explanation"
                  height="150" width="270" vspace="20">
         </div>
+
+        <br><br><br>
+
     </div>
 </div>
-</div>
 
-</form>
 </body>
+
 
 </html>
