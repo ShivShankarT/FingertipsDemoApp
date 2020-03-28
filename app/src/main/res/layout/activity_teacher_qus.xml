@@ -31,7 +31,7 @@
         <LinearLayout
             android:layout_marginLeft="29dp"
             android:layout_toRightOf="@+id/iv_close"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center"
@@ -59,40 +59,43 @@
                 android:text="Normal"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"/>
+
+            <LinearLayout
+                android:gravity="right"
+                android:layout_weight="1"
+                android:id="@+id/temp_ly"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="16dp">
+
+                <TextView
+                    android:id="@+id/tv_total_point"
+                    style="@style/NunitoLight"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingExtra="-1sp"
+                    android:text="Qus Id:"
+                    android:textColor="@color/white"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/tv_total_points"
+                    style="@style/NunitoSemiBold"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/tv_total_point"
+                    android:letterSpacing="0.04"
+                    android:lineSpacingExtra="-1sp"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    tools:text=" 245" />
+
+            </LinearLayout>
         </LinearLayout>
 
 
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="23dp"
-            android:layout_marginRight="16dp">
 
-            <TextView
-                android:id="@+id/tv_total_point"
-                style="@style/NunitoLight"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:letterSpacing="0.04"
-                android:lineSpacingExtra="-1sp"
-                android:text="Qus Id:"
-                android:textColor="@color/white"
-                android:textSize="15sp" />
-
-            <TextView
-                android:id="@+id/tv_total_points"
-                style="@style/NunitoSemiBold"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@+id/tv_total_point"
-                android:letterSpacing="0.04"
-                android:lineSpacingExtra="-1sp"
-                android:textColor="@color/white"
-                android:textSize="15sp"
-                tools:text=" 245" />
-
-        </RelativeLayout>
     </RelativeLayout>
 
 

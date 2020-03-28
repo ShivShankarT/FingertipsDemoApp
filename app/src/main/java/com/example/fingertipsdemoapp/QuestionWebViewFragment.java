@@ -2,6 +2,7 @@ package com.example.fingertipsdemoapp;
 
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -74,8 +75,8 @@ public class QuestionWebViewFragment extends Fragment {
                 } else {
                     questionImageUrl = "document.getElementById('question_pic').src = '" + quizQuestion.getQuestionImage() + "';";
                 }
-                QuizQuestion.QuestionOption[] options = quizQuestion.getOptions();
 
+                QuizQuestion.QuestionOption[] options = quizQuestion.getOptions();
 
                 String ansUrlA;
                 if (options[0].getOptionType().equals("TEXT")) {
@@ -186,7 +187,6 @@ public class QuestionWebViewFragment extends Fragment {
 
 
                 String questionExplaination = formateEscapeChar(quizQuestion.getQuestionExplaination());
-
                 String js = "javascript:" +
                         "document.getElementById('ques').innerHTML = '" + question + "';" +
                         questionImageUrl +

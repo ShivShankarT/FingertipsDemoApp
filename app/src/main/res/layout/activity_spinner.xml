@@ -55,13 +55,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/button_search_Id"
-        android:text="Search"/>
+        android:text="Show Normal View"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/button_search_web_Id"
-        android:text="Search Webview"/>
+        android:text="Show Web View"/>
 
 </LinearLayout>

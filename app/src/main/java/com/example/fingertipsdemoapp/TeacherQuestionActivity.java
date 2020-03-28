@@ -19,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import com.google.gson.JsonSyntaxException;
 
 import java.util.ArrayList;
 
@@ -213,6 +214,13 @@ public class TeacherQuestionActivity extends BaseActivity {
 
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+                if (t instanceof JsonSyntaxException){
+                    Toast.makeText(TeacherQuestionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    Toast.makeText(TeacherQuestionActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
