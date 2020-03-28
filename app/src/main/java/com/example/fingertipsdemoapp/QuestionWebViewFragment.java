@@ -18,7 +18,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fingertipsdemoapp.custom.LaTexTextView;
 
-import static com.example.fingertipsdemoapp.AwesomePagerAdapter.formateEscapeChar;
+import static com.example.fingertipsdemoapp.MyApp.formateEscapeChar;
+
 
 public class QuestionWebViewFragment extends Fragment {
     private QuizQuestion quizQuestion;

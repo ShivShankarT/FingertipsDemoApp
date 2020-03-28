@@ -29,15 +29,14 @@ public class SpinnerActivity extends AppCompatActivity {
 
     List<ClassModel> classModels = new ArrayList<>();
     List<SubjectModel> subjectModels = new ArrayList<>();
-    List<ChapterModel> chapterModels=new ArrayList<>();
+    List<ChapterModel> chapterModels = new ArrayList<>();
 
     ArrayAdapter<ClassModel> classArrayOdopter;
     ArrayAdapter<SubjectModel> subjectArrayAdopter;
     ArrayAdapter<ChapterModel> chapterArrayAdopter;
-    private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus;
-
     String mSelectChapter;
     String mSelelectStatus;
+    private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +48,7 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerChapter = findViewById(R.id.chapters_spinner);
         spinnerAnsStatus = findViewById(R.id.pending_ans_status_spinner);
         searchButton = findViewById(R.id.button_search_Id);
-        searchWebButton=findViewById(R.id.button_search_web_Id);
+        searchWebButton = findViewById(R.id.button_search_web_Id);
 
 
         classArrayOdopter = new ArrayAdapter<ClassModel>(SpinnerActivity.this, android.R.layout.simple_spinner_item, classModels);
@@ -57,13 +56,14 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerClass.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-               ClassModel data= (ClassModel) parent.getItemAtPosition(position);
+                ClassModel data = (ClassModel) parent.getItemAtPosition(position);
                 addItemOnSpinnerSubject(data.getClassId());
                 subjectModels.clear();
                 subjectArrayAdopter.notifyDataSetChanged();
                 chapterModels.clear();
                 chapterArrayAdopter.notifyDataSetChanged();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
@@ -74,17 +74,17 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerClass.setAdapter(classArrayOdopter);
 
 
-
         subjectArrayAdopter = new ArrayAdapter<SubjectModel>(SpinnerActivity.this,
                 android.R.layout.simple_spinner_item, subjectModels);
-         spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        spinnerSubject.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                SubjectModel data= (SubjectModel) parent.getItemAtPosition(position);
+                SubjectModel data = (SubjectModel) parent.getItemAtPosition(position);
                 addItemOnSpinnerChapter(data.getSubjectId());
                 chapterModels.clear();
                 chapterArrayAdopter.notifyDataSetChanged();
             }
+
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
@@ -93,12 +93,12 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerSubject.setAdapter(subjectArrayAdopter);
 
 
-        chapterArrayAdopter=new ArrayAdapter<ChapterModel>(SpinnerActivity.this,android.R.layout.simple_spinner_dropdown_item,chapterModels);
+        chapterArrayAdopter = new ArrayAdapter<ChapterModel>(SpinnerActivity.this, android.R.layout.simple_spinner_dropdown_item, chapterModels);
         spinnerChapter.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                ChapterModel dataChapter=(ChapterModel) parent.getItemAtPosition(position);
-                 mSelectChapter=dataChapter.chapterId;
+                ChapterModel dataChapter = (ChapterModel) parent.getItemAtPosition(position);
+                mSelectChapter = dataChapter.chapterId;
             }
 
             @Override
@@ -112,7 +112,7 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSelelectStatus= (String) parent.getItemAtPosition(position);
+                mSelelectStatus = (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -126,14 +126,13 @@ public class SpinnerActivity extends AppCompatActivity {
         searchWebButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mSelectChapter!=null) {
-                    Intent intent = new Intent(SpinnerActivity.this, MainActivity.class);
+                if (mSelectChapter != null) {
+                    Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
                     intent.putExtra("STATUS", mSelelectStatus);
                     intent.putExtra("CHAPTER", mSelectChapter);
+                    intent.putExtra("mIsNormalViewRendering", false);
                     startActivity(intent);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(SpinnerActivity.this, "Please Select Chapter.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -142,16 +141,14 @@ public class SpinnerActivity extends AppCompatActivity {
         searchButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(mSelectChapter!=null) {
+                if (mSelectChapter != null) {
 
                     Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
                     intent.putExtra("STATUS", mSelelectStatus);
                     intent.putExtra("CHAPTER", mSelectChapter);
-
+                    intent.putExtra("mIsNormalViewRendering", true);
                     startActivity(intent);
-                }
-                else
-                {
+                } else {
                     Toast.makeText(SpinnerActivity.this, "Please Select Chapter.", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -167,7 +164,7 @@ public class SpinnerActivity extends AppCompatActivity {
     }
 
     private void addItemOnSpinnerChapter(String chapterId) {
-        Call<ListOfChapterModel> call=APIUtil.appConfig().getAllChapterBySubj(chapterId);
+        Call<ListOfChapterModel> call = APIUtil.appConfig().getAllChapterBySubj(chapterId);
         call.enqueue(new Callback<ListOfChapterModel>() {
             @Override
             public void onResponse(Call<ListOfChapterModel> call, Response<ListOfChapterModel> response) {
@@ -177,11 +174,13 @@ public class SpinnerActivity extends AppCompatActivity {
                 chapterArrayAdopter.notifyDataSetChanged();
                 spinnerChapter.setSelection(0);
             }
+
             @Override
             public void onFailure(Call<ListOfChapterModel> call, Throwable t) {
             }
         });
     }
+
     private void addItemOnSpinnerSubject(String classId) {
         Call<ListOfSubjectModel> call = APIUtil.appConfig().getAllSubject(classId);
         call.enqueue(new Callback<ListOfSubjectModel>() {
@@ -193,6 +192,7 @@ public class SpinnerActivity extends AppCompatActivity {
                 subjectArrayAdopter.notifyDataSetChanged();
                 spinnerSubject.setSelection(0);
             }
+
             @Override
             public void onFailure(Call<ListOfSubjectModel> call, Throwable t) {
 
@@ -200,6 +200,7 @@ public class SpinnerActivity extends AppCompatActivity {
         });
 
     }
+
     private void addItemOnSpinnerQuestionStatus() {
         List<String> chapterList = new ArrayList<String>();
         chapterList.add("All");
@@ -213,6 +214,7 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus.setAdapter(qustinonSatusAdopter);
 
     }
+
     private void addItemsOnspinnerClass() {
 
         Call<ListOfClassModel> call = APIUtil.appConfig().getAllClasses();
@@ -224,6 +226,7 @@ public class SpinnerActivity extends AppCompatActivity {
                 SpinnerActivity.this.classModels.addAll(classModels);
                 classArrayOdopter.notifyDataSetChanged();
             }
+
             @Override
             public void onFailure(Call<ListOfClassModel> call, Throwable t) {
                 t.printStackTrace();

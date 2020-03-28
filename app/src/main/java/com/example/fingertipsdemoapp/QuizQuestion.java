@@ -5,10 +5,8 @@ import android.os.Parcelable;
 
 public class QuizQuestion implements Parcelable {
 
-    // "id": "2461",
     private int id;
     private int point;
-    //"question": "Which law of Newton is called the law of<span> equilibrium?</span>",
     private String question;
     private String questionStatus;
     private String questionImage;
@@ -20,7 +18,7 @@ public class QuizQuestion implements Parcelable {
     private int selectedOptionPos = -1;
     private String questionExplaination;
     private String questionExplanationImage;
-    private String type;
+    private  boolean isNormalViewRendering;
 
 
     public QuizQuestion() {
@@ -32,15 +30,40 @@ public class QuizQuestion implements Parcelable {
         id = in.readInt();
         point = in.readInt();
         question = in.readString();
+        questionStatus = in.readString();
         questionImage = in.readString();
-        questionStatus=in.readString();
         optionImage = in.readString();
         isSpecialType = in.readByte() != 0;
+        isExpSpecialType = in.readByte() != 0;
         answer = in.readString();
         options = in.createTypedArray(QuestionOption.CREATOR);
         selectedOptionPos = in.readInt();
         questionExplaination = in.readString();
         questionExplanationImage = in.readString();
+        isNormalViewRendering = in.readByte() != 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(point);
+        dest.writeString(question);
+        dest.writeString(questionStatus);
+        dest.writeString(questionImage);
+        dest.writeString(optionImage);
+        dest.writeByte((byte) (isSpecialType ? 1 : 0));
+        dest.writeByte((byte) (isExpSpecialType ? 1 : 0));
+        dest.writeString(answer);
+        dest.writeTypedArray(options, flags);
+        dest.writeInt(selectedOptionPos);
+        dest.writeString(questionExplaination);
+        dest.writeString(questionExplanationImage);
+        dest.writeByte((byte) (isNormalViewRendering ? 1 : 0));
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
     public static final Creator<QuizQuestion> CREATOR = new Creator<QuizQuestion>() {
@@ -155,29 +178,6 @@ public class QuizQuestion implements Parcelable {
         return null;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-
-        dest.writeInt(id);
-        dest.writeInt(point);
-        dest.writeString(question);
-        dest.writeString(questionImage);
-        dest.writeString(optionImage);
-        dest.writeByte((byte) (isSpecialType ? 1 : 0));
-        dest.writeString(answer);
-        dest.writeString(questionStatus);
-        dest.writeTypedArray(options, flags);
-        dest.writeInt(selectedOptionPos);
-        dest.writeString(questionExplaination);
-        dest.writeString(questionExplanationImage);
-    }
-
-
 
     public int getPoint() {
         return point;
@@ -201,6 +201,14 @@ public class QuizQuestion implements Parcelable {
 
     public String getQuestionExplaination() {
         return questionExplaination;
+    }
+
+    public boolean isNormalViewRendering() {
+        return isNormalViewRendering;
+    }
+
+    public void setNormalViewRendering(boolean normalViewRendering) {
+        isNormalViewRendering = normalViewRendering;
     }
 
     public static class QuestionOption implements Parcelable {
@@ -244,7 +252,7 @@ public class QuizQuestion implements Parcelable {
         }
 
         public String getOptionForwebview() {
-            return AwesomePagerAdapter.formateEscapeChar(option);
+            return MyApp.formateEscapeChar(option);
         }
 
 

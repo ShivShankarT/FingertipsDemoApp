@@ -145,7 +145,7 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
 
 
         if (quizQuestion.isExpSpecialType()) {
-            tv_qus_exp.setLinketext(question_explaination+"...");
+            tv_qus_exp.setLinketext(question_explaination);
         } else {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 CharSequence qntrimmed = Html.fromHtml(question_explaination, Html.FROM_HTML_MODE_COMPACT);

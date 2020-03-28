@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue_dark"
     android:orientation="vertical">
 
@@ -28,6 +28,39 @@
             android:src="@drawable/icon_close_black"
             android:tint="@color/white" />
 
+        <LinearLayout
+            android:layout_marginLeft="29dp"
+            android:layout_toRightOf="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="23dp">
+
+            <TextView
+                style="@style/NunitoBold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="WebView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_margin="3dp"
+                android:id="@+id/view_sw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/NunitoBold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="wrap_content"
@@ -38,26 +71,26 @@
 
             <TextView
                 android:id="@+id/tv_total_point"
+                style="@style/NunitoLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.04"
                 android:lineSpacingExtra="-1sp"
-                android:text="Question Id: "
-                style="@style/NunitoLight"
+                android:text="Qus Id:"
                 android:textColor="@color/white"
                 android:textSize="15sp" />
 
             <TextView
                 android:id="@+id/tv_total_points"
+                style="@style/NunitoSemiBold"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toRightOf="@+id/tv_total_point"
                 android:letterSpacing="0.04"
                 android:lineSpacingExtra="-1sp"
-                tools:text=" 245"
-                style="@style/NunitoSemiBold"
                 android:textColor="@color/white"
-                android:textSize="15sp" />
+                android:textSize="15sp"
+                tools:text=" 245" />
 
         </RelativeLayout>
     </RelativeLayout>
@@ -84,15 +117,15 @@
 
                 <TextView
                     android:id="@+id/tv_qus_no"
+                    style="@style/NunitoBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:letterSpacing="0.04"
                     android:lineSpacingExtra="-2sp"
-                    tools:text="Question 1/3"
-                    style="@style/NunitoBold"
                     android:textColor="@color/white"
-                    android:textSize="24sp" />
+                    android:textSize="24sp"
+                    tools:text="Question 1/3" />
 
                 <RelativeLayout
                     android:id="@+id/rl_points_earn"
@@ -103,12 +136,12 @@
 
                     <TextView
                         android:id="@+id/tv_earn_point"
+                        style="@style/NunitoLight"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:lineSpacingExtra="7sp"
                         android:text="Status : "
-                        style="@style/NunitoLight"
                         android:textColor="@color/white"
                         android:textSize="15sp" />
 
@@ -129,9 +162,9 @@
             </LinearLayout>
 
             <View
-                android:layout_weight="1"
                 android:layout_width="wrap_content"
-                android:layout_height="1dp" />
+                android:layout_height="1dp"
+                android:layout_weight="1" />
 
             <RelativeLayout
                 android:layout_width="64dp"
@@ -153,13 +186,13 @@
 
                 <TextView
                     android:id="@+id/tv_time"
+                    style="@style/NunitoBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:fontFamily="sans-serif-condensed"
                     android:letterSpacing="0.03"
                     android:text="05:00"
-                    style="@style/NunitoBold"
                     android:textColor="@color/white"
                     android:textSize="14sp" />
 
@@ -176,24 +209,24 @@
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/rejectFab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="20dp"
-        android:id="@+id/rejectFab"
-        app:backgroundTint="#FF0000"
-        android:layout_width="wrap_content"
         android:src="@drawable/ic_thumb_down_black_24dp"
-        android:layout_height="wrap_content"/>
+        app:backgroundTint="#FF0000" />
 
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
         android:id="@+id/acceptFab"
-        android:layout_alignParentBottom="true"
-        app:backgroundTint="#4DFF00"
-        android:src="@drawable/ic_thumb_up_black_24dp"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="20dp"
+        android:src="@drawable/ic_thumb_up_black_24dp"
+        app:backgroundTint="#4DFF00" />
 
 
 </RelativeLayout>

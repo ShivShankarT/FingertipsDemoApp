@@ -23,7 +23,38 @@
             android:src="@drawable/icon_close_black"
             android:tint="@color/white" />
 
+        <LinearLayout
+            android:layout_marginLeft="29dp"
+            android:layout_toRightOf="@+id/iv_close"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center"
+            android:layout_marginTop="1dp">
 
+            <TextView
+                style="@style/NunitoBold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="WebView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+            <androidx.appcompat.widget.SwitchCompat
+                android:layout_margin="3dp"
+                android:id="@+id/view_sw"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                style="@style/NunitoBold"
+                android:gravity="center"
+                android:textColor="@color/white"
+                android:textSize="15sp"
+                android:text="Normal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
+        </LinearLayout>
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

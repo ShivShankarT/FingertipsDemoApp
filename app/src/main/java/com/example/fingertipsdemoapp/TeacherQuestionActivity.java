@@ -3,12 +3,15 @@ package com.example.fingertipsdemoapp;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.widget.SwitchCompat;
+import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
@@ -30,6 +33,8 @@ public class TeacherQuestionActivity extends BaseActivity {
     FloatingActionButton acceptButton, rejectButton;
     QuizQuestionAdapter quizQuestionAdapter;
     ImageView imageView;
+    SwitchCompat view_sw;
+    CompoundButton.OnCheckedChangeListener onCheckedChangeListener;
     private int currentPage = 0;
     private ViewPager2 viewPager_teacher_qus;
     private RelativeLayout rl_points_earn;
@@ -42,6 +47,7 @@ public class TeacherQuestionActivity extends BaseActivity {
     private TextView tv_total_points;
     private boolean isReqProcessing = false;
     private int mtotalPages = 0;
+    private  boolean mIsNormalViewRendering;
 
     public static int optionAnsPos(String ans) {
 
@@ -86,17 +92,27 @@ public class TeacherQuestionActivity extends BaseActivity {
         tv_earn_points = findViewById(R.id.tv_earn_points);
         acceptButton = findViewById(R.id.acceptFab);
         rejectButton = findViewById(R.id.rejectFab);
-
+        view_sw = findViewById(R.id.view_sw);
+        mIsNormalViewRendering=getIntent().getBooleanExtra("mIsNormalViewRendering",true);
         Bundle bundle = getIntent().getExtras();
         mSelectedStatus = bundle.getString("STATUS");
         mSelectChapter = bundle.getString("CHAPTER");
         Log.e("testing", "xxxxx: " + mSelectedStatus);
         Log.e("testing", "onCreate: " + mSelectChapter);
-
+        viewPager_teacher_qus.setPageTransformer(new MarginPageTransformer(100));
         quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager_teacher_qus.setOffscreenPageLimit(4);
         viewPager_teacher_qus.setAdapter(quizQuestionAdapter);
         fetchQuestion(1);
+        view_sw.setChecked(true);
+
+        onCheckedChangeListener = (buttonView, isChecked) -> {
+            int currentItem = viewPager_teacher_qus.getCurrentItem();
+            QuizQuestion quizQuestion = quizQuestions().get(currentItem);
+            quizQuestion.setNormalViewRendering(isChecked);
+            quizQuestionAdapter.notifyItemChanged(currentItem);
+        };
+        view_sw.setOnCheckedChangeListener(onCheckedChangeListener);
 
 
     }
@@ -111,7 +127,7 @@ public class TeacherQuestionActivity extends BaseActivity {
             }
         });
 
-      acceptButton.setOnClickListener(new View.OnClickListener() {
+        acceptButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 sentReq(true, viewPager_teacher_qus.getCurrentItem());
@@ -131,7 +147,8 @@ public class TeacherQuestionActivity extends BaseActivity {
                 if (pos < quslist.size()) {
                     tv_qus_no.setText("Question " + (pos + 1) + "/" + quslist.size());
 
-                    String questionStatus = String.valueOf(quslist.get(pos).getQuestionStatus());
+                    QuizQuestion quizQuestion = quizQuestions().get(pos);
+                    String questionStatus = String.valueOf(quizQuestion.getQuestionStatus());
 
                     if (questionStatus.equals("1")) {
                         tv_earn_points.setText("Pending");
@@ -155,6 +172,12 @@ public class TeacherQuestionActivity extends BaseActivity {
                     if (pos >= (total - 15) && !isReqProcessing && currentPage < mtotalPages) {
                         fetchQuestion(currentPage + 1);
                     }
+
+                    view_sw.setOnCheckedChangeListener(null);
+                    view_sw.setChecked(quizQuestion.isNormalViewRendering());
+                    view_sw.setOnCheckedChangeListener(onCheckedChangeListener);
+
+
                 }
             }
         });
@@ -256,8 +279,10 @@ public class TeacherQuestionActivity extends BaseActivity {
                             qnsModel.setOptions(options);
                             qnsModel.setQuestionStatus(status);
                             qnsModel.setQuestion(objQns.get("question").getAsString());
+                            qnsModel.setAnswer(objQns.get("answer").getAsString());
                             qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
                             qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
+                            qnsModel.setNormalViewRendering(mIsNormalViewRendering);
                             JsonElement ques_image = objQns.get("ques_image");
                             if (ques_image != null && !ques_image.isJsonNull())
                                 qnsModel.setQuestionImage(ques_image.getAsString());
