@@ -1,18 +1,27 @@
 package com.example.fingertipsdemoapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
+import com.google.android.material.button.MaterialButton;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,8 +32,11 @@ import retrofit2.Response;
 
 
 public class SpinnerActivity extends AppCompatActivity {
+    private static final String TAG ="SpinnerActivity" ;
     Button searchButton;
     Button searchWebButton;
+    Button searchQuestionIdButton;
+    EditText addQuestionIdEditText;
 
 
     List<ClassModel> classModels = new ArrayList<>();
@@ -38,6 +50,7 @@ public class SpinnerActivity extends AppCompatActivity {
     String mSelelectStatus;
     private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +62,12 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus = findViewById(R.id.pending_ans_status_spinner);
         searchButton = findViewById(R.id.button_search_Id);
         searchWebButton = findViewById(R.id.button_search_web_Id);
-
+        searchQuestionIdButton=findViewById(R.id.button_search_question_Id);
+        searchQuestionIdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogQuestion(); }
+        });
 
         classArrayOdopter = new ArrayAdapter<ClassModel>(SpinnerActivity.this, android.R.layout.simple_spinner_item, classModels);
         Log.i("jgggu", "onCreate: ");
@@ -162,6 +180,61 @@ public class SpinnerActivity extends AppCompatActivity {
         }
 
     }
+
+    private void showDialogQuestion() {
+         Dialog alertDialog = new Dialog(this);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setContentView(R.layout.questin_card_view);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = alertDialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        alertDialog.setCancelable(true);
+        Button input1 = alertDialog.findViewById(R.id.bt_cancle_questionId);
+         Button input2 = alertDialog.findViewById(R.id.bt_add_question_id);
+        addQuestionIdEditText = alertDialog.findViewById(R.id.et_questionID);
+        addQuestionIdEditText.requestFocus();
+        input1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        input2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String questionId=addQuestionIdEditText.getText().toString();
+                displayQuestionIdData(questionId);
+
+            }
+        });
+        alertDialog.show();
+    }
+
+    private void displayQuestionIdData(String questionId) {
+
+        if(questionId!=null)
+        {
+            Call<JsonObject> call = APIUtil.appConfig().getDataCorrespondingQuestionID(questionId);
+            call.enqueue(new Callback<JsonObject>() {
+                @Override
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.e(TAG, "questionIdResponse: "+response );
+
+                }
+
+                @Override
+                public void onFailure(Call<JsonObject> call, Throwable t) {
+
+                }
+            });
+        }
+
+    }
+
 
     private void addItemOnSpinnerChapter(String chapterId) {
         Call<ListOfChapterModel> call = APIUtil.appConfig().getAllChapterBySubj(chapterId);

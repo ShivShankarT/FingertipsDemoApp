@@ -4,6 +4,8 @@ package com.example.fingertipsdemoapp;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -37,5 +39,8 @@ public interface ConfigURLs {
     Call<JsonObject> getAllresponseAccQuestionIdAndStatus(@Field("question_id") String userId, @Field("status") String status);
 
 
+    @POST("new-questions/show")
+    @FormUrlEncoded
+    Call<JsonObject> getDataCorrespondingQuestionID(@Field("id") String questionId);
 
 }
