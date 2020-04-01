@@ -41,6 +41,6 @@ public interface ConfigURLs {
 
     @POST("new-questions/show")
     @FormUrlEncoded
-    Call<JsonObject> getDataCorrespondingQuestionID(@Field("id") String questionId);
+    Call<QuestionID> getDataCorrespondingQuestionID(@Field("id") QuestionID questionId);
 
 }

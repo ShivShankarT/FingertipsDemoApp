@@ -181,10 +181,11 @@ public class SpinnerActivity extends AppCompatActivity {
 
     }
 
+
     private void showDialogQuestion() {
-         Dialog alertDialog = new Dialog(this);
+        Dialog alertDialog = new Dialog(this);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialog.setContentView(R.layout.questin_card_view);
+        alertDialog.setContentView(R.layout.question_card_view);
         alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
         Window window = alertDialog.getWindow();
@@ -193,9 +194,9 @@ public class SpinnerActivity extends AppCompatActivity {
         lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
         window.setAttributes(lp);
         alertDialog.setCancelable(true);
-        Button input1 = alertDialog.findViewById(R.id.bt_cancle_questionId);
-         Button input2 = alertDialog.findViewById(R.id.bt_add_question_id);
-        addQuestionIdEditText = alertDialog.findViewById(R.id.et_questionID);
+        Button input1 = alertDialog.findViewById(R.id.bt_cancel);
+        Button input2 = alertDialog.findViewById(R.id.bt_submit);
+        addQuestionIdEditText = alertDialog.findViewById(R.id.et_questionId);
         addQuestionIdEditText.requestFocus();
         input1.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -207,7 +208,7 @@ public class SpinnerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String questionId=addQuestionIdEditText.getText().toString();
-                displayQuestionIdData(questionId);
+               displayQuestionIdData(questionId);
 
             }
         });
@@ -216,18 +217,21 @@ public class SpinnerActivity extends AppCompatActivity {
 
     private void displayQuestionIdData(String questionId) {
 
+
         if(questionId!=null)
         {
-            Call<JsonObject> call = APIUtil.appConfig().getDataCorrespondingQuestionID(questionId);
-            call.enqueue(new Callback<JsonObject>() {
+            String[] q={questionId};
+            QuestionID questionID=new QuestionID(q);
+            Call<QuestionID> call = APIUtil.appConfig().getDataCorrespondingQuestionID(questionID);
+            call.enqueue(new Callback<QuestionID>() {
                 @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                public void onResponse(Call<QuestionID> call, Response<QuestionID> response) {
                     Log.e(TAG, "questionIdResponse: "+response );
 
                 }
 
                 @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
+                public void onFailure(Call<QuestionID> call, Throwable t) {
 
                 }
             });
