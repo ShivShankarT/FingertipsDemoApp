@@ -29,6 +29,8 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SpinnerActivity extends AppCompatActivity {
@@ -208,12 +210,13 @@ public class SpinnerActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String questionId=addQuestionIdEditText.getText().toString();
-               displayQuestionIdData(questionId);
+                 displayQuestionIdData(questionId);
 
             }
         });
         alertDialog.show();
     }
+
 
     private void displayQuestionIdData(String questionId) {
 
@@ -222,12 +225,11 @@ public class SpinnerActivity extends AppCompatActivity {
         {
             String[] q={questionId};
             QuestionID questionID=new QuestionID(q);
-            Call<QuestionID> call = APIUtil.appConfig().getDataCorrespondingQuestionID(questionID);
-            call.enqueue(new Callback<QuestionID>() {
+            ConfigURLs configURLs = APIUtil.appConfig();
+            configURLs.getDataCorrespondingQuestionID(questionID).enqueue(new Callback<QuestionID>() {
                 @Override
                 public void onResponse(Call<QuestionID> call, Response<QuestionID> response) {
-                    Log.e(TAG, "questionIdResponse: "+response );
-
+                    Log.e(TAG, "here is response: "+response );
                 }
 
                 @Override
@@ -235,6 +237,8 @@ public class SpinnerActivity extends AppCompatActivity {
 
                 }
             });
+
+
         }
 
     }
