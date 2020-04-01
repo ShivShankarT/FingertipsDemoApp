@@ -11,6 +11,7 @@ import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.Headers;
 import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.Query;
@@ -40,6 +41,7 @@ public interface ConfigURLs {
     Call<JsonObject> getAllresponseAccQuestionIdAndStatus(@Field("question_id") String userId, @Field("status") String status);
 
     @POST("new-questions/show")
-    Call<JsonObject> getDataCorrespondingQuestionID(@Body QuestionID questionId);
+    @Headers("Content-Type: application/json")
+    Call<JsonObject> getDataCorrespondingQuestionID(@Body JsonObject jsonObject);
 
 }

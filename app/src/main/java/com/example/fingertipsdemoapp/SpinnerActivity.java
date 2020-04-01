@@ -21,6 +21,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
 import com.google.android.material.button.MaterialButton;
+import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
@@ -207,7 +208,7 @@ public class SpinnerActivity extends AppCompatActivity {
         input2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String questionId=addQuestionIdEditText.getText().toString();
+                int questionId= Integer.parseInt(addQuestionIdEditText.getText().toString());
                  displayQuestionIdData(questionId);
 
             }
@@ -216,30 +217,29 @@ public class SpinnerActivity extends AppCompatActivity {
     }
 
 
-    private void displayQuestionIdData(String questionId) {
+    private void displayQuestionIdData(int questionId) {
         Log.e(TAG, "Question Id valu:"+questionId );
-        if(questionId!=null)
-        {
-            String[] q={questionId};
-            QuestionID questionID=new QuestionID(q);
-            questionID.setQuestion_id(q);
-            Log.e(TAG, "Question Id valu:"+questionID );
-            ConfigURLs configURLs = APIUtil.appConfig();
-            configURLs.getDataCorrespondingQuestionID(questionID).enqueue(new Callback<JsonObject>() {
-                @Override
-                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                    Log.e(TAG, "Here is response: "+response );
+        JsonObject jsonObject=new JsonObject();
+        JsonArray value = new JsonArray();
+        value.add(questionId);
+        jsonObject.add("question_id", value);
 
-                }
+        ConfigURLs configURLs = APIUtil.appConfig();
+        configURLs.getDataCorrespondingQuestionID(jsonObject).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                Log.e(TAG, "Here is response: "+response );
 
-                @Override
-                public void onFailure(Call<JsonObject> call, Throwable t) {
+            }
 
-                }
-            });
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                Log.i(TAG, "onFailure: sdd");
+                t.printStackTrace();
 
+            }
+        });
 
-        }
 
     }
 
