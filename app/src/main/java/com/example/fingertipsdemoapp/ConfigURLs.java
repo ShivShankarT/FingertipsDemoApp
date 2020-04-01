@@ -40,6 +40,6 @@ public interface ConfigURLs {
     Call<JsonObject> getAllresponseAccQuestionIdAndStatus(@Field("question_id") String userId, @Field("status") String status);
 
     @POST("new-questions/show")
-    Call<QuestionID> getDataCorrespondingQuestionID(@Body QuestionID questionId);
+    Call<JsonObject> getDataCorrespondingQuestionID(@Body QuestionID questionId);
 
 }

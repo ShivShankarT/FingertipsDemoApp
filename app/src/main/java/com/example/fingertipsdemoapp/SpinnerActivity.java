@@ -182,8 +182,6 @@ public class SpinnerActivity extends AppCompatActivity {
         }
 
     }
-
-
     private void showDialogQuestion() {
         Dialog alertDialog = new Dialog(this);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -219,21 +217,23 @@ public class SpinnerActivity extends AppCompatActivity {
 
 
     private void displayQuestionIdData(String questionId) {
-
-
+        Log.e(TAG, "Question Id valu:"+questionId );
         if(questionId!=null)
         {
             String[] q={questionId};
             QuestionID questionID=new QuestionID(q);
+            questionID.setQuestion_id(q);
+            Log.e(TAG, "Question Id valu:"+questionID );
             ConfigURLs configURLs = APIUtil.appConfig();
-            configURLs.getDataCorrespondingQuestionID(questionID).enqueue(new Callback<QuestionID>() {
+            configURLs.getDataCorrespondingQuestionID(questionID).enqueue(new Callback<JsonObject>() {
                 @Override
-                public void onResponse(Call<QuestionID> call, Response<QuestionID> response) {
-                    Log.e(TAG, "here is response: "+response );
+                public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                    Log.e(TAG, "Here is response: "+response );
+
                 }
 
                 @Override
-                public void onFailure(Call<QuestionID> call, Throwable t) {
+                public void onFailure(Call<JsonObject> call, Throwable t) {
 
                 }
             });
@@ -281,7 +281,6 @@ public class SpinnerActivity extends AppCompatActivity {
         });
 
     }
-
     private void addItemOnSpinnerQuestionStatus() {
         List<String> chapterList = new ArrayList<String>();
         chapterList.add("All");
@@ -313,7 +312,6 @@ public class SpinnerActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
 
     }
 

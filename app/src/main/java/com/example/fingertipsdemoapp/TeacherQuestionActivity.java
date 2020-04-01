@@ -176,8 +176,6 @@ public class TeacherQuestionActivity extends BaseActivity {
                     view_sw.setOnCheckedChangeListener(null);
                     view_sw.setChecked(quizQuestion.isNormalViewRendering());
                     view_sw.setOnCheckedChangeListener(onCheckedChangeListener);
-
-
                 }
             }
         });
