@@ -48,7 +48,7 @@ public class TeacherQuestionActivity extends BaseActivity {
     private TextView tv_total_points;
     private boolean isReqProcessing = false;
     private int mtotalPages = 0;
-    private  boolean mIsNormalViewRendering;
+    private boolean mIsNormalViewRendering;
 
     public static int optionAnsPos(String ans) {
 
@@ -94,7 +94,7 @@ public class TeacherQuestionActivity extends BaseActivity {
         acceptButton = findViewById(R.id.acceptFab);
         rejectButton = findViewById(R.id.rejectFab);
         view_sw = findViewById(R.id.view_sw);
-        mIsNormalViewRendering=getIntent().getBooleanExtra("mIsNormalViewRendering",true);
+        mIsNormalViewRendering = getIntent().getBooleanExtra("mIsNormalViewRendering", true);
         Bundle bundle = getIntent().getExtras();
         mSelectedStatus = bundle.getString("STATUS");
         mSelectChapter = bundle.getString("CHAPTER");
@@ -104,7 +104,12 @@ public class TeacherQuestionActivity extends BaseActivity {
         quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager_teacher_qus.setOffscreenPageLimit(4);
         viewPager_teacher_qus.setAdapter(quizQuestionAdapter);
-        fetchQuestion(1);
+        int question_id=getIntent().getIntExtra("question_id",0);
+        if (question_id==0)
+            fetchQuestion(1);
+        else
+            fetchQuestionVia(question_id);
+
         view_sw.setChecked(true);
 
         onCheckedChangeListener = (buttonView, isChecked) -> {
@@ -177,8 +182,6 @@ public class TeacherQuestionActivity extends BaseActivity {
                     view_sw.setOnCheckedChangeListener(null);
                     view_sw.setChecked(quizQuestion.isNormalViewRendering());
                     view_sw.setOnCheckedChangeListener(onCheckedChangeListener);
-
-
                 }
             }
         });
@@ -320,6 +323,87 @@ public class TeacherQuestionActivity extends BaseActivity {
         });
     }
 
+    private void fetchQuestionVia(int questionId) {
+        JsonObject jsonObject = new JsonObject();
+        JsonArray value = new JsonArray();
+        value.add(questionId);
+        jsonObject.add("question_id", value);
+        ConfigURLs configURLs = APIUtil.appConfig();
+        configURLs.getDataCorrespondingQuestionID(jsonObject).enqueue(new Callback<JsonObject>() {
+            @Override
+            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
+                JsonObject jsonObject = response.body();
+                isReqProcessing = false;
+                if (response.isSuccessful() && jsonObject != null) {
+                    JsonArray quArray = jsonObject.getAsJsonArray("data");
+                    if (jsonObject != null) {
+
+                        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
+                        for (JsonElement element : quArray) {
+                            JsonObject objQns = element.getAsJsonObject();
+                            QuizQuestion qnsModel = new QuizQuestion();
+                            qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
+                            qnsModel.setPoint(0);
+                            qnsModel.setSpecialType(objQns.get("text_type").getAsString().equalsIgnoreCase("special"));
+                            qnsModel.setExpSpecialType(objQns.get("text_type_explanation").getAsString().equalsIgnoreCase("special"));
+                            QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
+
+                            String opt_a = objQns.get("opt_a").isJsonNull() ? "" : objQns.get("opt_a").getAsString();
+                            String opt_a_type = objQns.get("opt_a_type").isJsonNull() ? "" : objQns.get("opt_a_type").getAsString();
+
+                            String opt_b = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_b").getAsString();
+                            String opt_b_type = objQns.get("opt_b_type").isJsonNull() ? "" : objQns.get("opt_b_type").getAsString();
+
+                            String opt_c = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_c").getAsString();
+                            String opt_c_type = objQns.get("opt_c_type").isJsonNull() ? "" : objQns.get("opt_c_type").getAsString();
+
+                            String opt_d = objQns.get("opt_d").isJsonNull() ? "" : objQns.get("opt_d").getAsString();
+                            String opt_d_type = objQns.get("opt_d_type").isJsonNull() ? "" : objQns.get("opt_d_type").getAsString();
+
+                            String status = objQns.get("status").isJsonNull() ? "accepted" : objQns.get("status").getAsString();
+
+                            options[0] = new QuizQuestion.QuestionOption(opt_a, opt_a_type);
+                            options[1] = new QuizQuestion.QuestionOption(opt_b, opt_b_type);
+                            options[2] = new QuizQuestion.QuestionOption(opt_c, opt_c_type);
+                            options[3] = new QuizQuestion.QuestionOption(opt_d, opt_d_type);
+                            qnsModel.setOptions(options);
+                            qnsModel.setQuestionStatus(status);
+                            qnsModel.setQuestion(objQns.get("question").getAsString());
+                            qnsModel.setAnswer(objQns.get("answer").getAsString());
+                            qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
+                            qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
+                            qnsModel.setNormalViewRendering(mIsNormalViewRendering);
+                            JsonElement ques_image = objQns.get("ques_image");
+                            if (ques_image != null && !ques_image.isJsonNull())
+                                qnsModel.setQuestionImage(ques_image.getAsString());
+
+                            qnsModel.setSelectedOptionPos(optionAnsPos(objQns.get("answer").getAsString()));
+                            quizQuestions.add(qnsModel);
+
+                        }
+                        quslist.addAll(quizQuestions);
+                        quizQuestionAdapter.notifyDataSetChanged();
+                        tv_qus_no.setText("Question:- " + (viewPager_teacher_qus.getCurrentItem() + 1) + "/" + quslist.size());
+
+                    } else {
+                        JsonElement message = jsonObject.get("response_message");
+                        if (message != null) {
+                            String resmessage = message.getAsString();
+                        }
+                    }
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<JsonObject> call, Throwable t) {
+                t.printStackTrace();
+
+            }
+        });
+
+
+    }
 
     public ArrayList<QuizQuestion> quizQuestions() {
 

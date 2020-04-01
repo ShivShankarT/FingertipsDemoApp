@@ -1,12 +1,18 @@
 package com.example.fingertipsdemoapp;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -23,8 +29,11 @@ import retrofit2.Response;
 
 
 public class SpinnerActivity extends AppCompatActivity {
+    private static final String TAG = "SpinnerActivity";
     Button searchButton;
     Button searchWebButton;
+    Button searchQuestionIdButton;
+    EditText addQuestionIdEditText;
 
 
     List<ClassModel> classModels = new ArrayList<>();
@@ -38,6 +47,7 @@ public class SpinnerActivity extends AppCompatActivity {
     String mSelelectStatus;
     private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +59,13 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus = findViewById(R.id.pending_ans_status_spinner);
         searchButton = findViewById(R.id.button_search_Id);
         searchWebButton = findViewById(R.id.button_search_web_Id);
-
+        searchQuestionIdButton = findViewById(R.id.button_search_question_Id);
+        searchQuestionIdButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDialogQuestion();
+            }
+        });
 
         classArrayOdopter = new ArrayAdapter<ClassModel>(SpinnerActivity.this, android.R.layout.simple_spinner_item, classModels);
         Log.i("jgggu", "onCreate: ");
@@ -163,6 +179,43 @@ public class SpinnerActivity extends AppCompatActivity {
 
     }
 
+    private void showDialogQuestion() {
+        Dialog alertDialog = new Dialog(this);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        alertDialog.setContentView(R.layout.question_card_view);
+        alertDialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        WindowManager.LayoutParams lp = new WindowManager.LayoutParams();
+        Window window = alertDialog.getWindow();
+        lp.copyFrom(window.getAttributes());
+        lp.width = WindowManager.LayoutParams.WRAP_CONTENT;
+        lp.height = WindowManager.LayoutParams.WRAP_CONTENT;
+        window.setAttributes(lp);
+        alertDialog.setCancelable(true);
+        Button input1 = alertDialog.findViewById(R.id.bt_cancel);
+        Button input2 = alertDialog.findViewById(R.id.bt_submit);
+        addQuestionIdEditText = alertDialog.findViewById(R.id.et_questionId);
+        addQuestionIdEditText.requestFocus();
+        input1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertDialog.dismiss();
+            }
+        });
+        input2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int questionId = Integer.parseInt(addQuestionIdEditText.getText().toString());
+                Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
+                intent.putExtra("question_id", questionId);
+                intent.putExtra("mIsNormalViewRendering", true);
+                startActivity(intent);
+                alertDialog.dismiss();
+            }
+        });
+        alertDialog.show();
+    }
+
+
     private void addItemOnSpinnerChapter(String chapterId) {
         Call<ListOfChapterModel> call = APIUtil.appConfig().getAllChapterBySubj(chapterId);
         call.enqueue(new Callback<ListOfChapterModel>() {
@@ -232,7 +285,6 @@ public class SpinnerActivity extends AppCompatActivity {
                 t.printStackTrace();
             }
         });
-
 
     }
 
