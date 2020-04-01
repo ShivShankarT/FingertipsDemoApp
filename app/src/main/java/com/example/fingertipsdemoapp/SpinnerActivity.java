@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -20,9 +19,6 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
-import com.google.android.material.button.MaterialButton;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,12 +26,10 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class SpinnerActivity extends AppCompatActivity {
-    private static final String TAG ="SpinnerActivity" ;
+    private static final String TAG = "SpinnerActivity";
     Button searchButton;
     Button searchWebButton;
     Button searchQuestionIdButton;
@@ -65,11 +59,12 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus = findViewById(R.id.pending_ans_status_spinner);
         searchButton = findViewById(R.id.button_search_Id);
         searchWebButton = findViewById(R.id.button_search_web_Id);
-        searchQuestionIdButton=findViewById(R.id.button_search_question_Id);
+        searchQuestionIdButton = findViewById(R.id.button_search_question_Id);
         searchQuestionIdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showDialogQuestion(); }
+                showDialogQuestion();
+            }
         });
 
         classArrayOdopter = new ArrayAdapter<ClassModel>(SpinnerActivity.this, android.R.layout.simple_spinner_item, classModels);
@@ -183,6 +178,7 @@ public class SpinnerActivity extends AppCompatActivity {
         }
 
     }
+
     private void showDialogQuestion() {
         Dialog alertDialog = new Dialog(this);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -208,39 +204,15 @@ public class SpinnerActivity extends AppCompatActivity {
         input2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int questionId= Integer.parseInt(addQuestionIdEditText.getText().toString());
-                 displayQuestionIdData(questionId);
-
+                int questionId = Integer.parseInt(addQuestionIdEditText.getText().toString());
+                Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
+                intent.putExtra("question_id", questionId);
+                intent.putExtra("mIsNormalViewRendering", true);
+                startActivity(intent);
+                alertDialog.dismiss();
             }
         });
         alertDialog.show();
-    }
-
-
-    private void displayQuestionIdData(int questionId) {
-        Log.e(TAG, "Question Id valu:"+questionId );
-        JsonObject jsonObject=new JsonObject();
-        JsonArray value = new JsonArray();
-        value.add(questionId);
-        jsonObject.add("question_id", value);
-
-        ConfigURLs configURLs = APIUtil.appConfig();
-        configURLs.getDataCorrespondingQuestionID(jsonObject).enqueue(new Callback<JsonObject>() {
-            @Override
-            public void onResponse(Call<JsonObject> call, Response<JsonObject> response) {
-                Log.e(TAG, "Here is response: "+response );
-
-            }
-
-            @Override
-            public void onFailure(Call<JsonObject> call, Throwable t) {
-                Log.i(TAG, "onFailure: sdd");
-                t.printStackTrace();
-
-            }
-        });
-
-
     }
 
 
@@ -281,6 +253,7 @@ public class SpinnerActivity extends AppCompatActivity {
         });
 
     }
+
     private void addItemOnSpinnerQuestionStatus() {
         List<String> chapterList = new ArrayList<String>();
         chapterList.add("All");
