@@ -68,7 +68,6 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/button_search_question_Id"
-        android:text="Show Question Id"/>
-        android:text="Show Web View"/>
+        android:text="Search via Question Id"/>
 
 </LinearLayout>
