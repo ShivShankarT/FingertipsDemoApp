@@ -90,7 +90,7 @@ public class QuestionWebViewFragment extends Fragment {
 
     @JavascriptInterface
     public  void onQuestionLoad(){
-        getView().post(() -> Toast.makeText(requireContext(), "done", Toast.LENGTH_SHORT).show());
+        //getView().post(() -> Toast.makeText(requireContext(), "done", Toast.LENGTH_SHORT).show());
 
 
     } @JavascriptInterface
@@ -107,9 +107,11 @@ public class QuestionWebViewFragment extends Fragment {
    private String get() throws JSONException {
         JSONObject jsonObject=new JSONObject();
         jsonObject.put("question",quizQuestion.getQuestion());
+        jsonObject.put("answer",quizQuestion.getAnswer());
         jsonObject.put("question_image",quizQuestion.getQuestionImage());
         jsonObject.put("questionExp",quizQuestion.getQuestionExplaination());
         jsonObject.put("questionExpImage",quizQuestion.getQuestionExplanationImage());
+
         JSONArray optionArray=new JSONArray();
 
         for (QuizQuestion.QuestionOption questionOption: quizQuestion.getOptions()) {

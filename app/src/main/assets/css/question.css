@@ -30,9 +30,8 @@
 }
 
 
-
 body {
-    //font-family: Arial, Helvetica, sans-serif;
+/ / font-family: Arial, Helvetica, sans-serif;
     font-family: 'Nunito', sans-serif;
     font-weight: 600;
     font-size: 16px;
@@ -78,15 +77,15 @@ body {
 /* Style the counter cards */
 
 .card {
-    box-shadow: 0 0px 0px 0 rgba(0, 0, 0, 0.2);
-    padding: 16px;
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.2);
+    padding: 10px;
     text-align: center;
     background-color: #FFFFFF;
 }
 
 .optionBox {
     width: 100%;
-    text-align: left ;
+    text-align: left;
     font-size: 16px;
     justify-content: center;
     display: flex;
@@ -95,13 +94,13 @@ body {
     background-color: #fff;
     border-radius: 10px;
     border: 1px solid #E6E6E6;
-    box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
-    -moz-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0,0,0,0.08);
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
     padding: 20px 16px;
     margin-bottom: 12px;
     position: relative;
-//overflow-x: inherit;
+/ / overflow-x: inherit;
     animation-duration: 150ms;
     animation-timing-function: ease-in;
     animation-fill-mode: both;
@@ -130,6 +129,12 @@ body {
     margin-top: 2px;
     margin-left: 2px;
     padding-top: 2px;
+}
+
+.optionBox.correct {
+    border-width: 2px;
+    background-color: #fff;
+    border-color: #68C721;
 }
 
 .optionA {

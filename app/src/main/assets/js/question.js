@@ -59,6 +59,8 @@ function displayMockQuestions() {
         question_image: "https://via.placeholder.com/150",
         questionExp: "sss",
         questionExpImage: "https://via.placeholder.com/150",
+        selectedOptions: "",
+        answer: "D",
         options: [
             {
                 option: "AA",
@@ -92,40 +94,61 @@ function displayQuestions(questionsJSONEncoded) {
     console.log(questionsJSONEncoded);
 
     try {
-        var questions = decodedBase64ToJSONObject(questionsJSONEncoded);
+        var question = decodedBase64ToJSONObject(questionsJSONEncoded);
 
-        document.getElementById('question').innerHTML = questions.question;
-        if (questions.question_image !== undefined && questions.question_image !== "") {
-            document.getElementById('question_image').src = questions.question_image;
+        document.getElementById('question').innerHTML = question.question;
+        if (question.question_image !== undefined && question.question_image !== "") {
+            document.getElementById('question_image').src = question.question_image;
 
         } else {
             document.getElementById('question_image').remove();
         }
 
-        for (let i = 0; i < questions.options.length; i++) {
-            var opt = questions.options[i].option;
-            var optionType = questions.options[i].optionType;
+        for (let i = 0; i < question.options.length; i++) {
+            var opt = question.options[i].option;
+            var optionType = question.options[i].optionType;
             let optionElementId = 'opt_a';
+            let optionContId = '';
             let optionImgElementId = 'opt_a_image';
+            let optionLabel = '';
+
+
             switch (i) {
                 case 0:
                     optionElementId = 'opt_a';
                     optionImgElementId = 'opt_a_image';
+                    optionContId = "container_option_a";
+                    optionLabel = "A";
                     break;
                 case 1:
                     optionElementId = 'opt_b';
                     optionImgElementId = 'opt_b_image';
+                    optionContId = "container_option_b";
+                    optionLabel = "B";
                     break;
                 case 2:
                     optionElementId = 'opt_c';
                     optionImgElementId = 'opt_c_image';
+                    optionContId = "container_option_c";
+                    optionLabel = "C";
                     break;
                 case 3:
                     optionElementId = 'opt_d';
                     optionImgElementId = 'opt_d_image';
+                    optionContId = "container_option_d";
+                    optionLabel = "D";
                     break;
 
             }
+
+
+            if (optionLabel===question.answer){
+                let optionElement = document.getElementById(optionContId);
+                optionElement.classList.add("correct");
+
+            }
+
+
             let optionElement = document.getElementById(optionElementId);
             let optionImgElement = document.getElementById(optionImgElementId);
             if (optionType === "TEXT") {
@@ -137,11 +160,11 @@ function displayQuestions(questionsJSONEncoded) {
             }
         }
 
-        document.getElementById('explanation_question').innerHTML = questions.questionExp;
+        document.getElementById('explanation_question').innerHTML = question.questionExp;
 
 
-        if (questions.questionExpImage !== undefined && questions.questionExpImage !== "") {
-            document.getElementById('explanation_question_img').src = questions.questionExpImage;
+        if (question.questionExpImage !== undefined && question.questionExpImage !== "") {
+            document.getElementById('explanation_question_img').src = question.questionExpImage;
 
         } else {
             document.getElementById('explanation_question_img').remove();
