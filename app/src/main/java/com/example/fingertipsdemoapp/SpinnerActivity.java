@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -12,11 +13,13 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 
 import com.example.fingertipsdemoapp.remote.APIUtil;
 
@@ -29,6 +32,8 @@ import retrofit2.Response;
 
 
 public class SpinnerActivity extends AppCompatActivity {
+
+    public  static  boolean isNewDB=false;
     private static final String TAG = "SpinnerActivity";
     Button searchButton;
     Button searchWebButton;
@@ -60,6 +65,18 @@ public class SpinnerActivity extends AppCompatActivity {
         searchButton = findViewById(R.id.button_search_Id);
         searchWebButton = findViewById(R.id.button_search_web_Id);
         searchQuestionIdButton = findViewById(R.id.button_search_question_Id);
+        SwitchCompat db_sw=findViewById(R.id.db_sw);
+        db_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                isNewDB=isChecked;
+                mSelectChapter=null;
+                classModels.clear();
+                classArrayOdopter.notifyDataSetChanged();
+                addItemsOnspinnerClass();
+
+            }
+        });
         searchQuestionIdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -204,17 +221,19 @@ public class SpinnerActivity extends AppCompatActivity {
         input2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                int questionId = Integer.parseInt(addQuestionIdEditText.getText().toString());
-                Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
-                intent.putExtra("question_id", questionId);
-                intent.putExtra("mIsNormalViewRendering", true);
-                startActivity(intent);
-                alertDialog.dismiss();
+                String s = addQuestionIdEditText.getText().toString();
+                if (!TextUtils.isEmpty(s)) {
+                    int questionId = Integer.parseInt(s);
+                    Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
+                    intent.putExtra("question_id", questionId);
+                    intent.putExtra("mIsNormalViewRendering", true);
+                    startActivity(intent);
+                    alertDialog.dismiss();
+                }
             }
         });
         alertDialog.show();
     }
-
 
     private void addItemOnSpinnerChapter(String chapterId) {
         Call<ListOfChapterModel> call = APIUtil.appConfig().getAllChapterBySubj(chapterId);

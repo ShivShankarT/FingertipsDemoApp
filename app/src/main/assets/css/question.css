@@ -84,29 +84,31 @@ body {
 }
 
 .optionBox {
-    width: 100%;
-    text-align: left;
-    font-size: 16px;
-    justify-content: center;
-    display: flex;
-    position: relative;
-    border: 1px solid #fff;
-    background-color: #fff;
-    border-radius: 10px;
-    border: 1px solid #E6E6E6;
-    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
-    padding: 20px 16px;
-    margin-bottom: 12px;
-    position: relative;
-/ / overflow-x: inherit;
-    animation-duration: 150ms;
-    animation-timing-function: ease-in;
-    animation-fill-mode: both;
-    transition: 150ms all ease-in;
+ min-height: 60px;
+ width: 100%;
+ text-align: left;
+ font-size: 16px;
+ justify-content: center;
+ display: flex;
+ position: relative;
+ border: 1px solid #fff;
+ background-color: #fff;
+ border-radius: 10px;
+ border: 1px solid #E6E6E6;
+ box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+ -moz-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+ -webkit-box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.08);
+ padding: 5px 16px;
+ margin-bottom: 12px;
+ position: relative;
+ / /: ;
+ overflow-x: inherit;
+ animation-duration: 150ms;
+ animation-timing-function: ease-in;
+ animation-fill-mode: both;
+ transition: 150ms all ease-in;
+ align-items: center;
 }
-
 .outerCircle {
     height: 28px;
     width: 28px;
@@ -128,7 +130,7 @@ body {
     vertical-align: middle;
     margin-top: 2px;
     margin-left: 2px;
-    padding-top: 2px;
+   /*padding-top: 2px;*/
 }
 
 .optionBox.correct {

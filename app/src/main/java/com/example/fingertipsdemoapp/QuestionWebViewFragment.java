@@ -10,6 +10,7 @@ import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -35,6 +36,7 @@ public class QuestionWebViewFragment extends Fragment {
     private int questionPosition;
     private LaTexTextView tv_qus_text;
     private ImageView img_question;
+    ProgressBar progressBar;
 
 
     public static QuestionWebViewFragment newInstance(int position, QuizQuestion quizQuestion) {
@@ -58,8 +60,8 @@ public class QuestionWebViewFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_question_webview, container, false);
-
         WebView webView = view.findViewById(R.id.webview);
+        progressBar=view.findViewById(R.id.progressBar);
         setui(webView);
         return view;
     }
@@ -90,6 +92,12 @@ public class QuestionWebViewFragment extends Fragment {
 
     @JavascriptInterface
     public  void onQuestionLoad(){
+        progressBar.post(new Runnable() {
+            @Override
+            public void run() {
+                progressBar.setVisibility(View.GONE);
+            }
+        });
         //getView().post(() -> Toast.makeText(requireContext(), "done", Toast.LENGTH_SHORT).show());
 
 

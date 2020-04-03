@@ -63,7 +63,7 @@ function displayMockQuestions() {
         answer: "D",
         options: [
             {
-                option: "AA",
+                option: "A thin uniform rod, pivoted at $$O$$, is rotating in the horizontal plane with constant angular speed $$\omega$$, as shown in the figure. At time $$t = 0$$, a small insect starts from $$O$$ and moves with constant speed $$v$$ with respect to the rod towards the other end.",
                 optionType: "TEXT"//TEXT or IMAGE
             }
             ,
@@ -91,7 +91,6 @@ function displayMockQuestions() {
 
 
 function displayQuestions(questionsJSONEncoded) {
-    console.log(questionsJSONEncoded);
 
     try {
         var question = decodedBase64ToJSONObject(questionsJSONEncoded);

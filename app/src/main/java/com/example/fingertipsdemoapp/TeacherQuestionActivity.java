@@ -1,6 +1,7 @@
 package com.example.fingertipsdemoapp;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -29,6 +30,7 @@ import retrofit2.Response;
 
 
 public class TeacherQuestionActivity extends BaseActivity {
+    public static final String specialSplitChar = "%<math xmlns=";
 
     TextView tv_earn_points;
     FloatingActionButton acceptButton, rejectButton;
@@ -104,8 +106,8 @@ public class TeacherQuestionActivity extends BaseActivity {
         quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager_teacher_qus.setOffscreenPageLimit(4);
         viewPager_teacher_qus.setAdapter(quizQuestionAdapter);
-        int question_id=getIntent().getIntExtra("question_id",0);
-        if (question_id==0)
+        int question_id = getIntent().getIntExtra("question_id", 0);
+        if (question_id == 0)
             fetchQuestion(1);
         else
             fetchQuestionVia(question_id);
@@ -218,10 +220,9 @@ public class TeacherQuestionActivity extends BaseActivity {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 t.printStackTrace();
-                if (t instanceof JsonSyntaxException){
+                if (t instanceof JsonSyntaxException) {
                     Toast.makeText(TeacherQuestionActivity.this, "Error", Toast.LENGTH_SHORT).show();
-                }
-                else {
+                } else {
                     Toast.makeText(TeacherQuestionActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                 }
 
@@ -259,49 +260,7 @@ public class TeacherQuestionActivity extends BaseActivity {
 
                     if (questions != null) {
                         JsonArray quArray = questions.getAsJsonArray("result");
-                        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
-                        for (JsonElement element : quArray) {
-                            JsonObject objQns = element.getAsJsonObject();
-                            QuizQuestion qnsModel = new QuizQuestion();
-                            qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
-                            qnsModel.setPoint(0);
-                            qnsModel.setSpecialType(objQns.get("text_type").getAsString().equalsIgnoreCase("special"));
-                            qnsModel.setExpSpecialType(objQns.get("text_type_explanation").getAsString().equalsIgnoreCase("special"));
-                            QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
-
-                            String opt_a = objQns.get("opt_a").isJsonNull() ? "" : objQns.get("opt_a").getAsString();
-                            String opt_a_type = objQns.get("opt_a_type").isJsonNull() ? "" : objQns.get("opt_a_type").getAsString();
-
-                            String opt_b = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_b").getAsString();
-                            String opt_b_type = objQns.get("opt_b_type").isJsonNull() ? "" : objQns.get("opt_b_type").getAsString();
-
-                            String opt_c = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_c").getAsString();
-                            String opt_c_type = objQns.get("opt_c_type").isJsonNull() ? "" : objQns.get("opt_c_type").getAsString();
-
-                            String opt_d = objQns.get("opt_d").isJsonNull() ? "" : objQns.get("opt_d").getAsString();
-                            String opt_d_type = objQns.get("opt_d_type").isJsonNull() ? "" : objQns.get("opt_d_type").getAsString();
-
-                            String status = objQns.get("status").isJsonNull() ? "accepted" : objQns.get("status").getAsString();
-
-                            options[0] = new QuizQuestion.QuestionOption(opt_a, opt_a_type);
-                            options[1] = new QuizQuestion.QuestionOption(opt_b, opt_b_type);
-                            options[2] = new QuizQuestion.QuestionOption(opt_c, opt_c_type);
-                            options[3] = new QuizQuestion.QuestionOption(opt_d, opt_d_type);
-                            qnsModel.setOptions(options);
-                            qnsModel.setQuestionStatus(status);
-                            qnsModel.setQuestion(objQns.get("question").getAsString());
-                            qnsModel.setAnswer(objQns.get("answer").getAsString());
-                            qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
-                            qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
-                            qnsModel.setNormalViewRendering(mIsNormalViewRendering);
-                            JsonElement ques_image = objQns.get("ques_image");
-                            if (ques_image != null && !ques_image.isJsonNull())
-                                qnsModel.setQuestionImage(ques_image.getAsString());
-
-                            qnsModel.setSelectedOptionPos(optionAnsPos(objQns.get("answer").getAsString()));
-                            quizQuestions.add(qnsModel);
-
-                        }
+                        ArrayList<QuizQuestion> quizQuestions = passData(quArray);
                         quslist.addAll(quizQuestions);
                         quizQuestionAdapter.notifyDataSetChanged();
                         tv_qus_no.setText("Question:- " + (viewPager_teacher_qus.getCurrentItem() + 1) + "/" + quslist.size());
@@ -321,6 +280,70 @@ public class TeacherQuestionActivity extends BaseActivity {
                 t.printStackTrace();
             }
         });
+    }
+
+    private void parseQuestionAndAdd(ArrayList<QuizQuestion> quizQuestions, JsonElement element) {
+        JsonObject objQns = element.getAsJsonObject();
+        QuizQuestion qnsModel = new QuizQuestion();
+        qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
+        qnsModel.setPoint(0);
+        boolean specialType = objQns.get("text_type").getAsString().equalsIgnoreCase("special");
+        qnsModel.setSpecialType(specialType);
+        boolean expSpecialType = (objQns.get("text_type_explanation").isJsonNull() ? "" :
+                objQns.get("text_type_explanation").getAsString()).equalsIgnoreCase("special");
+        qnsModel.setExpSpecialType(expSpecialType);
+        QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
+
+        String opt_a = objQns.get("opt_a").isJsonNull() ? "" : objQns.get("opt_a").getAsString();
+        String opt_a_type = objQns.get("opt_a_type").isJsonNull() ? "" : objQns.get("opt_a_type").getAsString();
+
+        String opt_b = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_b").getAsString();
+        String opt_b_type = objQns.get("opt_b_type").isJsonNull() ? "" : objQns.get("opt_b_type").getAsString();
+
+        String opt_c = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_c").getAsString();
+        String opt_c_type = objQns.get("opt_c_type").isJsonNull() ? "" : objQns.get("opt_c_type").getAsString();
+
+        String opt_d = objQns.get("opt_d").isJsonNull() ? "" : objQns.get("opt_d").getAsString();
+        String opt_d_type = objQns.get("opt_d_type").isJsonNull() ? "" : objQns.get("opt_d_type").getAsString();
+
+        String status = objQns.get("status").isJsonNull() ? "accepted" : objQns.get("status").getAsString();
+        qnsModel.setQuestionStatus(status);
+        String question = objQns.get("question").getAsString();
+
+        String answer = objQns.get("answer").isJsonNull() ? "" : objQns.get("answer").getAsString();
+
+        if (specialType){
+            question=extractLatex(question);
+            opt_a=extractLatex(opt_a);
+            opt_b=extractLatex(opt_b);
+            opt_c=extractLatex(opt_c);
+            opt_d=extractLatex(opt_d);
+
+        }
+        String question_explaination = objQns.get("question_explaination").getAsString();
+        if (expSpecialType){
+            question_explaination=extractLatex(question_explaination);
+        }
+
+
+        options[0] = new QuizQuestion.QuestionOption(opt_a, opt_a_type);
+        options[1] = new QuizQuestion.QuestionOption(opt_b, opt_b_type);
+        options[2] = new QuizQuestion.QuestionOption(opt_c, opt_c_type);
+        options[3] = new QuizQuestion.QuestionOption(opt_d, opt_d_type);
+        qnsModel.setQuestion(question);
+        qnsModel.setAnswer(answer);
+        qnsModel.setOptions(options);
+
+        qnsModel.setQuestionExplaination(question_explaination);
+        String question_explanation_image = objQns.get("question_explanation_image").isJsonNull() ? "" : objQns.get("question_explanation_image").getAsString();
+        qnsModel.setQuestionExplanationImage(question_explanation_image);
+        qnsModel.setNormalViewRendering(mIsNormalViewRendering);
+        JsonElement ques_image = objQns.get("ques_image");
+        if (ques_image != null && !ques_image.isJsonNull())
+            qnsModel.setQuestionImage(ques_image.getAsString());
+
+        qnsModel.setSelectedOptionPos(optionAnsPos(answer));
+        quizQuestions.add(qnsModel);
     }
 
     private void fetchQuestionVia(int questionId) {
@@ -338,49 +361,7 @@ public class TeacherQuestionActivity extends BaseActivity {
                     JsonArray quArray = jsonObject.getAsJsonArray("data");
                     if (jsonObject != null) {
 
-                        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
-                        for (JsonElement element : quArray) {
-                            JsonObject objQns = element.getAsJsonObject();
-                            QuizQuestion qnsModel = new QuizQuestion();
-                            qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
-                            qnsModel.setPoint(0);
-                            qnsModel.setSpecialType(objQns.get("text_type").getAsString().equalsIgnoreCase("special"));
-                            qnsModel.setExpSpecialType(objQns.get("text_type_explanation").getAsString().equalsIgnoreCase("special"));
-                            QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
-
-                            String opt_a = objQns.get("opt_a").isJsonNull() ? "" : objQns.get("opt_a").getAsString();
-                            String opt_a_type = objQns.get("opt_a_type").isJsonNull() ? "" : objQns.get("opt_a_type").getAsString();
-
-                            String opt_b = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_b").getAsString();
-                            String opt_b_type = objQns.get("opt_b_type").isJsonNull() ? "" : objQns.get("opt_b_type").getAsString();
-
-                            String opt_c = objQns.get("opt_b").isJsonNull() ? "" : objQns.get("opt_c").getAsString();
-                            String opt_c_type = objQns.get("opt_c_type").isJsonNull() ? "" : objQns.get("opt_c_type").getAsString();
-
-                            String opt_d = objQns.get("opt_d").isJsonNull() ? "" : objQns.get("opt_d").getAsString();
-                            String opt_d_type = objQns.get("opt_d_type").isJsonNull() ? "" : objQns.get("opt_d_type").getAsString();
-
-                            String status = objQns.get("status").isJsonNull() ? "accepted" : objQns.get("status").getAsString();
-
-                            options[0] = new QuizQuestion.QuestionOption(opt_a, opt_a_type);
-                            options[1] = new QuizQuestion.QuestionOption(opt_b, opt_b_type);
-                            options[2] = new QuizQuestion.QuestionOption(opt_c, opt_c_type);
-                            options[3] = new QuizQuestion.QuestionOption(opt_d, opt_d_type);
-                            qnsModel.setOptions(options);
-                            qnsModel.setQuestionStatus(status);
-                            qnsModel.setQuestion(objQns.get("question").getAsString());
-                            qnsModel.setAnswer(objQns.get("answer").getAsString());
-                            qnsModel.setQuestionExplaination(objQns.get("question_explaination").getAsString());
-                            qnsModel.setQuestionExplanationImage(objQns.get("question_explanation_image").getAsString());
-                            qnsModel.setNormalViewRendering(mIsNormalViewRendering);
-                            JsonElement ques_image = objQns.get("ques_image");
-                            if (ques_image != null && !ques_image.isJsonNull())
-                                qnsModel.setQuestionImage(ques_image.getAsString());
-
-                            qnsModel.setSelectedOptionPos(optionAnsPos(objQns.get("answer").getAsString()));
-                            quizQuestions.add(qnsModel);
-
-                        }
+                        ArrayList<QuizQuestion> quizQuestions = passData(quArray);
                         quslist.addAll(quizQuestions);
                         quizQuestionAdapter.notifyDataSetChanged();
                         tv_qus_no.setText("Question:- " + (viewPager_teacher_qus.getCurrentItem() + 1) + "/" + quslist.size());
@@ -405,9 +386,37 @@ public class TeacherQuestionActivity extends BaseActivity {
 
     }
 
-    public ArrayList<QuizQuestion> quizQuestions() {
+    private ArrayList<QuizQuestion> passData(JsonArray quArray) {
+        ArrayList<QuizQuestion> quizQuestions = new ArrayList<>();
+        for (JsonElement element : quArray) {
+            parseQuestionAndAdd(quizQuestions, element);
+        }
+        return quizQuestions;
+    }
 
+    public ArrayList<QuizQuestion> quizQuestions() {
         return quslist;
+    }
+
+    private String extractLatex(String s) {
+        if (!TextUtils.isEmpty(s)) {
+            String[] ss = s.split(specialSplitChar);
+            Log.i("d", "extractLatex: "+ss.length);
+            if (ss.length > 1) {
+                String question = ss[0];
+                question = question.replace("mathrm{__}", "mathrm{}");
+                question = question.replace("mathrm{___}", "mathrm{}");
+                question = question.replace("mathrm{____}", "mathrm{}");
+                question = question.replace("mathrm{_____}", "mathrm{}");
+                question = question.replace("mathrm{______}", "mathrm{}");
+                question = question.replace("mathrm{_______}", "mathrm{}");
+                question = question.replace("mathrm{________}", "mathrm{}");
+                question = question.replace("mathrm{_________}", "mathrm{}");
+                question = question.replace("mathrm{__________}", "mathrm{}");
+                return "$$"+question+"$$";
+            }
+        }
+        return s;
     }
 
 
