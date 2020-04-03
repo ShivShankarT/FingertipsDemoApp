@@ -107,7 +107,6 @@ public class LaTexTextView extends AppCompatTextView {
                     return null;
                 }
                 SpannableString spannableString = new SpannableString(Html.fromHtml(text));
-                Log.i("jjj", "then: "+text);
                 for (int i = 0; i < laTeXInfos.size(); i++) {
                     LaTeXInfo laTeXInfo = laTeXInfos.get(i);
                     Bitmap image = BitmapCacheUtil.getInstance().getBitmapFromMemCache(laTeXInfo.getGroup() + getPaint().getTextSize() / getPaint().density);

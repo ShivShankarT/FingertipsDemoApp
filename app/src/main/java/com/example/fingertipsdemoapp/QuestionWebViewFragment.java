@@ -1,24 +1,30 @@
 package com.example.fingertipsdemoapp;
 
-import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.webkit.ValueCallback;
+import android.webkit.JavascriptInterface;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
-import androidx.core.widget.NestedScrollView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.fingertipsdemoapp.custom.LaTexTextView;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.Charset;
+import java.nio.charset.StandardCharsets;
 import static com.example.fingertipsdemoapp.MyApp.formateEscapeChar;
 
 
@@ -41,7 +47,6 @@ public class QuestionWebViewFragment extends Fragment {
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +60,7 @@ public class QuestionWebViewFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_question_webview, container, false);
 
         WebView webView = view.findViewById(R.id.webview);
-                setui(webView);
+        setui(webView);
         return view;
     }
 
@@ -66,156 +71,56 @@ public class QuestionWebViewFragment extends Fragment {
         Log.e("Test question", "Questions 1: " + question);
         webView.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
+        webView.loadUrl("file:///android_asset/question.html");
+        byte[] data = new byte[0];
+        try {
+            Charset utf8 = StandardCharsets.UTF_8;
+            data = get().getBytes(utf8);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        String base64 = Base64.encodeToString(data, Base64.DEFAULT);
         webView.setWebViewClient(new WebViewClient() {
             public void onPageFinished(WebView view, String url) {
-                super.onPageFinished(view, url);
-                String questionImageUrl;
-                if (quizQuestion.getQuestionImage().equals("")) {
-                    questionImageUrl = "document.getElementById('question_pic').remove();";
-                } else {
-                    questionImageUrl = "document.getElementById('question_pic').src = '" + quizQuestion.getQuestionImage() + "';";
-                }
+                webView.loadUrl("javascript:displayQuestions('" + base64 + "')");
+            }});
+        webView.addJavascriptInterface(this,"jsObject");
 
-                QuizQuestion.QuestionOption[] options = quizQuestion.getOptions();
+    }
 
-                String ansUrlA;
-                if (options[0].getOptionType().equals("TEXT")) {
-                    ansUrlA = "document.getElementById('ans_a_pic').remove();";
-                } else {
-                    ansUrlA = "document.getElementById('ans_a_pic').src = '" + options[0].getOptionForwebview() + "';";
-                }
-
-                String ansUrlB;
-                if (options[1].getOptionType().equals("TEXT")) {
-                    ansUrlB = "document.getElementById('ans_b_pic').remove();";
-                } else {
-                    ansUrlB = "document.getElementById('ans_b_pic').src = '" + options[1].getOptionForwebview() + "';";
-                }
+    @JavascriptInterface
+    public  void onQuestionLoad(){
+        getView().post(() -> Toast.makeText(requireContext(), "done", Toast.LENGTH_SHORT).show());
 
 
-                String ansUrlC;
-                if (options[2].getOptionType().equals("TEXT")) {
-                    ansUrlC = "document.getElementById('ans_c_pic').remove();";
-                } else {
-                    ansUrlC = "document.getElementById('ans_c_pic').src = '" + options[2].getOptionForwebview() + "';";
-                }
+    } @JavascriptInterface
+    public  void mathjax_done(){
+       // Toast.makeText(requireContext(), "dssone", Toast.LENGTH_SHORT).show();
 
+    }
 
-                String ansUrlD;
-                if (options[3].getOptionType().equals("TEXT")) {
-                    ansUrlD = "document.getElementById('ans_d_pic').remove();";
-                } else {
-                    ansUrlD = "document.getElementById('ans_d_pic').src = '" + options[3].getOptionForwebview() + "';";
-                }
+    @JavascriptInterface
+    public  void onQuestionError(){
+        //Toast.makeText(requireContext(), "dssone", Toast.LENGTH_SHORT).show();
+    }
 
+   private String get() throws JSONException {
+        JSONObject jsonObject=new JSONObject();
+        jsonObject.put("question",quizQuestion.getQuestion());
+        jsonObject.put("question_image",quizQuestion.getQuestionImage());
+        jsonObject.put("questionExp",quizQuestion.getQuestionExplaination());
+        jsonObject.put("questionExpImage",quizQuestion.getQuestionExplanationImage());
+        JSONArray optionArray=new JSONArray();
 
-                String imgUrlans_questionExplanation;
-                if (quizQuestion.getQuestionExplanationImage() == null || quizQuestion.getQuestionExplanationImage().equals("")) {
-                    imgUrlans_questionExplanation = "document.getElementById('ans_explanation_pic').remove();";
-                } else {
-                    imgUrlans_questionExplanation = "document.getElementById('ans_explanation_pic').src = '" + quizQuestion.getQuestionExplanationImage() + "';";
-                }
+        for (QuizQuestion.QuestionOption questionOption: quizQuestion.getOptions()) {
+            JSONObject option = new JSONObject();
+            option.put("option",questionOption.getOption());
+            option.put("optionType",questionOption.getOptionType());
+            optionArray.put(option);
+        }
+       jsonObject.put("options",optionArray);
 
-                String optionA = "";
-                String red = "#00FF00";
-                String value = "document.getElementById('answerA').style.borderColor = '" + red + "';";
-
-                String whitebackColor = "#FFFFFF";
-                String valueABagColor = "document.getElementById('answerA').style.backgroundColor = '" + whitebackColor + "';";
-                String innerCA = "document.getElementById('innerCircleA').style.backgroundColor = '" + whitebackColor + "';";
-
-                if (quizQuestion.getAnswer().equals("A")) {
-                    if (options[0].getOptionType().equals("TEXT")) {
-                        optionA = "document.getElementById('opt_a').innerHTML = '" + options[0].getOptionForwebview() + "';";
-                        // value="document.getElementById('answerC').style.borderColor = #FF0000'"+"';";
-                        optionA = optionA + value + valueABagColor + innerCA;
-                    }
-                } else {
-
-                    if (options[0].getOptionType().equals("TEXT")) {
-                        optionA = "document.getElementById('opt_a').innerHTML = '" + options[0].getOptionForwebview() + "';";
-                    }
-                }
-
-                String optionB = "";
-                String innerCB = "document.getElementById('innerCircleB').style.backgroundColor = '" + whitebackColor + "';";
-                String valueBBagColor = "document.getElementById('answerB').style.backgroundColor = '" + whitebackColor + "';";
-                String valueB = "document.getElementById('answerB').style.borderColor = '" + red + "';";
-                if (quizQuestion.getAnswer().equals("B")) {
-                    if (options[0].getOptionType().equals("TEXT")) {
-                        optionB = "document.getElementById('opt_b').innerHTML = '" + options[1].getOptionForwebview() + "';";
-                        optionB = optionB + valueB + valueBBagColor + innerCB;
-                    }
-                } else {
-                    if (options[0].getOptionType().equals("TEXT")) {
-                        optionB = "document.getElementById('opt_b').innerHTML = '" + options[1].getOptionForwebview() + "';";
-                    }
-                }
-
-                String optionC = "";
-                String innerCC = "document.getElementById('innerCircleC').style.backgroundColor = '" + whitebackColor + "';";
-
-                String valueC = "document.getElementById('answerC').style.borderColor = '" + red + "';";
-                String valueCBagColor = "document.getElementById('answerC').style.backgroundColor = '" + whitebackColor + "';";
-
-                if (quizQuestion.getAnswer().equals("C")) {
-                    if (options[2].getOptionType().equals("TEXT")) {
-                        optionC = "document.getElementById('opt_c').innerHTML = '" + options[2].getOptionForwebview() + "';";
-                        optionC = optionC + valueC + valueCBagColor + innerCC;
-                    }
-                } else {
-                    if (options[2].getOptionType().equals("TEXT")) {
-                        optionC = "document.getElementById('opt_c').innerHTML = '" + options[2].getOptionForwebview() + "';";
-                    }
-                }
-
-                String optionD = "";
-                String innerCD = "document.getElementById('innerCircleD').style.backgroundColor = '" + whitebackColor + "';";
-
-                String valueD = "document.getElementById('answerD').style.borderColor = '" + red + "';";
-                String valueDBagColor = "document.getElementById('answerD').style.backgroundColor = '" + whitebackColor + "';";
-                if (quizQuestion.getAnswer().equals("D")) {
-                    if (options[3].getOptionType().equals("TEXT")) {
-                        optionD = "document.getElementById('opt_d').innerHTML = '" + options[3].getOptionForwebview() + "';";
-                        optionD = optionD + valueD + valueDBagColor + innerCD;
-                    }
-                } else {
-                    if (options[3].getOptionType().equals("TEXT")) {
-                        optionD = "document.getElementById('opt_d').innerHTML = '" + options[3].getOptionForwebview() + "';";
-                    }
-                }
-
-
-                String questionExplaination = formateEscapeChar(quizQuestion.getQuestionExplaination());
-                String js = "javascript:" +
-                        "document.getElementById('ques').innerHTML = '" + question + "';" +
-                        questionImageUrl +
-                        optionA +
-                        ansUrlA +
-                        optionB +
-                        ansUrlB +
-                        optionC +
-                        ansUrlC +
-                        optionD +
-                        ansUrlD +
-                        "document.getElementById('explanationQuestion').innerHTML = '" + questionExplaination + "';"
-                        + imgUrlans_questionExplanation;
-                webView.loadUrl("javascript:resetMM()");
-                if (Build.VERSION.SDK_INT >= 19) {
-                    view.evaluateJavascript(js, new ValueCallback<String>() {
-                        @Override
-                        public void onReceiveValue(String s) {
-
-                        }
-                    });
-                } else {
-                    view.loadUrl(js);
-                }
-            }
-        });
-        webView.setEnabled(true);
-        webView.loadUrl("file:///android_asset/webview.html");
-        // webView.loadUrl("javascript:dummyMethod()");
+        return jsonObject.toString();
     }
 
 

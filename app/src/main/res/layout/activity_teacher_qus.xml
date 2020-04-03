@@ -84,12 +84,10 @@
                     style="@style/NunitoSemiBold"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toRightOf="@+id/tv_total_point"
-                    android:letterSpacing="0.04"
                     android:lineSpacingExtra="-1sp"
                     android:textColor="@color/white"
-                    android:textSize="15sp"
-                    tools:text=" 245" />
+                    android:textSize="12sp"
+                    tools:text="245" />
 
             </LinearLayout>
         </LinearLayout>
