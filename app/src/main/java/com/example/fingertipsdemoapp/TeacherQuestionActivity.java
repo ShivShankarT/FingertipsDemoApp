@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
@@ -12,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.SwitchCompat;
+import androidx.recyclerview.widget.RecyclerView;
 import androidx.viewpager2.widget.MarginPageTransformer;
 import androidx.viewpager2.widget.ViewPager2;
 
@@ -22,6 +24,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -83,6 +86,20 @@ public class TeacherQuestionActivity extends BaseActivity {
                 intent.putExtra("CHAPTER",mSelectChapter);*/
     }
 
+    private void reduceDragSensitivity(ViewPager2 viewPager2) {
+        try {
+            Field ff = ViewPager2.class.getDeclaredField("mRecyclerView") ;
+            ff.setAccessible(true);
+            RecyclerView recyclerView =  (RecyclerView) ff.get(viewPager2);
+            Field touchSlopField = RecyclerView.class.getDeclaredField("mTouchSlop") ;
+            touchSlopField.setAccessible(true);
+            int touchSlop = (int) touchSlopField.get(recyclerView);
+            Log.i("s", "reduceDragSensitivity: "+touchSlop);
+            touchSlopField.set(recyclerView,touchSlop*2);
+        } catch (NoSuchFieldException | IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
     @Override
     public void initialize() {
         viewPager_teacher_qus = findViewById(R.id.viewPager_teacher_qus);
@@ -106,6 +123,7 @@ public class TeacherQuestionActivity extends BaseActivity {
         quizQuestionAdapter = new QuizQuestionAdapter(this, quslist);
         viewPager_teacher_qus.setOffscreenPageLimit(4);
         viewPager_teacher_qus.setAdapter(quizQuestionAdapter);
+        reduceDragSensitivity(viewPager_teacher_qus);
         int question_id = getIntent().getIntExtra("question_id", 0);
         if (question_id == 0)
             fetchQuestion(1);
@@ -171,6 +189,10 @@ public class TeacherQuestionActivity extends BaseActivity {
                         rejectButton.setVisibility(View.INVISIBLE);
                         acceptButton.setVisibility(View.INVISIBLE);
                     }
+                    if (quizQuestion.isOldQuiestion())
+                        tv_earn_points.append(" - Old Que");
+                    else
+                        tv_earn_points.append(" - New Que");
 
                     String id = String.valueOf(quslist.get(pos).getId());
                     tv_total_points.setText(id);
@@ -287,9 +309,10 @@ public class TeacherQuestionActivity extends BaseActivity {
         QuizQuestion qnsModel = new QuizQuestion();
         qnsModel.setId(Integer.parseInt(objQns.get("id").getAsString()));
         qnsModel.setPoint(0);
-        boolean specialType = objQns.get("text_type").getAsString().equalsIgnoreCase("special");
+        String text_type = objQns.get("text_type").getAsString();
+        boolean specialType = text_type.equalsIgnoreCase("special");
         qnsModel.setSpecialType(specialType);
-        boolean expSpecialType = (objQns.get("text_type_explanation").isJsonNull() ? "" :
+        boolean expSpecialType = (objQns.get("text_type_explanation").isJsonNull() ? text_type :
                 objQns.get("text_type_explanation").getAsString()).equalsIgnoreCase("special");
         qnsModel.setExpSpecialType(expSpecialType);
         QuizQuestion.QuestionOption[] options = new QuizQuestion.QuestionOption[4];
@@ -310,19 +333,29 @@ public class TeacherQuestionActivity extends BaseActivity {
         qnsModel.setQuestionStatus(status);
         String question = objQns.get("question").getAsString();
 
-        String answer = objQns.get("answer").isJsonNull() ? "" : objQns.get("answer").getAsString();
+        if(!specialType){
+            if (question.contains("$$")){
+                specialType=true;
+                qnsModel.setSpecialType(specialType);
+            }
+        }
 
-        if (specialType){
-            question=extractLatex(question);
-            opt_a=extractLatex(opt_a);
-            opt_b=extractLatex(opt_b);
-            opt_c=extractLatex(opt_c);
-            opt_d=extractLatex(opt_d);
+        String answer = objQns.get("answer").isJsonNull() ? "" : objQns.get("answer").getAsString();
+        JsonElement sourcejsonElement = objQns.get("source");
+        String source = sourcejsonElement == null || sourcejsonElement.isJsonNull() ? "" : sourcejsonElement.getAsString();
+        boolean isOldQusType = !source.equalsIgnoreCase("External");
+        qnsModel.setOldQuiestion(isOldQusType);
+        if (specialType||isOldQusType) {
+            question = extractLatex(question);
+            opt_a = extractLatex(opt_a);
+            opt_b = extractLatex(opt_b);
+            opt_c = extractLatex(opt_c);
+            opt_d = extractLatex(opt_d);
 
         }
         String question_explaination = objQns.get("question_explaination").getAsString();
-        if (expSpecialType){
-            question_explaination=extractLatex(question_explaination);
+        if (expSpecialType||isOldQusType) {
+            question_explaination = extractLatex(question_explaination);
         }
 
 
@@ -341,8 +374,6 @@ public class TeacherQuestionActivity extends BaseActivity {
         JsonElement ques_image = objQns.get("ques_image");
         if (ques_image != null && !ques_image.isJsonNull())
             qnsModel.setQuestionImage(ques_image.getAsString());
-
-        qnsModel.setSelectedOptionPos(optionAnsPos(answer));
         quizQuestions.add(qnsModel);
     }
 
@@ -379,6 +410,11 @@ public class TeacherQuestionActivity extends BaseActivity {
             @Override
             public void onFailure(Call<JsonObject> call, Throwable t) {
                 t.printStackTrace();
+                if (t instanceof JsonSyntaxException) {
+                    Toast.makeText(TeacherQuestionActivity.this, "Error", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(TeacherQuestionActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -401,7 +437,7 @@ public class TeacherQuestionActivity extends BaseActivity {
     private String extractLatex(String s) {
         if (!TextUtils.isEmpty(s)) {
             String[] ss = s.split(specialSplitChar);
-            Log.i("d", "extractLatex: "+ss.length);
+            Log.i("d", "extractLatex: " + ss.length);
             if (ss.length > 1) {
                 String question = ss[0];
                 question = question.replace("mathrm{__}", "mathrm{}");
@@ -413,7 +449,10 @@ public class TeacherQuestionActivity extends BaseActivity {
                 question = question.replace("mathrm{________}", "mathrm{}");
                 question = question.replace("mathrm{_________}", "mathrm{}");
                 question = question.replace("mathrm{__________}", "mathrm{}");
-                return "$$"+question+"$$";
+                if (!TextUtils.isEmpty(question))
+                    return "$$" + question + "$$";
+                else
+                    return "";
             }
         }
         return s;

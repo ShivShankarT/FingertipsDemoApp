@@ -10,16 +10,26 @@
         android:layout_marginRight="16dp"
         android:background="@drawable/shape_top_radius_blue_white_solid">
 
-        <WebView
-            android:id="@+id/webview"
+        <androidx.core.widget.NestedScrollView
+            android:fillViewport="true"
+            android:focusable="true"
+            android:isScrollContainer="false"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp" />
+            android:layout_height="match_parent">
+
+            <com.example.fingertipsdemoapp.custom.NestedScrollWebView
+                android:id="@+id/webview"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp" />
+
+        </androidx.core.widget.NestedScrollView>
+
         <ProgressBar
             android:id="@+id/progressBar"
-            android:layout_gravity="center"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:layout_gravity="center" />
     </FrameLayout>
 
 

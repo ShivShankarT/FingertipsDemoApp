@@ -197,14 +197,10 @@ public class LaTexTextView extends AppCompatTextView {
         icon.setInsets(new Insets(5, 5, 5, 5));
         int iconWidth = icon.getIconWidth();
         int iconHeight = icon.getIconHeight();
-        Log.i("ggg", "getBitmap: "+ iconWidth +"===="+ iconHeight);
-
         if (iconHeight>3000)
             iconHeight=3000;
-
         if (iconWidth>3000)
             iconWidth=3000;
-
         Bitmap image = Bitmap.createBitmap(iconWidth, iconHeight,
                 Bitmap.Config.ARGB_8888);
         Canvas g2 = new Canvas(image);

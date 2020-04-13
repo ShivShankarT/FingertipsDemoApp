@@ -16,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.fingertipsdemoapp.custom.LaTexTextView;
 
@@ -24,6 +25,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import static com.example.fingertipsdemoapp.MyApp.formateEscapeChar;
@@ -31,11 +33,6 @@ import static com.example.fingertipsdemoapp.MyApp.formateEscapeChar;
 
 public class QuestionWebViewFragment extends Fragment {
     private QuizQuestion quizQuestion;
-    private RecyclerView rv_question;
-    private AnimationRecyclerAdapter<QuizQuestion.QuestionOption> recyclerAdapter;
-    private int questionPosition;
-    private LaTexTextView tv_qus_text;
-    private ImageView img_question;
     ProgressBar progressBar;
 
 
@@ -52,7 +49,6 @@ public class QuestionWebViewFragment extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        questionPosition = getArguments().getInt("position", 0);
         quizQuestion = getArguments().getParcelable("quizQuestion");
     }
 
@@ -67,10 +63,8 @@ public class QuestionWebViewFragment extends Fragment {
     }
 
 
-    void setui(WebView webView) {
-        final String question = formateEscapeChar(quizQuestion.getQuestion());
-        //final String question = StringEscapeUtils.unescapeJava(question1);
-        Log.e("Test question", "Questions 1: " + question);
+
+    private void setui(WebView webView) {
         webView.getSettings().setJavaScriptEnabled(true);
         WebView.setWebContentsDebuggingEnabled(true);
         webView.loadUrl("file:///android_asset/question.html");
@@ -88,6 +82,11 @@ public class QuestionWebViewFragment extends Fragment {
             }});
         webView.addJavascriptInterface(this,"jsObject");
 
+    }
+    @JavascriptInterface
+    public void  onOptionClicked(String option){
+        Toast.makeText(requireContext(), ""+option, Toast.LENGTH_SHORT).show();
+        quizQuestion.setSelectedOption(option);
     }
 
     @JavascriptInterface
@@ -119,6 +118,7 @@ public class QuestionWebViewFragment extends Fragment {
         jsonObject.put("question_image",quizQuestion.getQuestionImage());
         jsonObject.put("questionExp",quizQuestion.getQuestionExplaination());
         jsonObject.put("questionExpImage",quizQuestion.getQuestionExplanationImage());
+       jsonObject.put("selectedOption",quizQuestion.getSelectedOption());
 
         JSONArray optionArray=new JSONArray();
 

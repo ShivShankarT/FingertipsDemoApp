@@ -15,10 +15,11 @@ public class QuizQuestion implements Parcelable {
     private boolean isExpSpecialType;
     private String answer;
     private QuestionOption[] options;
-    private int selectedOptionPos = -1;
+    private String selectedOption = null;
     private String questionExplaination;
     private String questionExplanationImage;
     private  boolean isNormalViewRendering;
+    private boolean oldQuiestion;
 
 
     public QuizQuestion() {
@@ -37,10 +38,11 @@ public class QuizQuestion implements Parcelable {
         isExpSpecialType = in.readByte() != 0;
         answer = in.readString();
         options = in.createTypedArray(QuestionOption.CREATOR);
-        selectedOptionPos = in.readInt();
+        selectedOption = in.readString();
         questionExplaination = in.readString();
         questionExplanationImage = in.readString();
         isNormalViewRendering = in.readByte() != 0;
+        oldQuiestion = in.readByte() != 0;
     }
 
     @Override
@@ -55,10 +57,11 @@ public class QuizQuestion implements Parcelable {
         dest.writeByte((byte) (isExpSpecialType ? 1 : 0));
         dest.writeString(answer);
         dest.writeTypedArray(options, flags);
-        dest.writeInt(selectedOptionPos);
+        dest.writeString(selectedOption);
         dest.writeString(questionExplaination);
         dest.writeString(questionExplanationImage);
         dest.writeByte((byte) (isNormalViewRendering ? 1 : 0));
+        dest.writeByte((byte) (oldQuiestion ? 1 : 0));
     }
 
     @Override
@@ -151,33 +154,6 @@ public class QuizQuestion implements Parcelable {
         this.options = options;
     }
 
-    public int getSelectedOptionPos() {
-        return selectedOptionPos;
-    }
-
-    public void setSelectedOptionPos(int selectedOptionPos) {
-        this.selectedOptionPos = selectedOptionPos;
-    }
-
-    public String optionPositionToString() {
-        int pos = selectedOptionPos;
-        if (pos == 0) {
-            return "A";
-
-        } else if (pos == 1) {
-            return "B";
-
-        } else if (pos == 2) {
-            return "C";
-        } else if (pos == 3) {
-            return "D";
-        } else if (pos == 4) {
-            return "E";
-        }
-
-        return null;
-    }
-
 
     public int getPoint() {
         return point;
@@ -209,6 +185,26 @@ public class QuizQuestion implements Parcelable {
 
     public void setNormalViewRendering(boolean normalViewRendering) {
         isNormalViewRendering = normalViewRendering;
+    }
+
+    public String getSelectedOption() {
+        return selectedOption;
+    }
+
+    public void setSelectedOption(String selectedOption) {
+        this.selectedOption = selectedOption;
+    }
+
+    public void setOldQuiestion(boolean oldQuiestion) {
+        this.oldQuiestion = oldQuiestion;
+    }
+
+    public boolean isOldQuiestion() {
+        return oldQuiestion;
+    }
+
+    public boolean getOldQuiestion() {
+        return oldQuiestion;
     }
 
     public static class QuestionOption implements Parcelable {

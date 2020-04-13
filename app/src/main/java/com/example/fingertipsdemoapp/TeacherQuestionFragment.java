@@ -182,7 +182,7 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
         tv_option_no.setText(optionPositionToString(position));
         QuizQuestion.QuestionOption questionOption = options.get(position);
         String option = questionOption.getOption();
-        if (position == quizQuestion.getSelectedOptionPos()) {
+        if (position == TeacherQuestionActivity.optionAnsPos(quizQuestion.getAnswer())) {
             rlMain.setBackground(getResources().getDrawable(R.drawable.rounded_tealish_border_5dp));
             tv_option.setTextColor(getResources().getColor(R.color.nunito_bold));
             tv_option_no.setTextColor(getResources().getColor(R.color.nunito_extra_bold));

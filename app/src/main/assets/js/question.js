@@ -16,9 +16,58 @@ ready(function () {
     configureMathjax();
     if (!('jsObject' in window))
         displayMockQuestions();
-    console.log(":ssssss")
+    console.log(":done")
 });
 
+
+function getOptionContainerId(option) {
+    var optionContId;
+    switch (option) {
+        case 'A':
+            optionContId = "container_option_a";
+            break;
+        case 'B':
+            optionContId = "container_option_b";
+            break;
+        case 'C':
+            optionContId = "container_option_c";
+            break;
+        case 'D':
+            optionContId = "container_option_d";
+            break;
+
+    }
+    return optionContId;
+}
+
+var  selectedOption=null;
+
+function optionClicked(option) {
+    console.log(":done" + option +" "+selectedOption);
+
+
+
+    if (selectedOption!==null){
+        let optionContId = getOptionContainerId(selectedOption);
+        let optionElement = document.getElementById(optionContId);
+        if (optionElement.classList.contains("selected"))
+            optionElement.classList.remove("selected");
+
+    }
+
+    var optionContId = getOptionContainerId(option);
+    let optionElement = document.getElementById(optionContId);
+    if (optionElement.classList.contains("selected"))
+        optionElement.classList.remove("selected");
+    else
+       optionElement.classList.add("selected");
+
+    selectedOption=option;
+
+    if ('jsObject' in window)
+        jsObject.onOptionClicked(selectedOption);
+
+}
 
 function configureMathjax() {
     MathJax.Hub.Config({
@@ -59,7 +108,7 @@ function displayMockQuestions() {
         question_image: "https://via.placeholder.com/150",
         questionExp: "sss",
         questionExpImage: "https://via.placeholder.com/150",
-        selectedOptions: "",
+        selectedOption: "A",
         answer: "D",
         options: [
             {
@@ -68,8 +117,8 @@ function displayMockQuestions() {
             }
             ,
             {
-                option: "BBB",
-                optionType: "TEXT"//TEXT or IMAGE
+                option: "https://via.placeholder.com/550x100",
+                optionType: "IMAGE"//TEXT or IMAGE
             },
 
             {
@@ -106,11 +155,10 @@ function displayQuestions(questionsJSONEncoded) {
         for (let i = 0; i < question.options.length; i++) {
             var opt = question.options[i].option;
             var optionType = question.options[i].optionType;
-            let optionElementId = 'opt_a';
+            let optionElementId = '';
             let optionContId = '';
-            let optionImgElementId = 'opt_a_image';
+            let optionImgElementId = '';
             let optionLabel = '';
-
 
             switch (i) {
                 case 0:
@@ -141,7 +189,15 @@ function displayQuestions(questionsJSONEncoded) {
             }
 
 
-            if (optionLabel===question.answer){
+            if (optionLabel === question.selectedOption) {
+                let optionElement = document.getElementById(optionContId);
+                optionElement.classList.add("selected");
+
+            }
+
+
+
+            if (optionLabel === question.answer) {
                 let optionElement = document.getElementById(optionContId);
                 optionElement.classList.add("correct");
 
@@ -167,6 +223,15 @@ function displayQuestions(questionsJSONEncoded) {
 
         } else {
             document.getElementById('explanation_question_img').remove();
+        }
+
+        if (question.questionExp !== undefined && question.questionExp !== "") {
+
+        } else {
+            if (question.questionExpImage !== undefined && question.questionExpImage !== "") {
+            } else {
+                document.getElementById('explanation_ly').remove();
+            }
         }
 
 

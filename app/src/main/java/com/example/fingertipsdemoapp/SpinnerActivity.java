@@ -240,11 +240,13 @@ public class SpinnerActivity extends AppCompatActivity {
         call.enqueue(new Callback<ListOfChapterModel>() {
             @Override
             public void onResponse(Call<ListOfChapterModel> call, Response<ListOfChapterModel> response) {
-                List<ChapterModel> subjectModels = response.body().chapterModelList;
-                SpinnerActivity.this.chapterModels.clear();
-                SpinnerActivity.this.chapterModels.addAll(subjectModels);
-                chapterArrayAdopter.notifyDataSetChanged();
-                spinnerChapter.setSelection(0);
+                if (response.isSuccessful()&&response.body()!=null) {
+                    List<ChapterModel> subjectModels = response.body().chapterModelList;
+                    SpinnerActivity.this.chapterModels.clear();
+                    SpinnerActivity.this.chapterModels.addAll(subjectModels);
+                    chapterArrayAdopter.notifyDataSetChanged();
+                    spinnerChapter.setSelection(0);
+                }
             }
 
             @Override
@@ -258,11 +260,13 @@ public class SpinnerActivity extends AppCompatActivity {
         call.enqueue(new Callback<ListOfSubjectModel>() {
             @Override
             public void onResponse(Call<ListOfSubjectModel> call, Response<ListOfSubjectModel> response) {
-                List<SubjectModel> subjectModels = response.body().getSubjectModelList();
-                SpinnerActivity.this.subjectModels.clear();
-                SpinnerActivity.this.subjectModels.addAll(subjectModels);
-                subjectArrayAdopter.notifyDataSetChanged();
-                spinnerSubject.setSelection(0);
+                if (response.isSuccessful()&&response.body()!=null) {
+                    List<SubjectModel> subjectModels = response.body().getSubjectModelList();
+                    SpinnerActivity.this.subjectModels.clear();
+                    SpinnerActivity.this.subjectModels.addAll(subjectModels);
+                    subjectArrayAdopter.notifyDataSetChanged();
+                    spinnerSubject.setSelection(0);
+                }
             }
 
             @Override
@@ -293,10 +297,11 @@ public class SpinnerActivity extends AppCompatActivity {
         call.enqueue(new Callback<ListOfClassModel>() {
             @Override
             public void onResponse(Call<ListOfClassModel> call, Response<ListOfClassModel> response) {
-
-                List<ClassModel> classModels = response.body().getClassModelList();
-                SpinnerActivity.this.classModels.addAll(classModels);
-                classArrayOdopter.notifyDataSetChanged();
+                if (response.isSuccessful()&&response.body()!=null) {
+                    List<ClassModel> classModels = response.body().getClassModelList();
+                    SpinnerActivity.this.classModels.addAll(classModels);
+                    classArrayOdopter.notifyDataSetChanged();
+                }
             }
 
             @Override

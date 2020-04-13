@@ -11,10 +11,10 @@
         <div class="card">
             <div class="question" id="question"></div>
 
-            <img height="150" id="question_image"
-                 src="" vspace="20" width="270">
+            <img class="column" id="question_image"
+                 src="" vspace="20" >
             <br>
-            <div class="optionBox" id="container_option_a">
+            <div class="optionBox" id="container_option_a"  onClick="optionClicked('A')">
                 <div class="outerCircle vertical-center">
                     <div class="innerCircle" id="innerCircleA">
                         A
@@ -22,10 +22,10 @@
                 </div>
                 <div class="optionA" id="opt_a">
                 </div>
-                <img height="150" id="opt_a_image"
-                     src="" vspace="5" width="270">
+                <img  class="optionA"  id="opt_a_image"
+                     src="" vspace="5">
             </div>
-            <div class="optionBox" id="container_option_b">
+            <div class="optionBox" id="container_option_b"  onClick="optionClicked('B')">
                 <div class="outerCircle">
                     <div class="innerCircle" id="innerCircleB">
                         B
@@ -33,39 +33,38 @@
                 </div>
                 <div class="optionA" id="opt_b">
                 </div>
-                <img class="center" height="150"
-                     id="opt_b_image" src="" vspace="5" width="270">
+                <img class="optionA"
+                     id="opt_b_image" src="" vspace="5" >
             </div>
-            <div class="optionBox" id="container_option_c">
+            <div class="optionBox" id="container_option_c"  onClick="optionClicked('C')">
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleC" >
+                    <div class="innerCircle" id="innerCircleC">
                         C
                     </div>
                 </div>
                 <div class="optionA" id="opt_c"></div>
-                <img class="center" height="150" id="opt_c_image" src="" vspace="5" width="270">
+                <img class="optionA" id="opt_c_image" src="" vspace="5" >
             </div>
-            <div class="optionBox" id="container_option_d">
+            <div class="optionBox" id="container_option_d"  onClick="optionClicked('D')">
                 <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleD" >
+                    <div class="innerCircle" id="innerCircleD">
                         D
                     </div>
                 </div>
                 <div class="optionA" id="opt_d">
                 </div>
-                <img height="150" id="opt_d_image"
-                     src="" vspace="5" width="270">
+                <img class="optionA" id="opt_d_image"
+                     src="" vspace="5" >
             </div>
 
-            <div>
-
+            <div id="explanation_ly">
                 <h4>Explanation</h4>
-                <div class="question" id="explanation_question" style="margin-top: 10px">
+                <div class="question column" id="explanation_question" style="margin-top: 10px">
                 </div>
-                <img height="150" id="explanation_question_img"
-                     src="" vspace="20" width="270">
-                <br><br><br>
+                <img class="column" height="150" id="explanation_question_img"
+                     src="" vspace="20">
             </div>
+            <br><br><br>
 
         </div>
 
