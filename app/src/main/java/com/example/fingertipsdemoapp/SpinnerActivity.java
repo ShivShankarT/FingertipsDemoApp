@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -33,8 +34,8 @@ import retrofit2.Response;
 
 public class SpinnerActivity extends AppCompatActivity {
 
-    public  static  boolean isNewDB=false;
     private static final String TAG = "SpinnerActivity";
+    public static boolean isNewDB = false;
     Button searchButton;
     Button searchWebButton;
     Button searchQuestionIdButton;
@@ -48,9 +49,13 @@ public class SpinnerActivity extends AppCompatActivity {
     ArrayAdapter<ClassModel> classArrayOdopter;
     ArrayAdapter<SubjectModel> subjectArrayAdopter;
     ArrayAdapter<ChapterModel> chapterArrayAdopter;
-    String mSelectChapter;
-    String mSelelectStatus;
-    private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus;
+    private String mSelectChapter;
+    private String mSelectStatus;
+    private String mSelectQuestionType="All";
+    private String mSelectSource="All";
+
+    private Spinner spinnerClass, spinnerSubject, spinnerChapter, spinnerAnsStatus, source_spinner, ques_type_spinner;
+
 
 
     @Override
@@ -62,21 +67,54 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerSubject = findViewById(R.id.subjects_spinner);
         spinnerChapter = findViewById(R.id.chapters_spinner);
         spinnerAnsStatus = findViewById(R.id.pending_ans_status_spinner);
+        source_spinner = findViewById(R.id.source_spinner);
+        ques_type_spinner = findViewById(R.id.ques_type_spinner);
         searchButton = findViewById(R.id.button_search_Id);
         searchWebButton = findViewById(R.id.button_search_web_Id);
         searchQuestionIdButton = findViewById(R.id.button_search_question_Id);
-        SwitchCompat db_sw=findViewById(R.id.db_sw);
-        db_sw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
+        SwitchCompat allQuestionSw=findViewById(R.id.allQuestionSw);
+        allQuestionSw.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                isNewDB=isChecked;
-                mSelectChapter=null;
+                spinnerClass.setEnabled(!isChecked);
+                spinnerSubject.setEnabled(!isChecked);
+                spinnerChapter.setEnabled(!isChecked);
+
+                if (isChecked){
+                    mSelectChapter="-1";
+                }
+                else {
+                    mSelectChapter=null;
+                }
+
+            }
+        });
+
+        RadioGroup radio_gp = findViewById(R.id.radio_gp);
+        radio_gp.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, int checkedId) {
+                if (checkedId == R.id.old_rb) {
+                    isNewDB = false;
+                    APIUtil.isTesting = true;
+                } else if (checkedId == R.id.new_rb) {
+                    isNewDB = true;
+                    APIUtil.isTesting = true;
+                } else if (checkedId == R.id.pro_rb) {
+                    isNewDB = false;
+                    APIUtil.isTesting = false;
+                }
+                APIUtil.regenConfigURLs();
+                mSelectChapter = null;
                 classModels.clear();
                 classArrayOdopter.notifyDataSetChanged();
                 addItemsOnspinnerClass();
 
             }
         });
+
         searchQuestionIdButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -145,7 +183,33 @@ public class SpinnerActivity extends AppCompatActivity {
         spinnerAnsStatus.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                mSelelectStatus = (String) parent.getItemAtPosition(position);
+                mSelectStatus = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        ques_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSelectQuestionType = (String) parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+
+        source_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                mSelectSource= (String) parent.getItemAtPosition(position);
             }
 
             @Override
@@ -161,8 +225,10 @@ public class SpinnerActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (mSelectChapter != null) {
                     Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
-                    intent.putExtra("STATUS", mSelelectStatus);
+                    intent.putExtra("STATUS", mSelectStatus);
                     intent.putExtra("CHAPTER", mSelectChapter);
+                    intent.putExtra("SOURCE", mSelectSource);
+                    intent.putExtra("QUESTION_TYE", mSelectQuestionType);
                     intent.putExtra("mIsNormalViewRendering", false);
                     startActivity(intent);
                 } else {
@@ -177,8 +243,10 @@ public class SpinnerActivity extends AppCompatActivity {
                 if (mSelectChapter != null) {
 
                     Intent intent = new Intent(SpinnerActivity.this, TeacherQuestionActivity.class);
-                    intent.putExtra("STATUS", mSelelectStatus);
+                    intent.putExtra("STATUS", mSelectStatus);
                     intent.putExtra("CHAPTER", mSelectChapter);
+                    intent.putExtra("SOURCE", mSelectSource);
+                    intent.putExtra("QUESTION_TYE", mSelectQuestionType);
                     intent.putExtra("mIsNormalViewRendering", true);
                     startActivity(intent);
                 } else {
@@ -189,6 +257,8 @@ public class SpinnerActivity extends AppCompatActivity {
 
         try {
             addItemOnSpinnerQuestionStatus();
+            addItemOnSpinnerQuestionSource();
+            addItemOnSpinnerQuestionType();
         } catch (Exception e) {
             e.printStackTrace();
             System.out.println(e.getCause() + "here is the reason");
@@ -240,7 +310,7 @@ public class SpinnerActivity extends AppCompatActivity {
         call.enqueue(new Callback<ListOfChapterModel>() {
             @Override
             public void onResponse(Call<ListOfChapterModel> call, Response<ListOfChapterModel> response) {
-                if (response.isSuccessful()&&response.body()!=null) {
+                if (response.isSuccessful() && response.body() != null) {
                     List<ChapterModel> subjectModels = response.body().chapterModelList;
                     SpinnerActivity.this.chapterModels.clear();
                     SpinnerActivity.this.chapterModels.addAll(subjectModels);
@@ -260,7 +330,7 @@ public class SpinnerActivity extends AppCompatActivity {
         call.enqueue(new Callback<ListOfSubjectModel>() {
             @Override
             public void onResponse(Call<ListOfSubjectModel> call, Response<ListOfSubjectModel> response) {
-                if (response.isSuccessful()&&response.body()!=null) {
+                if (response.isSuccessful() && response.body() != null) {
                     List<SubjectModel> subjectModels = response.body().getSubjectModelList();
                     SpinnerActivity.this.subjectModels.clear();
                     SpinnerActivity.this.subjectModels.addAll(subjectModels);
@@ -291,13 +361,41 @@ public class SpinnerActivity extends AppCompatActivity {
 
     }
 
+
+    private void addItemOnSpinnerQuestionSource() {
+        List<String> chapterList = new ArrayList<String>();
+        chapterList.add("All");
+        chapterList.add("NULL");
+        chapterList.add("External");
+
+        ArrayAdapter<String> qustinonSatusAdopter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, chapterList);
+        qustinonSatusAdopter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        source_spinner.setAdapter(qustinonSatusAdopter);
+
+    }
+
+
+    private void addItemOnSpinnerQuestionType() {
+        List<String> chapterList = new ArrayList<String>();
+        chapterList.add("All");
+        chapterList.add("Plain");
+        chapterList.add("Special");
+
+        ArrayAdapter<String> qustinonSatusAdopter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_item, chapterList);
+        qustinonSatusAdopter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        ques_type_spinner.setAdapter(qustinonSatusAdopter);
+
+    }
+
     private void addItemsOnspinnerClass() {
 
         Call<ListOfClassModel> call = APIUtil.appConfig().getAllClasses();
         call.enqueue(new Callback<ListOfClassModel>() {
             @Override
             public void onResponse(Call<ListOfClassModel> call, Response<ListOfClassModel> response) {
-                if (response.isSuccessful()&&response.body()!=null) {
+                if (response.isSuccessful() && response.body() != null) {
                     List<ClassModel> classModels = response.body().getClassModelList();
                     SpinnerActivity.this.classModels.addAll(classModels);
                     classArrayOdopter.notifyDataSetChanged();

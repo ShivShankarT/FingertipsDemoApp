@@ -33,7 +33,11 @@ public interface ConfigURLs {
 
     //status
     @GET("new-questions")
-    Call<JsonObject> getQuestion(@Query("chapter_id")  String  chapterId, @Query("status")  String  status,@Query("page") int page);
+    Call<JsonObject> getQuestion(@Query("chapter_id")  String  chapterId,
+                                 @Query("status")  String  status,
+                                 @Query("source")  String  source,
+                                 @Query("text_type")  String  text_type,
+                                 @Query("page") int page);
 
 
     @FormUrlEncoded

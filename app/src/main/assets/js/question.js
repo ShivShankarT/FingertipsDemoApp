@@ -48,15 +48,15 @@ function optionClicked(option) {
 
 
     if (selectedOption!==null){
-        let optionContId = getOptionContainerId(selectedOption);
-        let optionElement = document.getElementById(optionContId);
+        var optionContId = getOptionContainerId(selectedOption);
+        var optionElement = document.getElementById(optionContId);
         if (optionElement.classList.contains("selected"))
             optionElement.classList.remove("selected");
 
     }
 
     var optionContId = getOptionContainerId(option);
-    let optionElement = document.getElementById(optionContId);
+    var optionElement = document.getElementById(optionContId);
     if (optionElement.classList.contains("selected"))
         optionElement.classList.remove("selected");
     else
@@ -104,7 +104,7 @@ function configureMathjax() {
 function displayMockQuestions() {
 
     var questions = {
-        question: "The surface tension of a liquid in CGS system is $$45 \ dyne\  cm^{-1}$$. Its value in SI system is:",
+        question: "Temperature at the $$x = {-b \\pm \\sqrt{b^2-4ac} \\over 2a}.$$ foot of a mountain is $$+5^{\\circ}$$C. It fell down by $$10^{\\circ}$$C at the top of the mountain. The temperature <span>recorded on the top is</span>",
         question_image: "https://via.placeholder.com/150",
         questionExp: "sss",
         questionExpImage: "https://via.placeholder.com/150",
@@ -134,7 +134,7 @@ function displayMockQuestions() {
 
     };
 
-    let questionsJSONEncoded = window.btoa(JSON.stringify(questions));
+    var questionsJSONEncoded = window.btoa(JSON.stringify(questions));
     displayQuestions(questionsJSONEncoded);
 }
 
@@ -152,13 +152,13 @@ function displayQuestions(questionsJSONEncoded) {
             document.getElementById('question_image').remove();
         }
 
-        for (let i = 0; i < question.options.length; i++) {
+        for (var i = 0; i < question.options.length; i++) {
             var opt = question.options[i].option;
             var optionType = question.options[i].optionType;
-            let optionElementId = '';
-            let optionContId = '';
-            let optionImgElementId = '';
-            let optionLabel = '';
+            var optionElementId = '';
+            var optionContId = '';
+            var optionImgElementId = '';
+            var optionLabel = '';
 
             switch (i) {
                 case 0:
@@ -190,7 +190,7 @@ function displayQuestions(questionsJSONEncoded) {
 
 
             if (optionLabel === question.selectedOption) {
-                let optionElement = document.getElementById(optionContId);
+                var optionElement = document.getElementById(optionContId);
                 optionElement.classList.add("selected");
 
             }
@@ -198,14 +198,14 @@ function displayQuestions(questionsJSONEncoded) {
 
 
             if (optionLabel === question.answer) {
-                let optionElement = document.getElementById(optionContId);
+                var optionElement = document.getElementById(optionContId);
                 optionElement.classList.add("correct");
 
             }
 
 
-            let optionElement = document.getElementById(optionElementId);
-            let optionImgElement = document.getElementById(optionImgElementId);
+            var optionElement = document.getElementById(optionElementId);
+            var optionImgElement = document.getElementById(optionImgElementId);
             if (optionType === "TEXT") {
                 optionElement.innerHTML = opt;
                 optionImgElement.remove();

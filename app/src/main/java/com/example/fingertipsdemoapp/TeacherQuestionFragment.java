@@ -195,15 +195,17 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
         }
 
         String optionType = questionOption.getOptionType();
-        if (quizQuestion.isSpecialType()) {
-            tv_option.setLinketext(option);
-            option_Image.setVisibility(View.GONE);
-            tv_option.setVisibility(View.VISIBLE);
-        } else if (optionType.equalsIgnoreCase("image")&&!TextUtils.isEmpty(option)) {
+        Log.i("optionType", "getAdapterView: "+optionType);
+        if (optionType.equalsIgnoreCase("image")&&!TextUtils.isEmpty(option)) {
             option_Image.setVisibility(View.VISIBLE);
             tv_option.setVisibility(View.GONE);
             Picasso.get().load(option).into(option_Image);
             option_Image.setVisibility(View.VISIBLE);
+        }
+        else if (quizQuestion.isSpecialType()) {
+            tv_option.setLinketext(option);
+            option_Image.setVisibility(View.GONE);
+            tv_option.setVisibility(View.VISIBLE);
         } else {
             tv_option.setVisibility(View.VISIBLE);
             option_Image.setVisibility(View.GONE);
@@ -226,3 +228,4 @@ public class TeacherQuestionFragment extends Fragment implements AnimationRecycl
 
 
 }
+//105984

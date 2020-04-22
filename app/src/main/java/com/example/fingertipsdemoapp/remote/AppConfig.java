@@ -23,16 +23,21 @@ import static com.example.fingertipsdemoapp.SpinnerActivity.isNewDB;
  */
 
 public class AppConfig {
-    static OkHttpClient.Builder okHttpClient = new OkHttpClient().newBuilder()
-            .connectTimeout(60, TimeUnit.SECONDS)
-            .readTimeout(60, TimeUnit.SECONDS)
-            .writeTimeout(60, TimeUnit.SECONDS);
+
     private static Retrofit retrofit = null;
+
+    public static void clear(){
+        retrofit=null;
+    }
 
     public static Retrofit getClient(String url) {
 
         if (retrofit == null) {
 
+             OkHttpClient.Builder okHttpClient = new OkHttpClient().newBuilder()
+                    .connectTimeout(60, TimeUnit.SECONDS)
+                    .readTimeout(60, TimeUnit.SECONDS)
+                    .writeTimeout(60, TimeUnit.SECONDS);
 
             HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
