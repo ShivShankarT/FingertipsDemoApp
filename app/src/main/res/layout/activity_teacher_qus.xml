@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:letterSpacing="0.04"
                     android:lineSpacingExtra="-1sp"
-                    android:text="Qus Id:"
+                    android:text="QID:"
                     android:textColor="@color/white"
                     android:textSize="15sp" />
 

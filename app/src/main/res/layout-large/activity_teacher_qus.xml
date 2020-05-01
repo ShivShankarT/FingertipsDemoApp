@@ -67,7 +67,7 @@
                 android:layout_height="wrap_content"
                 android:letterSpacing="0.04"
                 android:lineSpacingExtra="-0.7sp"
-                android:text="Question Id: "
+                android:text="QID: "
                 style="@style/NunitoLight"
                 android:textColor="@color/white"
                 android:textSize="24sp" />

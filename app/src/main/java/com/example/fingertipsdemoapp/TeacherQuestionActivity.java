@@ -504,19 +504,10 @@ public class TeacherQuestionActivity extends BaseActivity {
             String[] ss = s.split(specialSplitChar);
             Log.i("d", "extractLatex: " + ss.length);
             if (ss.length > 1) {
-                String question = ss[0];
-                question = question.replace("mathrm{__}", "mathrm{}");
-                question = question.replace("mathrm{___}", "mathrm{}");
-                question = question.replace("mathrm{____}", "mathrm{}");
-                question = question.replace("mathrm{_____}", "mathrm{}");
-                question = question.replace("mathrm{______}", "mathrm{}");
-                question = question.replace("mathrm{_______}", "mathrm{}");
-                question = question.replace("mathrm{________}", "mathrm{}");
-                question = question.replace("mathrm{_________}", "mathrm{}");
-                question = question.replace("mathrm{__________}", "mathrm{}");
+                String question = ss[1];
                 if (!TextUtils.isEmpty(question))
-                    return "$$" + question + "$$";
-                //return "<math xmlns=" + question + "";
+                   // return "$$" + question + "$$";
+                return "<math xmlns=" + question + "";
                 else
                     return "";
             }

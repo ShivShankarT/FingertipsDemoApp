@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:paddingLeft="20dp"
-    android:paddingTop="50dp"
+    android:paddingTop="10dp"
     android:paddingRight="20dp">
 
     <LinearLayout
@@ -34,19 +34,19 @@
                 android:checked="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Old db" />
+                android:text="Test DB" />
 
             <RadioButton
                 android:id="@+id/new_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="New db" />
+                android:text="Test New DB" />
 
             <RadioButton
                 android:id="@+id/pro_rb"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Production db" />
+                android:text="Prod DB" />
 
 
         </RadioGroup>
@@ -163,14 +163,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Search" />
+            android:text="Check in Normal View" />
 
         <Button
             android:id="@+id/button_search_web_Id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="Search Webview" />
+            android:text="Check in WebView" />
 
         <Button
             android:id="@+id/button_search_question_Id"
