@@ -246,7 +246,7 @@ function displayQuestions(questionsJSONEncoded) {
 
         //.removeClass("hidden");
 
-        removeClass(document.getElementById("extraControls"), "hidden")
+        removeClass(document.getElementById("question_container"), "hidden")
 
 
     } catch (e) {

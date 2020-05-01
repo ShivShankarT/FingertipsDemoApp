@@ -5,67 +5,62 @@
           name="viewport"/>
     <link href="css/question.css" rel="stylesheet" type="text/css"/>
 </head>
-<body>
-<div class="hidden" id="extraControls">
+<body >
+<div class="hidden" id="question_container">
     <div class="column">
-        <div class="card">
+        <div class="">
             <div class="question" id="question"></div>
 
             <img class="column" id="question_image"
-                 src="" vspace="20" >
+                 src="" vspace="20">
             <br>
-            <div class="optionBox" id="container_option_a"  onClick="optionClicked('A')">
-                <div class="outerCircle vertical-center">
-                    <div class="innerCircle" id="innerCircleA">
-                        A
-                    </div>
+            <div class="optionBox" id="container_option_a" onClick="optionClicked('A')">
+                <div class="circle-with-text" id="innerCircleA">
+                    A
                 </div>
-                <div class="optionA" id="opt_a">
+                <div class="option" id="opt_a">
                 </div>
-                <img  class="optionA"  id="opt_a_image"
+                <span class="image"></span>
+                <img class="option" id="opt_a_image"
                      src="" vspace="5">
             </div>
-            <div class="optionBox" id="container_option_b"  onClick="optionClicked('B')">
-                <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleB">
-                        B
-                    </div>
+            <div class="optionBox" id="container_option_b" onClick="optionClicked('B')">
+                <div class="circle-with-text" id="innerCircleB">
+                    B
                 </div>
-                <div class="optionA" id="opt_b">
+                <div class="option" id="opt_b">
                 </div>
-                <img class="optionA"
-                     id="opt_b_image" src="" vspace="5" >
+                <span class="image"></span>
+                <img class="option"
+                     id="opt_b_image" src="" vspace="5">
             </div>
-            <div class="optionBox" id="container_option_c"  onClick="optionClicked('C')">
-                <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleC">
-                        C
-                    </div>
+            <div class="optionBox" id="container_option_c" onClick="optionClicked('C')">
+                <div class="circle-with-text" id="innerCircleC">
+                    C
                 </div>
-                <div class="optionA" id="opt_c"></div>
-                <img class="optionA" id="opt_c_image" src="" vspace="5" >
+                <div class="option" id="opt_c"></div>
+                <span class="image"></span>
+                <img class="option" id="opt_c_image" src="" vspace="5">
             </div>
-            <div class="optionBox" id="container_option_d"  onClick="optionClicked('D')">
-                <div class="outerCircle">
-                    <div class="innerCircle" id="innerCircleD">
-                        D
-                    </div>
+            <div class="optionBox" id="container_option_d" onClick="optionClicked('D')">
+                <div class="circle-with-text" id="innerCircleD">
+                    D
                 </div>
-                <div class="optionA" id="opt_d">
+                <div class="option" id="opt_d">
                 </div>
-                <img class="optionA" id="opt_d_image"
-                     src="" vspace="5" >
+                <span class="image"></span>
+                <img class="option" id="opt_d_image"
+                     src="" vspace="5">
             </div>
 
-            <div id="explanation_ly">
+            <div  id="explanation_ly">
                 <h4>Explanation</h4>
                 <div class="question column" id="explanation_question" style="margin-top: 10px">
                 </div>
                 <img class="column" height="150" id="explanation_question_img"
                      src="" vspace="20">
             </div>
-            <br><br><br>
-
+            <br><br>
         </div>
 
 

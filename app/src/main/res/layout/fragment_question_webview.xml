@@ -11,17 +11,18 @@
         android:background="@drawable/shape_top_radius_blue_white_solid">
 
         <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:fillViewport="true"
             android:focusable="true"
-            android:isScrollContainer="false"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:isScrollContainer="false">
 
-            <WebView
+            <com.example.fingertipsdemoapp.custom.RigidWebView
                 android:id="@+id/webview"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp" />
+                android:layout_margin="5dp"
+                android:minHeight="400dp" />
 
         </androidx.core.widget.NestedScrollView>
 
