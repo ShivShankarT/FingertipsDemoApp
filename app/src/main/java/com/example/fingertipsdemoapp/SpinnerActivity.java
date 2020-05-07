@@ -366,6 +366,7 @@ public class SpinnerActivity extends AppCompatActivity {
         List<String> chapterList = new ArrayList<String>();
         chapterList.add("All");
         chapterList.add("NULL");
+        chapterList.add("Genius");
         chapterList.add("External");
 
         ArrayAdapter<String> qustinonSatusAdopter = new ArrayAdapter<String>(this,

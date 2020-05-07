@@ -19,7 +19,7 @@ public class QuizQuestion implements Parcelable {
     private String questionExplaination;
     private String questionExplanationImage;
     private  boolean isNormalViewRendering;
-    private boolean oldQuiestion;
+    private  String source;
 
 
     public QuizQuestion() {
@@ -42,7 +42,7 @@ public class QuizQuestion implements Parcelable {
         questionExplaination = in.readString();
         questionExplanationImage = in.readString();
         isNormalViewRendering = in.readByte() != 0;
-        oldQuiestion = in.readByte() != 0;
+        source = in.readString();
     }
 
     @Override
@@ -61,7 +61,7 @@ public class QuizQuestion implements Parcelable {
         dest.writeString(questionExplaination);
         dest.writeString(questionExplanationImage);
         dest.writeByte((byte) (isNormalViewRendering ? 1 : 0));
-        dest.writeByte((byte) (oldQuiestion ? 1 : 0));
+        dest.writeString(source);
     }
 
     @Override
@@ -195,16 +195,12 @@ public class QuizQuestion implements Parcelable {
         this.selectedOption = selectedOption;
     }
 
-    public void setOldQuiestion(boolean oldQuiestion) {
-        this.oldQuiestion = oldQuiestion;
+    public String getSource() {
+        return source;
     }
 
-    public boolean isOldQuiestion() {
-        return oldQuiestion;
-    }
-
-    public boolean getOldQuiestion() {
-        return oldQuiestion;
+    public void setSource(String source) {
+        this.source = source;
     }
 
     public static class QuestionOption implements Parcelable {

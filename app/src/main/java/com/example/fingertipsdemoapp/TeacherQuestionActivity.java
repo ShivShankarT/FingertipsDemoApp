@@ -232,10 +232,10 @@ public class TeacherQuestionActivity extends BaseActivity {
                         rejectButton.setVisibility(View.INVISIBLE);
                         acceptButton.setVisibility(View.INVISIBLE);
                     }
-                    if (quizQuestion.isOldQuiestion())
+                    if (TextUtils.isEmpty(quizQuestion.getSource()))
                         tv_earn_points.append(" - Old Que");
                     else
-                        tv_earn_points.append(" - New Que");
+                        tv_earn_points.append(" - "+quizQuestion.getSource());
 
                     String id = String.valueOf(quslist.get(pos).getId());
                     tv_total_points.setText(id);
@@ -394,7 +394,7 @@ public class TeacherQuestionActivity extends BaseActivity {
         JsonElement sourcejsonElement = objQns.get("source");
         String source = sourcejsonElement == null || sourcejsonElement.isJsonNull() ? "" : sourcejsonElement.getAsString();
         boolean isOldQusType = !source.equalsIgnoreCase("External");
-        qnsModel.setOldQuiestion(isOldQusType);
+        qnsModel.setSource(source);
 
         if (!specialType && isOldQusType) {
             question = removeInlineStyle(question);
